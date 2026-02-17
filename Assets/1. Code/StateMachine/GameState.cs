@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CleanRoom.StateMachine
 {
     public abstract class GameState : MonoBehaviour
     {
+        private HashSet<IGameStateObject> gameStateObjects;
         private Transform cachedTransform;
 
         public virtual void OnEnter()
@@ -16,9 +18,25 @@ namespace CleanRoom.StateMachine
             }
         }
 
-        public abstract void Tick();
+        public void AddStateObject(IGameStateObject gameStateObject) => gameStateObjects.Add(gameStateObject);
 
-        public abstract void FixedTick();
+        public void RemoveStateObject(IGameStateObject gameStateObject) => gameStateObjects.Remove(gameStateObject);
+
+        public virtual void Tick(float deltaTime)
+        {
+            foreach (IGameStateObject stateObject in gameStateObjects)
+            {
+                stateObject.Tick(deltaTime);
+            }
+        }
+
+        public virtual void FixedTick(float fixedDeltaTime)
+        {
+            foreach (IGameStateObject stateObject in gameStateObjects)
+            {
+                stateObject.FixedTick(fixedDeltaTime);
+            }
+        }
 
         public virtual void OnExit()
         {

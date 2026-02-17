@@ -43,12 +43,12 @@ namespace CleanRoom.StateMachine
 
         private void Update()
         {
-            activeGameState.Tick();
+            activeGameState.Tick(Time.deltaTime);
         }
 
         private void FixedUpdate()
         {
-            activeGameState.FixedTick();
+            activeGameState.FixedTick(Time.fixedDeltaTime);
         }
     }
 }
