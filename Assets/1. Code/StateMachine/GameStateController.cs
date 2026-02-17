@@ -19,7 +19,10 @@ namespace CleanRoom.StateMachine
             {
                 GameState gameState = foundStates[i];
                 gameStates.Add(gameState.GetType(), gameState);
+                gameState.OnExit();
             }
+            
+            SwitchToState(startingGameState);
         }
 
         public void SwitchToState<T>() where T : GameState
@@ -34,8 +37,12 @@ namespace CleanRoom.StateMachine
                 Debug.LogWarning("trying to set same type, ignoring");
                 return;
             }
-            
-            activeGameState.OnExit();
+
+            if (!ReferenceEquals(null, activeGameState))
+            {
+                activeGameState.OnExit();
+            }
+
             state.OnEnter();
             
             activeGameState = state;

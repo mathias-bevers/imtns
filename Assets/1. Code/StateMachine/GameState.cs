@@ -5,7 +5,7 @@ namespace CleanRoom.StateMachine
 {
     public abstract class GameState : MonoBehaviour
     {
-        private HashSet<IGameStateObject> gameStateObjects;
+        private readonly HashSet<IGameStateObject> gameStateObjects = new ();
         private Transform cachedTransform;
 
         public virtual void OnEnter()
