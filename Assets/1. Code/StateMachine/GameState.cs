@@ -5,7 +5,9 @@ namespace CleanRoom.StateMachine
 {
     public abstract class GameState : MonoBehaviour
     {
-        private readonly HashSet<IGameStateObject> gameStateObjects = new ();
+        public bool isActive { get; private set; } = false;
+        
+        private readonly HashSet<IGameStateObject> gameStateObjects = new();
         private Transform cachedTransform;
 
         public virtual void OnEnter()
@@ -16,6 +18,8 @@ namespace CleanRoom.StateMachine
             {
                 cachedTransform.GetChild(i).gameObject.SetActive(true);
             }
+
+            isActive = true;
         }
 
         public void AddStateObject(IGameStateObject gameStateObject) => gameStateObjects.Add(gameStateObject);
@@ -40,6 +44,8 @@ namespace CleanRoom.StateMachine
 
         public virtual void OnExit()
         {
+            isActive = false;
+
             cachedTransform ??= transform;
 
             for (int i = 0; i < cachedTransform.childCount; ++i)

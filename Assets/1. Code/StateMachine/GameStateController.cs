@@ -7,30 +7,38 @@ namespace CleanRoom.StateMachine
     public class GameStateController : Singleton<GameStateController>
     {
         [SerializeField] private GameState startingGameState;
-        private Dictionary<Type, GameState> gameStates = new();
+        private readonly Dictionary<Type, GameState> gameStates = new();
         private GameState activeGameState = null;
 
         public override void Awake()
         {
             base.Awake();
 
-            GameState[] foundStates = FindObjectsByType<GameState>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            GameState[] foundStates =
+                FindObjectsByType<GameState>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             for (int i = 0; i < foundStates.Length; ++i)
             {
                 GameState gameState = foundStates[i];
                 gameStates.Add(gameState.GetType(), gameState);
                 gameState.OnExit();
             }
-            
+
             SwitchToState(startingGameState);
         }
 
-        public void SwitchToState<T>() where T : GameState
+        private void Update()
         {
-            SwitchToState(gameStates[typeof(T)]);
+            activeGameState.Tick(Time.deltaTime);
         }
 
-        private void SwitchToState<T>(T state) where T : GameState
+        private void FixedUpdate()
+        {
+            activeGameState.FixedTick(Time.fixedDeltaTime);
+        }
+
+        public void SwitchToState<T>() => SwitchToState(gameStates[typeof(T)]);
+
+        public void SwitchToState<T>(T state) where T : GameState
         {
             if (ReferenceEquals(state, activeGameState))
             {
@@ -44,18 +52,8 @@ namespace CleanRoom.StateMachine
             }
 
             state.OnEnter();
-            
+
             activeGameState = state;
-        }
-
-        private void Update()
-        {
-            activeGameState.Tick(Time.deltaTime);
-        }
-
-        private void FixedUpdate()
-        {
-            activeGameState.FixedTick(Time.fixedDeltaTime);
         }
     }
 }
