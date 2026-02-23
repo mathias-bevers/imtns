@@ -70,6 +70,6 @@ namespace CleanRoom.Menus
         }
 
         private T[] GetMenusOfType<T>() where T : Menu => menus.OfType<T>().ToArray();
-        private T GetMenuOfType<T>() where T : Menu => menus.FirstOrDefault(menu => menu is T) as T;
+        public T GetMenuOfType<T>() where T : Menu => menus.FirstOrDefault(menu => menu is T) as T;
     }
 }
