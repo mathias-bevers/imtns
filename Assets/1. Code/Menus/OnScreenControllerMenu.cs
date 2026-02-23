@@ -13,9 +13,5 @@ namespace CleanRoom.Menus
             Joystick = GetComponentInChildren<OnScreenJoystick>(true);
             InteractionButton = GetComponentInChildren<InteractionButton>(true);
         }
-
-        protected override bool CanBeOpened() => true;
-
-        protected override bool CanBeClosed() => true;
     }
 }

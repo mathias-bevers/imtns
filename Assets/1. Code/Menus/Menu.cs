@@ -8,6 +8,8 @@ namespace CleanRoom.Menus
         [field: SerializeField] public bool IsHUD { get; protected set; }
 
         public bool IsOpen { get; private set; }
+        public bool CanBeOpened { get; protected set; } = true;
+        public bool CanBeClosed { get; protected set; } = true;
 
         public event Action openedEvent;
         public event Action closedEvent;
@@ -49,7 +51,7 @@ namespace CleanRoom.Menus
 
         public void Open()
         {
-            if (!CanBeOpened())
+            if (!CanBeOpened)
             {
                 Debug.LogWarning($"{GetType().Name} does not meet the opening criteria");
                 return;
@@ -62,7 +64,7 @@ namespace CleanRoom.Menus
 
         public void Close()
         {
-            if (!CanBeClosed())
+            if (!CanBeClosed)
             {
                 Debug.LogWarning($"{GetType().Name} does not meet the closing criteria");
                 return;
@@ -72,9 +74,6 @@ namespace CleanRoom.Menus
             IsOpen = false;
             closedEvent?.Invoke();
         }
-
-        protected abstract bool CanBeOpened();
-        protected abstract bool CanBeClosed();
 
         private void OnDestroy()
         {
