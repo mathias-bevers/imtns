@@ -6,7 +6,7 @@ namespace CleanRoom.Interactables
 {
     public class InteractionZone : MonoBehaviour
     {
-        [field: SerializeField] public UnityEvent onInteract { get; private set; }
+        [field: SerializeField] public UnityEvent OnInteract { get; private set; }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -17,7 +17,7 @@ namespace CleanRoom.Interactables
                 return;
             }
             
-            player.interactionButton.OnInteractionZoneEnter(this);
+            player.InteractionButton.OnInteractionZoneEnter(this);
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -29,12 +29,7 @@ namespace CleanRoom.Interactables
                 return;
             }
             
-            player.interactionButton.OnInteractionZoneExit(this);
-        }
-
-        public void InteractCallbackTest()
-        {
-            Debug.Log("Player interacted with: " + name);
+            player.InteractionButton.OnInteractionZoneExit(this);
         }
     }
 }

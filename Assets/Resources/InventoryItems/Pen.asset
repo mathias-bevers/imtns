@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671f6c9beddab30d0821eef50f5f5b10, type: 3}
   m_Name: Pen
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Inventory.InventoryItem
-  <name>k__BackingField: Pen
-  <sprite>k__BackingField: {fileID: -6975355224551508113, guid: a104d5a8bf0e53731b14273eeeb4b989, type: 3}
-  <destination>k__BackingField: 1
-  <forcedInInventory>k__BackingField: 0
-  itemLimit: 3
-  <scale>k__BackingField: 1
+  <Name>k__BackingField: Pen
+  <Sprite>k__BackingField: {fileID: -6975355224551508113, guid: a104d5a8bf0e53731b14273eeeb4b989, type: 3}
+  <Destination>k__BackingField: 1
+  <ForcedInInventory>k__BackingField: 0
+  ItemLimit: 3
+  <Scale>k__BackingField: 1

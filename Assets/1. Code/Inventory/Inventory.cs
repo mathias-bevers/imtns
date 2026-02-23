@@ -8,7 +8,7 @@ namespace CleanRoom.Inventory
     {
         private static InventoryItem[] _loadedItems;
 
-        public int itemCount => items.Sum(item => item.Value);
+        private int ItemCount => items.Sum(item => item.Value);
         private readonly Dictionary<InventoryItem, int> items = new();
 
         public Inventory(int initialItemCount)
@@ -23,7 +23,7 @@ namespace CleanRoom.Inventory
             for (int i = 0; i < _loadedItems.Length; ++i)
             {
                 InventoryItem item = _loadedItems[i];
-                if (!item.forcedInInventory)
+                if (!item.ForcedInInventory)
                 {
                     continue;
                 }
@@ -34,7 +34,7 @@ namespace CleanRoom.Inventory
 
         private void AddRemainingItems(int initialItemCount)
         {
-            while (itemCount < initialItemCount)
+            while (ItemCount < initialItemCount)
             {
                 InventoryItem item = _loadedItems[Random.Range(0, _loadedItems.Length)];
 
@@ -44,7 +44,7 @@ namespace CleanRoom.Inventory
                 }
 
                 // if the item limit is equal to the items in the inventory, don't add another.
-                if (item.itemLimit == items[item])
+                if (item.ItemLimit == items[item])
                 {
                     continue;
                 }
@@ -66,11 +66,11 @@ namespace CleanRoom.Inventory
         public override string ToString()
         {
             System.Text.StringBuilder sb = new();
-            sb.Append("INVENTORY OF ").Append(itemCount).AppendLine(" ITEMS");
+            sb.Append("INVENTORY OF ").Append(ItemCount).AppendLine(" ITEMS");
 
             foreach (KeyValuePair<InventoryItem, int> kvp in items)
             {
-                sb.Append('\t').Append(kvp.Key.name).Append(": ").AppendLine(kvp.Value.ToString("00"));
+                sb.Append('\t').Append(kvp.Key.Name).Append(": ").AppendLine(kvp.Value.ToString("00"));
             }
 
             return sb.ToString();

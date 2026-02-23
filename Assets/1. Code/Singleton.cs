@@ -6,9 +6,9 @@ namespace CleanRoom
     {
         private static T _instance;
 
-        public static bool isInitialized => _instance != null;
+        public static bool IsInitialized => _instance != null;
 
-        public static T instance => GetInstance();
+        public static T Instance => GetInstance();
 
         public virtual void Awake()
         {
