@@ -13,7 +13,6 @@ namespace CleanRoom
         {
             base.Awake();
             Inventory = new Inventory.Inventory(initialInventorySize);
-            Debug.Log(Inventory.ToString());
         }
     }
 }

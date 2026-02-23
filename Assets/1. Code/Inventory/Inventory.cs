@@ -63,6 +63,20 @@ namespace CleanRoom.Inventory
             _loadedItems = Resources.LoadAll<InventoryItem>("InventoryItems");
         }
 
+        public InventoryItem[] GetItems()
+        {
+            List<InventoryItem> tmp = new(ItemCount);
+            foreach (KeyValuePair<InventoryItem, int> kvp in items)
+            {
+                for (int i = 0; i < kvp.Value; ++i)
+                {
+                    tmp.Add(kvp.Key);
+                }
+            }
+
+            return tmp.ToArray();
+        }
+
         public override string ToString()
         {
             System.Text.StringBuilder sb = new();
