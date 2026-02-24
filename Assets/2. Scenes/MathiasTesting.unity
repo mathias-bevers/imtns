@@ -319,7 +319,7 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 225, y: 225}
+  m_CellSize: {x: 300, y: 300}
   m_Spacing: {x: 25, y: 25}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -1545,7 +1545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff66faddea6140bbbbab08c4691d5c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Player
-  initialInventorySize: 3
+  initialInventorySize: 6
 --- !u!1 &1086011728
 GameObject:
   m_ObjectHideFlags: 0

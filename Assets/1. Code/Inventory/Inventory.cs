@@ -65,16 +65,8 @@ namespace CleanRoom.Inventory
 
         public InventoryItem[] GetItems()
         {
-            List<InventoryItem> tmp = new(ItemCount);
-            foreach (KeyValuePair<InventoryItem, int> kvp in items)
-            {
-                for (int i = 0; i < kvp.Value; ++i)
-                {
-                    tmp.Add(kvp.Key);
-                }
-            }
-
-            return tmp.ToArray();
+            // after testing linq performance hit is negligible, faster in large data sets. 
+            return items.SelectMany(kvp => Enumerable.Repeat(kvp.Key, kvp.Value)).ToArray();
         }
 
         public override string ToString()

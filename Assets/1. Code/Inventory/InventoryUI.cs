@@ -10,8 +10,6 @@ namespace CleanRoom.Inventory
         [SerializeField] private Transform grid;
         [SerializeField] private GameObject inventoryItemPrefab;
         
-        
-
         private void OnEnable()
         {
             openedEvent += LoadInventory;
@@ -21,11 +19,8 @@ namespace CleanRoom.Inventory
         {
             InventoryItem[] inventoryItems = Player.Instance.Inventory.GetItems();
 
-            for (int i = grid.childCount - 1; i >= 0; --i)
-            {
-                Destroy(grid.GetChild(i).gameObject);
-            }
-
+            grid.DestroyAllChildren();
+            
             for (int i = 0; i < inventoryItems.Length; ++i)
             {
                 InventoryItem inventoryItem = inventoryItems[i];

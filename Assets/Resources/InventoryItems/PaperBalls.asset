@@ -15,6 +15,6 @@ MonoBehaviour:
   <Name>k__BackingField: Propjes Papier
   <Sprite>k__BackingField: {fileID: 8845486959717928886, guid: 961579204bc0b64dfa5ce819a9146bbf, type: 3}
   <Destination>k__BackingField: 2
-  <ForcedInInventory>k__BackingField: 0
-  ItemLimit: 3
+  <ForcedInInventory>k__BackingField: 1
+  <ItemLimit>k__BackingField: 1
   <Scale>k__BackingField: 1
