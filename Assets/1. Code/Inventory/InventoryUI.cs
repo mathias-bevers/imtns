@@ -10,10 +10,10 @@ namespace CleanRoom.Inventory
     {
         private const int CELL_HEIGHT = 325;
         private const int PADDING_Y = 25;
-        
+
         [SerializeField] private RectTransform grid;
         [SerializeField] private GameObject inventoryItemPrefab;
-        
+
         private void OnEnable()
         {
             openedEvent += LoadInventory;
@@ -26,8 +26,8 @@ namespace CleanRoom.Inventory
             grid.DestroyAllChildren();
 
             int rowCount = Mathf.CeilToInt(inventoryItems.Length / 3f);
-            grid.sizeDelta = new Vector2(grid.sizeDelta.x, (rowCount * CELL_HEIGHT) - PADDING_Y);
-            
+            grid.sizeDelta = new Vector2(grid.sizeDelta.x, rowCount * CELL_HEIGHT - PADDING_Y);
+
             for (int i = 0; i < inventoryItems.Length; ++i)
             {
                 InventoryItem inventoryItem = inventoryItems[i];
@@ -39,13 +39,23 @@ namespace CleanRoom.Inventory
             }
         }
 
-        public void AddToInventory(InventoryItem itemToAdd)
+        public void AddToInventory(InventoryItem item)
         {
-            if (!Player.Instance.Inventory.Add(itemToAdd))
+            if (!Player.Instance.Inventory.Add(item))
             {
-                throw new Exception($"Could not add the item {itemToAdd.Name}");
+                throw new Exception($"Could not add the item {item.Name}");
             }
-            
+
+            LoadInventory();
+        }
+
+        public void RemoveFromInventory(InventoryItem item)
+        {
+            if (!Player.Instance.Inventory.Remove(item))
+            {
+                throw new Exception($"Could not remove the item {item.Name}");
+            }
+
             LoadInventory();
         }
     }

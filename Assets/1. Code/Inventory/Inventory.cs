@@ -41,11 +41,8 @@ namespace CleanRoom.Inventory
             }
         }
 
-        public InventoryItem[] GetItems()
-        {
-            // after testing linq performance hit is negligible, faster in large data sets. 
-            return items.SelectMany(kvp => Enumerable.Repeat(kvp.Key, kvp.Value)).ToArray();
-        }
+        // after testing linq performance hit is negligible, faster in large data sets. 
+        public InventoryItem[] GetItems() => items.SelectMany(kvp => Enumerable.Repeat(kvp.Key, kvp.Value)).ToArray();
 
         public bool Add(InventoryItem item)
         {
@@ -61,6 +58,22 @@ namespace CleanRoom.Inventory
             }
 
             ++items[item];
+            return true;
+        }
+
+        public bool Remove(InventoryItem item)
+        {
+            if (!items.TryGetValue(item, out int itemCount))
+            {
+                return false;
+            }
+
+            if (itemCount == 0)
+            {
+                return false;
+            }
+
+            --items[item];
             return true;
         }
 
