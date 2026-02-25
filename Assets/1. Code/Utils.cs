@@ -27,7 +27,7 @@ namespace CleanRoom
         {
             for (int i = parent.childCount - 1; i >= 0; --i)
             {
-                Transform child = parent.GetChild(0);
+                Transform child = parent.GetChild(i);
 
                 if (ReferenceEquals(null, child))
                 {

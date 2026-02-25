@@ -16,5 +16,5 @@ MonoBehaviour:
   <Sprite>k__BackingField: {fileID: -6975355224551508113, guid: a104d5a8bf0e53731b14273eeeb4b989, type: 3}
   <Destination>k__BackingField: 1
   <ForcedInInventory>k__BackingField: 0
-  ItemLimit: 3
+  <ItemLimit>k__BackingField: 999
   <Scale>k__BackingField: 1

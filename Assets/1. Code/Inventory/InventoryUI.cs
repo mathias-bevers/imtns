@@ -1,3 +1,4 @@
+using System;
 using CleanRoom.Menus;
 using TMPro;
 using UnityEngine;
@@ -7,7 +8,10 @@ namespace CleanRoom.Inventory
 {
     public class InventoryUI : Menu
     {
-        [SerializeField] private Transform grid;
+        private const int CELL_HEIGHT = 325;
+        private const int PADDING_Y = 25;
+        
+        [SerializeField] private RectTransform grid;
         [SerializeField] private GameObject inventoryItemPrefab;
         
         private void OnEnable()
@@ -20,6 +24,9 @@ namespace CleanRoom.Inventory
             InventoryItem[] inventoryItems = Player.Instance.Inventory.GetItems();
 
             grid.DestroyAllChildren();
+
+            int rowCount = Mathf.CeilToInt(inventoryItems.Length / 3f);
+            grid.sizeDelta = new Vector2(grid.sizeDelta.x, (rowCount * CELL_HEIGHT) - PADDING_Y);
             
             for (int i = 0; i < inventoryItems.Length; ++i)
             {
@@ -30,6 +37,16 @@ namespace CleanRoom.Inventory
                 item.GetComponentInChildren<Image>().sprite = inventoryItem.Sprite;
                 item.GetComponentInChildren<TextMeshProUGUI>().SetText(inventoryItem.Name);
             }
+        }
+
+        public void AddToInventory(InventoryItem itemToAdd)
+        {
+            if (!Player.Instance.Inventory.Add(itemToAdd))
+            {
+                throw new Exception($"Could not add the item {itemToAdd.Name}");
+            }
+            
+            LoadInventory();
         }
     }
 }

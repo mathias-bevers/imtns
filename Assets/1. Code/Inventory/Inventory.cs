@@ -37,20 +37,31 @@ namespace CleanRoom.Inventory
             while (ItemCount < initialItemCount)
             {
                 InventoryItem item = _loadedItems[Random.Range(0, _loadedItems.Length)];
-
-                if (items.TryAdd(item, 1))
-                {
-                    continue;
-                }
-
-                // if the item limit is equal to the items in the inventory, don't add another.
-                if (item.ItemLimit == items[item])
-                {
-                    continue;
-                }
-
-                ++items[item];
+                Add(item);
             }
+        }
+
+        public InventoryItem[] GetItems()
+        {
+            // after testing linq performance hit is negligible, faster in large data sets. 
+            return items.SelectMany(kvp => Enumerable.Repeat(kvp.Key, kvp.Value)).ToArray();
+        }
+
+        public bool Add(InventoryItem item)
+        {
+            if (!items.TryGetValue(item, out int itemCount))
+            {
+                items.Add(item, 1);
+                return true;
+            }
+
+            if (itemCount == item.ItemLimit)
+            {
+                return false;
+            }
+
+            ++items[item];
+            return true;
         }
 
         private static void LoadItems()
@@ -63,11 +74,6 @@ namespace CleanRoom.Inventory
             _loadedItems = Resources.LoadAll<InventoryItem>("InventoryItems");
         }
 
-        public InventoryItem[] GetItems()
-        {
-            // after testing linq performance hit is negligible, faster in large data sets. 
-            return items.SelectMany(kvp => Enumerable.Repeat(kvp.Key, kvp.Value)).ToArray();
-        }
 
         public override string ToString()
         {
