@@ -37,6 +37,12 @@ namespace CleanRoom.Inventory
             while (ItemCount < initialItemCount)
             {
                 InventoryItem item = _loadedItems[Random.Range(0, _loadedItems.Length)];
+
+                if (item.SkipInRandomization)
+                {
+                    continue;
+                }
+                
                 Add(item);
             }
         }

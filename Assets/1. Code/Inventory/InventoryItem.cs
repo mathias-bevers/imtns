@@ -11,7 +11,7 @@ namespace CleanRoom.Inventory
         [field: SerializeField] public Sprite Sprite { get; private set; }
         [field: SerializeField] public DestinationType Destination { get; private set; }
         [field: SerializeField] public bool ForcedInInventory { get; private set; }
+        [field: SerializeField] public bool SkipInRandomization { get; private set; }
         [field: SerializeField] public int ItemLimit { get; private set; } = 1;
-        [field: SerializeField] public float Scale { get; private set; } = 1f;
     }
 }
