@@ -12,7 +12,7 @@ namespace CleanRoom.StateMachine
 
         public void SwitchToState()
         {
-            GameStateController.instance.SwitchToState(state);
+            GameStateController.Instance.SwitchToState(state);
         }
 
         private static DropdownList<GameState> GetGameStateValues()

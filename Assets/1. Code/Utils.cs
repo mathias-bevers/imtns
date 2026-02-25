@@ -22,5 +22,20 @@ namespace CleanRoom
 
             throw new MissingComponentException($"Could not find component<b>{typeof(T).FullName}</b> in parents");
         }
+
+        public static void DestroyAllChildren(this Transform parent)
+        {
+            for (int i = parent.childCount - 1; i >= 0; --i)
+            {
+                Transform child = parent.GetChild(i);
+
+                if (ReferenceEquals(null, child))
+                {
+                    continue;
+                }
+
+                Object.Destroy(child.gameObject);
+            }
+        }
     }
 }

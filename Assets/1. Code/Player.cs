@@ -5,6 +5,14 @@ namespace CleanRoom
 {
     public class Player : Singleton<Player>
     {
-        [field: SerializeField] public InteractionButton interactionButton { get; private set; }
+        [SerializeField] private int initialInventorySize = 3;
+
+        public Inventory.Inventory Inventory { get; private set; } //needs to be set in awake for resources-load.
+
+        public override void Awake()
+        {
+            base.Awake();
+            Inventory = new Inventory.Inventory(initialInventorySize);
+        }
     }
 }
