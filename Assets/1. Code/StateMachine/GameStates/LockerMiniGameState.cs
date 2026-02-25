@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CleanRoom.StateMachine.GameStates
 {
-    public class ExampleAState : GameState
+    public class LockerMiniGameState : GameState
     {
         private void OnGUI()
         {
@@ -12,7 +12,7 @@ namespace CleanRoom.StateMachine.GameStates
             }
 
             if (GUI.Button(new Rect(10, 10, 300, 200), GetType().Name + ": Return to roaming state"))
-            {
+            { 
                 GameStateController.Instance.SwitchToState<RoamingGameState>();
             }
         }

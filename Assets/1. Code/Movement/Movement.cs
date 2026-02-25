@@ -36,7 +36,7 @@ namespace CleanRoom.Movement
         
         public void FixedTick(float fixedDeltaTime)
         {
-            Move(input.GetInput().normalized);
+            Move(input.GetInput());
         }
     }
 }
