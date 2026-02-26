@@ -6,12 +6,17 @@ namespace CleanRoom.StateMachine.GameStates
 {
     public class LockerMiniGameState : GameState
     {
-        [SerializeField] private Transform inventoryGrid;
-        [SerializeField] private LockerItem lockerItemPrefab;
+        [field: SerializeField] public Canvas Canvas { get; private set; }
+        
+        [SerializeField] private Transform inventoryPanel;
+        [SerializeField] private Item itemPrefab;
+
+        private Transform inventoryGrid;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            inventoryGrid ??= inventoryPanel.GetComponentInChildren<UnityEngine.UI.GridLayoutGroup>().transform;
             LoadInventory();
         }
 
@@ -23,8 +28,8 @@ namespace CleanRoom.StateMachine.GameStates
 
             for (int i = 0; i < inventory.Length; ++i)
             {
-                LockerItem lockerItem = Instantiate(lockerItemPrefab, inventoryGrid);
-                lockerItem.Setup(inventory[i]);
+                Item item = Instantiate(itemPrefab, inventoryGrid);
+                item.Setup(inventory[i]);
             }
         }
 

@@ -4,7 +4,7 @@ namespace CleanRoom
 {
     public static class Utils
     {
-        public static T FindComponentUp<T>(this Transform origin) where T : Component
+        public static T GetComponentInParents<T>(this Transform origin) where T : Component
         {
             Transform parent = origin.parent;
 
@@ -34,7 +34,7 @@ namespace CleanRoom
                     continue;
                 }
 
-                Object.Destroy(child.gameObject);
+                Object.DestroyImmediate(child.gameObject);
             }
         }
     }

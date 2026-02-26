@@ -20,7 +20,7 @@ namespace CleanRoom.Movement
             }
 
             rigidbody2D = GetComponent<Rigidbody2D>();
-            transform.FindComponentUp<GameState>().AddStateObject(this);
+            transform.GetComponentInParents<GameState>().AddStateObject(this);
         }
 
         private void Move(Vector2 inputAxis)
