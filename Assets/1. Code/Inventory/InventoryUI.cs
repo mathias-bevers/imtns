@@ -21,7 +21,7 @@ namespace CleanRoom.Inventory
 
         private void LoadInventory()
         {
-            InventoryItem[] inventoryItems = Player.Instance.Inventory.GetItems();
+            InventoryItem[] inventoryItems = Player.Instance.Inventory.GetInventory();
 
             grid.DestroyAllChildren();
 

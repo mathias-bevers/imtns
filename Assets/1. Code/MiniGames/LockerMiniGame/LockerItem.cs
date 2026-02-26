@@ -22,7 +22,6 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             this.data = data;
 
             canvas ??= cachedTransform.parent.FindComponentUp<Canvas>();
-            Debug.Log(canvas.name);
 
             image.sprite = this.data.Sprite;
         }

@@ -17,7 +17,7 @@ namespace CleanRoom.StateMachine.GameStates
 
         private void LoadInventory()
         {
-            InventoryItem[] inventory = Player.Instance.Inventory.GetItems();
+            InventoryItem[] inventory = Player.Instance.Inventory.GetInventory();
 
             inventoryGrid.DestroyAllChildren();
 

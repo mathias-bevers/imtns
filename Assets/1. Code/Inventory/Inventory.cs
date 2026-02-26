@@ -6,13 +6,14 @@ namespace CleanRoom.Inventory
 {
     public class Inventory
     {
-        private static InventoryItem[] _loadedItems;
+        private static InventoryItem[] _resources;
 
-        private int ItemCount => items.Sum(item => item.Value);
-        private readonly Dictionary<InventoryItem, int> items = new();
+        private readonly List<InventoryItem> inventory;
 
         public Inventory(int initialItemCount)
         {
+            inventory = new List<InventoryItem>();
+            
             LoadItems();
             AddForcedItems();
             AddRemainingItems(initialItemCount);
@@ -20,88 +21,79 @@ namespace CleanRoom.Inventory
 
         private void AddForcedItems()
         {
-            for (int i = 0; i < _loadedItems.Length; ++i)
+            for (int i = 0; i < _resources.Length; ++i)
             {
-                InventoryItem item = _loadedItems[i];
+                InventoryItem item = _resources[i];
                 if (!item.ForcedInInventory)
                 {
                     continue;
                 }
 
-                items[item] = 1;
+                inventory.Add(item);
             }
         }
 
         private void AddRemainingItems(int initialItemCount)
         {
-            while (ItemCount < initialItemCount)
+            while (inventory.Count < initialItemCount)
             {
-                InventoryItem item = _loadedItems[Random.Range(0, _loadedItems.Length)];
+                InventoryItem item = _resources[Random.Range(0, _resources.Length)];
 
                 if (item.SkipInRandomization)
                 {
                     continue;
                 }
-                
+
                 Add(item);
             }
         }
 
-        // after testing linq performance hit is negligible, faster in large data sets. 
-        public InventoryItem[] GetItems() => items.SelectMany(kvp => Enumerable.Repeat(kvp.Key, kvp.Value)).ToArray();
-
         public bool Add(InventoryItem item)
         {
-            if (!items.TryGetValue(item, out int itemCount))
-            {
-                items.Add(item, 1);
-                return true;
-            }
-
-            if (itemCount == item.ItemLimit)
+            if (GetItemCount(item.Name) >= item.ItemLimit)
             {
                 return false;
             }
 
-            ++items[item];
+            inventory.Add(item);
             return true;
         }
 
         public bool Remove(InventoryItem item)
         {
-            if (!items.TryGetValue(item, out int itemCount))
+            int itemCount = GetItemCount(item.Name);
+            if (itemCount <= 0)
             {
                 return false;
             }
 
-            if (itemCount == 0)
-            {
-                return false;
-            }
-
-            --items[item];
+            inventory.Remove(item);
             return true;
         }
 
+        public InventoryItem[] GetInventory() => inventory.ToArray();
+
+        private int GetItemCount(string itemName) =>
+            inventory.Count(inventoryItem => string.Equals(inventoryItem.Name, itemName));
+
         private static void LoadItems()
         {
-            if (_loadedItems is { Length: > 0 })
+            if (_resources is { Length: > 0 })
             {
                 return;
             }
 
-            _loadedItems = Resources.LoadAll<InventoryItem>("InventoryItems");
+            _resources = Resources.LoadAll<InventoryItem>("InventoryItems");
         }
 
 
         public override string ToString()
         {
             System.Text.StringBuilder sb = new();
-            sb.Append("INVENTORY OF ").Append(ItemCount).AppendLine(" ITEMS");
-
-            foreach (KeyValuePair<InventoryItem, int> kvp in items)
+            sb.Append("INVENTORY OF ").Append(inventory.Count).AppendLine(" ITEMS");
+            foreach (string name in inventory.Select(item => item.Name).Distinct())
             {
-                sb.Append('\t').Append(kvp.Key.Name).Append(": ").AppendLine(kvp.Value.ToString("00"));
+                sb.Append('\t').Append(name).AppendLine(GetItemCount(name).ToString("00"));
             }
 
             return sb.ToString();
