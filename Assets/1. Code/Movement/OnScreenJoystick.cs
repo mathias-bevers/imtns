@@ -5,15 +5,18 @@ namespace CleanRoom.Movement
 {
     public class OnScreenJoystick : MovementInput, IDragHandler, IPointerDownHandler, IPointerUpHandler
     {
+        private const float MAX_DRAG = 45;
+        
         private RectTransform rectTransform;
         private RectTransform handleRectTransform;
-        private Vector2 lastDirection;
+        private Vector2 direction;
+        private float drag01;
 
         private void Start()
         {
             rectTransform = GetComponent<RectTransform>();
             handleRectTransform = rectTransform.GetChild(0).GetComponent<RectTransform>();
-            
+
             handleRectTransform.anchoredPosition = Vector2.zero;
         }
 
@@ -22,12 +25,16 @@ namespace CleanRoom.Movement
             RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, eventData.position,
                 eventData.pressEventCamera, out Vector2 position);
 
-            Vector2 direction = position / (rectTransform.sizeDelta / 2);
-            direction = Vector2.ClampMagnitude(direction, 1f);
+            Vector2 newDirection = position / (rectTransform.sizeDelta / 2);
+            newDirection = Vector2.ClampMagnitude(newDirection, 1f);
 
-            handleRectTransform.anchoredPosition = direction * (rectTransform.sizeDelta.x / 2);
+            handleRectTransform.anchoredPosition = newDirection * (rectTransform.sizeDelta.x / 2);
 
-            lastDirection = direction;
+            drag01 = Vector2.Distance(handleRectTransform.position, rectTransform.position) / MAX_DRAG;
+            drag01 = Mathf.Clamp01(drag01);
+
+            direction = newDirection;
+            direction.Normalize();
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -38,9 +45,14 @@ namespace CleanRoom.Movement
         public void OnPointerUp(PointerEventData eventData)
         {
             handleRectTransform.anchoredPosition = Vector2.zero;
-            lastDirection = Vector2.zero;
+            direction = Vector2.zero;
         }
-
-        public override Vector2 GetInput() => lastDirection;
+        
+        public override Vector2 GetInput()
+        {
+            direction.Normalize();
+            direction *= drag01;
+            return direction;
+        }
     }
 }

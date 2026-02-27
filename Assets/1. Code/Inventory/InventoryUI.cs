@@ -11,7 +11,7 @@ namespace CleanRoom.Inventory
         private const int CELL_HEIGHT = 325;
         private const int PADDING_Y = 25;
 
-        [SerializeField] private RectTransform grid;
+        [SerializeField] private GridLayoutGroupResizer grid;
         [SerializeField] private GameObject inventoryItemPrefab;
 
         private void OnEnable()
@@ -19,24 +19,28 @@ namespace CleanRoom.Inventory
             openedEvent += LoadInventory;
         }
 
+        private void OnDisable()
+        {
+            openedEvent -= LoadInventory;
+        }
+
         private void LoadInventory()
         {
-            InventoryItem[] inventoryItems = Player.Instance.Inventory.GetItems();
+            InventoryItem[] inventoryItems = Player.Instance.Inventory.GetInventory();
 
-            grid.DestroyAllChildren();
-
-            int rowCount = Mathf.CeilToInt(inventoryItems.Length / 3f);
-            grid.sizeDelta = new Vector2(grid.sizeDelta.x, rowCount * CELL_HEIGHT - PADDING_Y);
-
+            grid.RectTransform.DestroyAllChildren();
+            
             for (int i = 0; i < inventoryItems.Length; ++i)
             {
                 InventoryItem inventoryItem = inventoryItems[i];
 
-                GameObject item = Instantiate(inventoryItemPrefab, grid);
+                GameObject item = Instantiate(inventoryItemPrefab, grid.RectTransform);
                 item.name = inventoryItem.Name;
                 item.GetComponentInChildren<Image>().sprite = inventoryItem.Sprite;
                 item.GetComponentInChildren<TextMeshProUGUI>().SetText(inventoryItem.Name);
             }
+            
+            grid.Resize();
         }
 
         public void AddToInventory(InventoryItem item)
