@@ -8,43 +8,47 @@ namespace CleanRoom.MiniGames.LockerMiniGame
 {
     public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public Transform CachedTransform { get; private set; }
+        public InventoryItem Data { get; private set; }
+        public Transform TransformAfterDrag { get; set; }
 
         private static Canvas _canvas;
+        private Transform cachedTransform = null;
         private Image image;
-        private InventoryItem data;
 
 
         public void Setup(InventoryItem data)
         {
-            CachedTransform = transform;
-            this.data = data;
-            
+            cachedTransform = transform;
+            Data = data;
+
             image = GetComponent<Image>();
-            image.sprite = this.data.Sprite;
+            image.sprite = Data.Sprite;
+            name = Data.Name;
 
             if (!ReferenceEquals(null, _canvas))
             {
                 return;
             }
 
-            _canvas = CachedTransform.GetComponentInParents<LockerMiniGameState>().Canvas; 
+            _canvas = cachedTransform.GetComponentInParents<LockerMiniGameState>().Canvas;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            CachedTransform.SetParent(_canvas.transform, true);
+            TransformAfterDrag = cachedTransform.parent;
+            cachedTransform.SetParent(_canvas.transform, true);
             image.raycastTarget = false;
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            CachedTransform.position = eventData.position;
+            cachedTransform.position = eventData.position;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
             image.raycastTarget = true;
+            cachedTransform.SetParent(TransformAfterDrag);
         }
     }
 }

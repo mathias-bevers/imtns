@@ -1,18 +1,22 @@
+using CleanRoom.Inventory;
 using CleanRoom.Menus;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace CleanRoom.MiniGames.LockerMiniGame
 {
     public class ItemContainer : MonoBehaviour, IDropHandler
     {
-        [SerializeField] private Inventory.InventoryItem.DestinationType destination;
+        [field: SerializeField] public InventoryItem.DestinationType Destination { get; private set; }
+        [field: SerializeField] public GridLayoutGroup Grid { get; private set; }
+
         private GridLayoutGroupResizer resizer;
         private float minHeight;
 
         private void OnEnable()
         {
-            resizer = GetComponent<GridLayoutGroupResizer>();
+            resizer = GetComponentInChildren<GridLayoutGroupResizer>();
             minHeight = ((RectTransform)transform.parent).rect.height;
             resizer.Resize(minHeight);
         }
@@ -27,9 +31,17 @@ namespace CleanRoom.MiniGames.LockerMiniGame
                 return;
             }
 
-            item.CachedTransform.SetParent(transform);
-
+            item.TransformAfterDrag = Grid.transform;
             resizer.Resize(minHeight);
+            
+            if (Destination == InventoryItem.DestinationType.CleanRoom)
+            {
+                Player.Instance.Inventory.Add(item.Data);
+            }
+            else
+            {
+                Player.Instance.Inventory.Remove(item.Data);
+            }
         }
     }
 }

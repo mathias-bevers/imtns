@@ -19,13 +19,10 @@ namespace CleanRoom.Menus
 
         private GridLayoutGroup grid;
 
-        private void Awake()
-        {
-            grid = GetComponent<GridLayoutGroup>();
-        }
-
         public void Resize(float minHeight = 0)
         {
+            grid ??= GetComponent<GridLayoutGroup>();
+            
             float totalCellWidth = grid.cellSize.x + grid.spacing.x;
             int itemsPerRow = Mathf.FloorToInt(RectTransform.rect.width / totalCellWidth);
 

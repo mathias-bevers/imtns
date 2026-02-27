@@ -7,44 +7,80 @@ namespace CleanRoom.StateMachine.GameStates
     public class LockerMiniGameState : GameState
     {
         [field: SerializeField] public Canvas Canvas { get; private set; }
+        public int Mistakes { get; private set; }
         
-        [SerializeField] private Transform inventoryPanel;
+        
         [SerializeField] private Item itemPrefab;
-
-        private Transform inventoryGrid;
+        [SerializeField] private ItemContainer[] containers;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            inventoryGrid ??= inventoryPanel.GetComponentInChildren<UnityEngine.UI.GridLayoutGroup>().transform;
             LoadInventory();
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            ValidateItems();
         }
 
         private void LoadInventory()
         {
             InventoryItem[] inventory = Player.Instance.Inventory.GetInventory();
 
-            inventoryGrid.DestroyAllChildren();
+            int cleanRoomIndex = GetContainerByDestination(InventoryItem.DestinationType.CleanRoom);
+            
+            if (cleanRoomIndex < 0)
+            {
+                Debug.LogError("could not find container for destination: clean room");
+                return;
+            }
 
+            Transform gridTransform = containers[cleanRoomIndex].Grid.transform;
+            gridTransform.DestroyAllChildren();
+            
             for (int i = 0; i < inventory.Length; ++i)
             {
-                Item item = Instantiate(itemPrefab, inventoryGrid);
+                Item item = Instantiate(itemPrefab, gridTransform);
                 item.Setup(inventory[i]);
             }
         }
 
-
-        private void OnGUI()
+        private void ValidateItems()
         {
-            if (!IsActive)
+            Mistakes = 0;
+            
+            for (int i = 0; i < containers.Length; ++i)
             {
-                return;
+                Item[] children = containers[i].Grid.GetComponentsInChildren<Item>();
+                for (int ii = 0; ii < children.Length; ++ii)
+                {
+                    if (containers[i].Destination == children[ii].Data.Destination)
+                    {
+                        continue;
+                    }
+
+                    ++Mistakes;
+                }
+            }
+            
+            Debug.Log("mistakes: " + Mistakes);
+        }
+
+        private int GetContainerByDestination(InventoryItem.DestinationType destination)
+        {
+            for (int i = 0; i < containers.Length; ++i)
+            {
+                if (destination != containers[i].Destination)
+                {
+                    continue;
+                }
+
+                return i;
             }
 
-            if (GUI.Button(new Rect(10, 10, 200, 150), GetType().Name + ": Return to roaming state"))
-            {
-                GameStateController.Instance.SwitchToState<RoamingGameState>();
-            }
+            return -1;
         }
     }
 }

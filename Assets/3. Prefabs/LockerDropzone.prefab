@@ -130,7 +130,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6676672614633861141}
-  - component: {fileID: 3852449102853127279}
   - component: {fileID: 4703538080027311265}
   - component: {fileID: 6264794441479014282}
   - component: {fileID: 2076223999316308029}
@@ -161,19 +160,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 375}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &3852449102853127279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991488842645747320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2faf88bedf644918fd9a91d52613ac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.LockerMiniGame.ItemContainer
-  destination: 1
 --- !u!114 &4703538080027311265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +243,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7923014494479755535}
+  - component: {fileID: 5041710560174602447}
   m_Layer: 5
   m_Name: LockerDropzone
   m_TagString: Untagged
@@ -285,6 +272,20 @@ RectTransform:
   m_AnchoredPosition: {x: -40, y: 0}
   m_SizeDelta: {x: 725, y: -80}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &5041710560174602447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5442527341574105249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2faf88bedf644918fd9a91d52613ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.LockerMiniGame.ItemContainer
+  <Destination>k__BackingField: 0
+  <Grid>k__BackingField: {fileID: 6264794441479014282}
 --- !u!1 &6332259932720469058
 GameObject:
   m_ObjectHideFlags: 0
