@@ -17,7 +17,7 @@ namespace CleanRoom.StateMachine.GameStates
 
         public override void Initialize()
         {
-            containers = GetComponentsInChildren<ItemContainer>();
+            containers = GetComponentsInChildren<ItemContainer>(true);
         }
 
         public override void OnEnter()

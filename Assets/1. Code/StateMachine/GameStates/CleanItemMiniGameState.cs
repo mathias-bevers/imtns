@@ -11,7 +11,7 @@ namespace CleanRoom.StateMachine.GameStates
             if (!Player.Instance.Inventory.HasItem("Tablet"))
             {
                 string message = "Zorg ervoor dat je de tablet bij je hebt!";
-                MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(message, PopupMenu.Level.Warning);
+                MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.Level.Warning);
                 return;
             }
 

@@ -21,5 +21,8 @@ namespace CleanRoom
             Undo.RegisterCreatedObjectUndo(menu, $"Create: ${menu.name}");
             Selection.SetActiveObjectWithContext(menu, null);
         }
+
+        [MenuItem("CleanRoom/Force Recompile")]
+        private static void ForceRecompile() => AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
     }
 }

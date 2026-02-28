@@ -10,7 +10,7 @@ namespace CleanRoom
 
         public static T Instance => GetInstance();
 
-        private static bool isPendingDestroy = false;
+        private static bool _isPendingDestroy = false;
 
         public virtual void Awake()
         {
@@ -26,7 +26,7 @@ namespace CleanRoom
 
         protected virtual void OnDestroy()
         {
-            isPendingDestroy = true;
+            _isPendingDestroy = true;
             _instance = null;
         }
 
@@ -44,7 +44,7 @@ namespace CleanRoom
                 return _instance;
             }
 
-            if (isPendingDestroy)
+            if (_isPendingDestroy)
             {
                 return null;
             }

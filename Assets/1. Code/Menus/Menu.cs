@@ -77,6 +77,11 @@ namespace CleanRoom.Menus
 
         private void OnDestroy()
         {
+            if (!MenuManager.IsInitialized)
+            {
+                return;
+            }
+            
             MenuManager.Instance.UnregisterMenu(this);
         }
     }
