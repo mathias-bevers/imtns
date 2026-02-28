@@ -1,3 +1,4 @@
+using System;
 using CleanRoom.Inventory;
 using CleanRoom.MiniGames.LockerMiniGame;
 using UnityEngine;
@@ -11,7 +12,13 @@ namespace CleanRoom.StateMachine.GameStates
         
         
         [SerializeField] private Item itemPrefab;
-        [SerializeField] private ItemContainer[] containers;
+        private ItemContainer[] containers;
+
+
+        public override void Initialize()
+        {
+            containers = GetComponentsInChildren<ItemContainer>();
+        }
 
         public override void OnEnter()
         {

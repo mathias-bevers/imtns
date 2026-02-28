@@ -10,6 +10,8 @@ namespace CleanRoom.StateMachine
         private readonly HashSet<IGameStateObject> gameStateObjects = new();
         private Transform cachedTransform;
 
+        public virtual void Initialize() { }
+
         public virtual void OnEnter()
         {
             cachedTransform ??= transform;

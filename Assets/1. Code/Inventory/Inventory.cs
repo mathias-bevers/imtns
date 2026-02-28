@@ -13,13 +13,12 @@ namespace CleanRoom.Inventory
         public Inventory(int initialItemCount)
         {
             inventory = new List<InventoryItem>();
-            
+
             LoadItems();
-            AddForcedItems();
-            AddRemainingItems(initialItemCount);
+            AddInitialItems(initialItemCount);
         }
 
-        private void AddForcedItems()
+        private void AddInitialItems(int initialItemCount)
         {
             for (int i = 0; i < _resources.Length; ++i)
             {
@@ -31,10 +30,7 @@ namespace CleanRoom.Inventory
 
                 inventory.Add(item);
             }
-        }
 
-        private void AddRemainingItems(int initialItemCount)
-        {
             while (inventory.Count < initialItemCount)
             {
                 InventoryItem item = _resources[Random.Range(0, _resources.Length)];
@@ -73,8 +69,9 @@ namespace CleanRoom.Inventory
 
         public InventoryItem[] GetInventory() => inventory.ToArray();
 
-        private int GetItemCount(string itemName) =>
-            inventory.Count(inventoryItem => string.Equals(inventoryItem.Name, itemName));
+        public bool HasItem(string itemName) => inventory.Any(item => string.Equals(item.Name, itemName));
+        
+        private int GetItemCount(string itemName) => inventory.Count(item => string.Equals(item.Name, itemName));
 
         private static void LoadItems()
         {

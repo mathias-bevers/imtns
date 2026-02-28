@@ -20,6 +20,7 @@ namespace CleanRoom.StateMachine
             {
                 GameState gameState = foundStates[i];
                 gameStates.Add(gameState.GetType(), gameState);
+                gameState.Initialize();
                 gameState.OnExit();
             }
 

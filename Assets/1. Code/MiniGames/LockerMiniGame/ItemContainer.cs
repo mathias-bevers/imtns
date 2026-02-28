@@ -1,3 +1,4 @@
+using System.Globalization;
 using CleanRoom.Inventory;
 using CleanRoom.Menus;
 using UnityEngine;
@@ -10,14 +11,15 @@ namespace CleanRoom.MiniGames.LockerMiniGame
     {
         [field: SerializeField] public InventoryItem.DestinationType Destination { get; private set; }
         [field: SerializeField] public GridLayoutGroup Grid { get; private set; }
+        [SerializeField] private RectTransform scrollRectTransform;
 
         private GridLayoutGroupResizer resizer;
-        private float minHeight;
+        private int minHeight;
 
         private void OnEnable()
         {
             resizer = GetComponentInChildren<GridLayoutGroupResizer>();
-            minHeight = ((RectTransform)transform.parent).rect.height;
+            minHeight = Mathf.RoundToInt(scrollRectTransform.rect.height);
             resizer.Resize(minHeight);
         }
 
