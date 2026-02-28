@@ -9,16 +9,17 @@ namespace CleanRoom.Menus
     {
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private float displayTime = 5f;
-        private static readonly Dictionary<Level, Color> LEVEL_COLORS = new()
+        private static readonly Dictionary<Level, Color32> LEVEL_COLORS = new()
         {
-            { Level.Info, new Color(198, 208, 245) },
-            { Level.Warning, new Color(231, 130, 132) },
-            { Level.Error, new Color(231, 130, 132) }
+            { Level.Info, new Color32(198, 208, 245, 255) },
+            { Level.Warning, new Color32(229, 200, 144, 255) },
+            { Level.Error, new Color32(231, 130, 132, 255) }
         };
 
         public void Initialize(string message, Level level)
         {
             text.SetText(message);
+            text.overrideColorTags = true;
             text.color = LEVEL_COLORS[level];
 
             Destroy(gameObject, displayTime);
