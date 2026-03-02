@@ -20,6 +20,7 @@ namespace CleanRoom.StateMachine
             {
                 GameState gameState = foundStates[i];
                 gameStates.Add(gameState.GetType(), gameState);
+                gameState.gameObject.SetActive(true);
                 gameState.Initialize();
                 gameState.OnExit();
             }
@@ -38,8 +39,8 @@ namespace CleanRoom.StateMachine
         }
 
         public void SwitchToState<T>() => SwitchToState(gameStates[typeof(T)]);
-
-        public void SwitchToState<T>(T state) where T : GameState
+        
+        public void SwitchToState(GameState state)
         {
             if (ReferenceEquals(state, activeGameState))
             {
