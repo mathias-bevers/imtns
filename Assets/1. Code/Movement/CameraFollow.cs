@@ -4,8 +4,8 @@ namespace CleanRoom.Movement
 {
     public class CameraFollow : MonoBehaviour
     {
+        public bool shouldFollow = true;
         [SerializeField] private Transform playerTransform;
-        [SerializeField] private bool shouldFollow = true;
         [Tooltip("ldur"), SerializeField] private Vector4 boundingBox;
 
         private Transform cachedTransform = null;
@@ -27,12 +27,6 @@ namespace CleanRoom.Movement
             Vector3 targetPosition = playerTransform.position + offset;
             cachedTransform.position = new Vector3(Mathf.Clamp(targetPosition.x, boundingBox.x, boundingBox.w),
                 Mathf.Clamp(targetPosition.y, boundingBox.y, boundingBox.z), cachedTransform.position.z);
-        }
-
-        private void OnGUI()
-        {
-            // string message = string.Concat(cachedTransform.position, '\n', boundingBox.min, '\n', boundingBox.max);
-            GUI.Label(new Rect(10, 10, 150, 600), cachedTransform.position.ToString());
         }
 
         private void OnDrawGizmosSelected()

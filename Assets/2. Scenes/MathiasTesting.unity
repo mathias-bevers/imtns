@@ -1131,8 +1131,9 @@ GameObject:
   - component: {fileID: 226910556}
   - component: {fileID: 226910555}
   - component: {fileID: 226910557}
+  - component: {fileID: 226910558}
   m_Layer: 0
-  m_Name: Cleaner
+  m_Name: Sink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1147,8 +1148,8 @@ Transform:
   m_GameObject: {fileID: 226910553}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.08, y: -2.21, z: 0}
-  m_LocalScale: {x: 2.303, y: 3.116, z: 1}
+  m_LocalPosition: {x: -7.25, y: 2, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1019336754}
@@ -1229,8 +1230,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.3341094, g: 0.92855316, b: 0.92855316, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 36b8fca2f27231ecdbb68f745b929306, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1273,7 +1274,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.21124211, y: -0.0831622}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1283,8 +1284,55 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.67291456, y: 0.48458573}
   m_EdgeRadius: 0
+--- !u!68 &226910558
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226910553}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.36259723, y: -0.18506469}
+  - {x: -0.13793385, y: -0.08663764}
+  - {x: 0.34895253, y: 0.1494118}
+  - {x: 0.119308464, y: 0.29120946}
+  - {x: -0.36228395, y: 0.055257853}
+  - {x: -0.36221927, y: -0.18309785}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &257637059
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,9 +2295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e919a03414d74267b99e6bc418bc3664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Movement.CameraFollow
-  playerTransform: {fileID: 1039267527}
   shouldFollow: 1
-  environmentParent: {fileID: 418622800}
+  playerTransform: {fileID: 1039267527}
   boundingBox: {x: -1.4, y: -0.9, z: 2.7, w: 1.4}
 --- !u!1 &521395901
 GameObject:
@@ -5918,6 +5965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05953c25aba547d19714699166527d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.StateMachine.GameStates.RoamingGameState
+  follow: {fileID: 519420033}
 --- !u!1 &1231157670
 GameObject:
   m_ObjectHideFlags: 0
