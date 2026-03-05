@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CleanRoom
@@ -10,9 +11,7 @@ namespace CleanRoom
 
             while (!ReferenceEquals(null, parent))
             {
-                T component = parent.GetComponent<T>();
-
-                if (!ReferenceEquals(null, component))
+                if (parent.TryGetComponent(out T component))
                 {
                     return component;
                 }
@@ -21,6 +20,25 @@ namespace CleanRoom
             }
 
             throw new MissingComponentException($"Could not find component<b>{typeof(T).FullName}</b> in parents");
+        }
+
+        public static T[] GetComponentsInAllChildren<T>(this Transform parent, List<T> components = null)
+            where T : Component
+        {
+            components ??= new List<T>();
+
+            for (int i = 0; i < parent.childCount; ++i)
+            {
+                Transform child = parent.GetChild(i);
+                child.GetComponentsInAllChildren(components);
+
+                if (child.TryGetComponent(out T component))
+                {
+                    components.Add(component);
+                }
+            }
+            
+            return components.ToArray();
         }
 
         public static void DestroyAllChildren(this Transform parent)

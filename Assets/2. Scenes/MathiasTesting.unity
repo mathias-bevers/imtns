@@ -2109,6 +2109,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2234,6 +2235,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e919a03414d74267b99e6bc418bc3664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Movement.CameraFollow
+  playerTransform: {fileID: 1039267527}
+  shouldFollow: 1
+  environmentParent: {fileID: 418622800}
+  boundingBox: {x: -1.4, y: -0.9, z: 2.7, w: 1.4}
 --- !u!1 &521395901
 GameObject:
   m_ObjectHideFlags: 0
@@ -5409,7 +5426,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1171869371}
   - component: {fileID: 1171869372}
-  - component: {fileID: 1171869373}
   m_Layer: 0
   m_Name: Locker_0
   m_TagString: Untagged
@@ -5491,97 +5507,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!60 &1171869373
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1171869370}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.29333332, y: 0.8146667}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.146, y: -0.26666665}
-      - {x: 0.146, y: -0.126}
-      - {x: 0.14666666, y: -0.12533334}
-      - {x: 0.14666666, y: -0.12133333}
-      - {x: 0.146, y: -0.12066667}
-      - {x: 0.146, y: -0.037333332}
-      - {x: 0.14666666, y: -0.026666667}
-      - {x: 0.14666666, y: 0.0026666666}
-      - {x: 0.146, y: 0.029333333}
-      - {x: 0.14666666, y: 0.034666665}
-      - {x: 0.14666666, y: 0.07266667}
-      - {x: 0.146, y: 0.078666665}
-      - {x: 0.14666666, y: 0.119333334}
-      - {x: 0.14666666, y: 0.13666667}
-      - {x: 0.14533333, y: 0.13666667}
-      - {x: 0.14533333, y: 0.28}
-      - {x: 0.146, y: 0.28066665}
-      - {x: 0.14666666, y: 0.32533333}
-      - {x: 0.14666666, y: 0.34066665}
-      - {x: 0.13599999, y: 0.348}
-      - {x: 0.03333333, y: 0.4}
-      - {x: 0.017333332, y: 0.4073333}
-      - {x: 0.012666667, y: 0.4073333}
-      - {x: 0.007999999, y: 0.40533334}
-      - {x: -0.0026666666, y: 0.40066665}
-      - {x: -0.044666667, y: 0.38}
-      - {x: -0.08933333, y: 0.358}
-      - {x: -0.14066666, y: 0.33266667}
-      - {x: -0.14266667, y: 0.33466667}
-      - {x: -0.146, y: 0.32733333}
-      - {x: -0.146, y: 0.12933333}
-      - {x: -0.14533333, y: 0.12866667}
-      - {x: -0.14533333, y: -0.27199998}
-      - {x: -0.14666666, y: -0.27333334}
-      - {x: -0.14666666, y: -0.276}
-      - {x: -0.13933334, y: -0.282}
-      - {x: -0.104666665, y: -0.29933333}
-      - {x: -0.10333333, y: -0.29933333}
-      - {x: -0.017333332, y: -0.34266666}
-      - {x: -0.014666666, y: -0.34333333}
-      - {x: -0.010666667, y: -0.34266666}
-      - {x: 0, y: -0.33866668}
-      - {x: 0.031333335, y: -0.324}
-      - {x: 0.052, y: -0.314}
-  m_UseDelaunayMesh: 1
 --- !u!1 &1174544824
 GameObject:
   m_ObjectHideFlags: 0
@@ -7659,13 +7584,13 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.09967455, y: -0.20516612}
-  - {x: 0.40450346, y: -0.13876891}
+  - {x: -0.11702826, y: -0.1495583}
+  - {x: 0.3838692, y: -0.097696684}
   - {x: 0.4763223, y: 0.0066243177}
   - {x: 0.30305293, y: 0.3320572}
   - {x: -0.21998267, y: 0.32320103}
   - {x: -0.30413336, y: 0.20802669}
-  - {x: -0.10191561, y: -0.19618328}
+  - {x: -0.124864705, y: -0.1475346}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
