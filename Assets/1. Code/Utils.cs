@@ -55,5 +55,10 @@ namespace CleanRoom
                 Object.DestroyImmediate(child.gameObject);
             }
         }
+
+        public static bool PercentChance(int percent)
+        {
+            return Random.Range(0, 101) < percent;
+        }
     }
 }

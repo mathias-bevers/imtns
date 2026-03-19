@@ -1,25 +1,28 @@
 fileFormatVersion: 2
-guid: c9b521346e1f09fc684f6d8275ad5216
+guid: e90d58016e9342e359f6cd845bd399b5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6604339808490387203
-    second: tablet_0
+      213: 2351123077233096883
+    second: stain_gray_0
   - first:
-      213: -6596608778679774636
-    second: tablet_1
+      213: 8959714089171981855
+    second: stain_gray_1
   - first:
-      213: 6224072184683681966
-    second: tablet_2
+      213: -3383840048693524240
+    second: stain_gray_2
   - first:
-      213: 9215470020163120319
-    second: tablet_3
+      213: -1571607390871537172
+    second: stain_gray_3
   - first:
-      213: -4358816977576400062
-    second: tablet_4
+      213: -6995316011448051470
+    second: stain_gray_4
   - first:
-      213: 7421521345035999443
-    second: tablet_5
+      213: 222671836630814366
+    second: stain_gray_5
+  - first:
+      213: -5775033060538122140
+    second: stain_gray_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -66,8 +69,8 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
-  spriteBorder: {x: 22, y: 53, z: 23, w: 58}
+  spritePixelsToUnits: 1190
+  spriteBorder: {x: 52, y: 61, z: 119, w: 146}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -111,30 +114,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tablet_0
+      name: stain_gray_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2282
-        height: 1421
+        x: 496
+        y: 700
+        width: 177
+        height: 88
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +133,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3077a05801457ab50800000000000000
-      internalID: 6604339808490387203
+      spriteID: 3b8b3b16bfdd0a020800000000000000
+      internalID: 2351123077233096883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tablet_1
+      name: stain_gray_1
       rect:
         serializedVersion: 2
-        x: 1016
-        y: 1417
-        width: 7
-        height: 8
+        x: 700
+        y: 755
+        width: 25
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 452919024432474a0800000000000000
-      internalID: -6596608778679774636
+      spriteID: f1698265e7c475c70800000000000000
+      internalID: 8959714089171981855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tablet_2
+      name: stain_gray_2
       rect:
         serializedVersion: 2
-        x: 1262
-        y: 1417
-        width: 12
-        height: 8
+        x: 97
+        y: 61
+        width: 814
+        height: 664
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ea8d578eca8506650800000000000000
-      internalID: 6224072184683681966
+      spriteID: 0f8c1e0776f2a01d0800000000000000
+      internalID: -3383840048693524240
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tablet_3
+      name: stain_gray_3
       rect:
         serializedVersion: 2
-        x: 1352
-        y: 0
-        width: 27
-        height: 10
+        x: 932
+        y: 573
+        width: 137
+        height: 71
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,40 +199,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fbca51e582de3ef70800000000000000
-      internalID: 9215470020163120319
+      spriteID: ce939bc9767803ae0800000000000000
+      internalID: -1571607390871537172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tablet_4
+      name: stain_gray_4
       rect:
         serializedVersion: 2
-        x: 1380
-        y: 0
-        width: 38
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 24bed9a8d0f5283c0800000000000000
-      internalID: -4358816977576400062
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tablet_5
-      rect:
-        serializedVersion: 2
-        x: 2259
-        y: 0
+        x: 1096
+        y: 572
         width: 31
         height: 31
       alignment: 0
@@ -253,8 +221,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3d899d7a75a8ef660800000000000000
-      internalID: 7421521345035999443
+      spriteID: 2f8590e7625abee90800000000000000
+      internalID: -6995316011448051470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stain_gray_5
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 449
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9e0ddb0bd6171300800000000000000
+      internalID: 222671836630814366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stain_gray_6
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 476
+        width: 104
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4600d746706fadfa0800000000000000
+      internalID: -5775033060538122140
       vertices: []
       indices: 
       edges: []
@@ -273,12 +285,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tablet_0: 6604339808490387203
-      tablet_1: -6596608778679774636
-      tablet_2: 6224072184683681966
-      tablet_3: 9215470020163120319
-      tablet_4: -4358816977576400062
-      tablet_5: 7421521345035999443
+      stain_gray_0: 2351123077233096883
+      stain_gray_1: 8959714089171981855
+      stain_gray_2: -3383840048693524240
+      stain_gray_3: -1571607390871537172
+      stain_gray_4: -6995316011448051470
+      stain_gray_5: 222671836630814366
+      stain_gray_6: -5775033060538122140
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
