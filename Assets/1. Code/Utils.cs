@@ -37,7 +37,7 @@ namespace CleanRoom
                     components.Add(component);
                 }
             }
-            
+
             return components.ToArray();
         }
 
@@ -56,9 +56,14 @@ namespace CleanRoom
             }
         }
 
-        public static bool PercentChance(int percent)
+        public static bool IsNullOrEmpty<T>(this ICollection<T> collection)
         {
-            return Random.Range(0, 101) < percent;
+            if (ReferenceEquals(null, collection))
+            {
+                return true;
+            }
+
+            return collection.Count == 0;
         }
     }
 }

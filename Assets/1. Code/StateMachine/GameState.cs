@@ -7,7 +7,7 @@ namespace CleanRoom.StateMachine
     {
         public bool IsActive { get; private set; } = false;
         
-        private readonly HashSet<IGameStateObject> gameStateObjects = new();
+        private readonly List<IGameStateObject> gameStateObjects = new();
         private Transform cachedTransform;
 
         public virtual void Initialize() { }
@@ -24,23 +24,41 @@ namespace CleanRoom.StateMachine
             IsActive = true;
         }
 
-        public void AddStateObject(IGameStateObject gameStateObject) => gameStateObjects.Add(gameStateObject);
+        public void AddStateObject(IGameStateObject gameStateObject)
+        {
+            if (gameStateObjects.Contains(gameStateObject))
+            {
+                return;
+            }
+            
+            gameStateObjects.Add(gameStateObject);
+        }
 
         public void RemoveStateObject(IGameStateObject gameStateObject) => gameStateObjects.Remove(gameStateObject);
 
         public virtual void Tick(float deltaTime)
         {
-            foreach (IGameStateObject stateObject in gameStateObjects)
+            for (int i = gameStateObjects.Count - 1; i >= 0; --i)
             {
-                stateObject.Tick(deltaTime);
+                if (ReferenceEquals(null, gameStateObjects[i]))
+                {
+                    continue;
+                }
+                
+                gameStateObjects[i].Tick(deltaTime);
             }
         }
 
         public virtual void FixedTick(float fixedDeltaTime)
         {
-            foreach (IGameStateObject stateObject in gameStateObjects)
+            for (int i = gameStateObjects.Count - 1; i >= 0; --i)
             {
-                stateObject.FixedTick(fixedDeltaTime);
+                if (ReferenceEquals(null, gameStateObjects[i]))
+                {
+                    continue;
+                }
+                
+                gameStateObjects[i].FixedTick(fixedDeltaTime);
             }
         }
 

@@ -38,8 +38,8 @@ namespace CleanRoom.StateMachine
             activeGameState.FixedTick(Time.fixedDeltaTime);
         }
 
-        public void SwitchToState<T>() => SwitchToState(gameStates[typeof(T)]);
-        
+        public void SwitchToState<T>() where T : GameState => SwitchToState(gameStates[typeof(T)]);
+
         public void SwitchToState(GameState state)
         {
             if (ReferenceEquals(state, activeGameState))
@@ -57,5 +57,8 @@ namespace CleanRoom.StateMachine
 
             activeGameState = state;
         }
+
+        public T GetGameState<T>() where T : GameState =>
+            (T)gameStates[typeof(T)];
     }
 }
