@@ -10,9 +10,8 @@ namespace CleanRoom.StateMachine.GameStates
         [SerializeField] private GameObject interactables;
         [SerializeField] private Tablet tablet;
 
-        public override void OnEnter()
+        protected override void OnEnter()
         {
-            base.OnEnter();
             interactables.SetActive(false);
 
             if (!Player.Instance.Inventory.HasItem("Tablet"))
@@ -23,6 +22,12 @@ namespace CleanRoom.StateMachine.GameStates
             }
 
             StartMiniGame();
+        }
+
+        protected override void OnExit()
+        {
+            ValidateCleanliness();
+            base.OnExit();
         }
 
         private void StartMiniGame()

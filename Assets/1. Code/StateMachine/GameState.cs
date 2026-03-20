@@ -12,7 +12,9 @@ namespace CleanRoom.StateMachine
 
         public virtual void Initialize() { }
 
-        public virtual void OnEnter()
+        protected virtual void OnEnter() { }
+
+        public void Enter(bool skipOnEnter = false)
         {
             cachedTransform ??= transform;
 
@@ -22,6 +24,13 @@ namespace CleanRoom.StateMachine
             }
 
             IsActive = true;
+
+            if (skipOnEnter)
+            {
+                return;
+            }
+            
+            OnEnter();
         }
 
         public void AddStateObject(IGameStateObject gameStateObject)
@@ -61,8 +70,10 @@ namespace CleanRoom.StateMachine
                 gameStateObjects[i].FixedTick(fixedDeltaTime);
             }
         }
+        
+        protected virtual void OnExit() { }
 
-        public virtual void OnExit()
+        public void Exit(bool skipOnExit = false)
         {
             IsActive = false;
 
@@ -72,6 +83,13 @@ namespace CleanRoom.StateMachine
             {
                 cachedTransform.GetChild(i).gameObject.SetActive(false);
             }
+
+            if (skipOnExit)
+            {
+                return;
+            }
+            
+            OnExit();
         }
     }
 }

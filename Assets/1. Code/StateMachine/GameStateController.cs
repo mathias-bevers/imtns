@@ -22,7 +22,7 @@ namespace CleanRoom.StateMachine
                 gameStates.Add(gameState.GetType(), gameState);
                 gameState.gameObject.SetActive(true);
                 gameState.Initialize();
-                gameState.OnExit();
+                gameState.Exit(true);
             }
 
             SwitchToState(startingGameState);
@@ -48,12 +48,8 @@ namespace CleanRoom.StateMachine
                 return;
             }
 
-            if (!ReferenceEquals(null, activeGameState))
-            {
-                activeGameState.OnExit();
-            }
-
-            state.OnEnter();
+            activeGameState?.Exit();
+            state.Enter();
 
             activeGameState = state;
         }

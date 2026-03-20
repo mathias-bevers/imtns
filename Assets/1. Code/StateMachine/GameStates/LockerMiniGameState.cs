@@ -22,15 +22,13 @@ namespace CleanRoom.StateMachine.GameStates
             containers = GetComponentsInChildren<ItemContainer>(true);
         }
 
-        public override void OnEnter()
+        protected override void OnEnter()
         {
-            base.OnEnter();
             LoadInventory();
         }
 
-        public override void OnExit()
+        protected override void OnExit()
         {
-            base.OnExit();
             ValidateItems();
         }
 
@@ -54,12 +52,6 @@ namespace CleanRoom.StateMachine.GameStates
 
         private void ValidateItems()
         {
-            // the called by the initial on exit which does not need to validate.
-            if (ReferenceEquals(null, cleanRoomContainer))
-            {
-                return;
-            }
-            
             Mistakes = 0;
             string log = string.Empty;
             

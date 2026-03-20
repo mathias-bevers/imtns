@@ -6,16 +6,14 @@ namespace CleanRoom.StateMachine.GameStates
     public class RoamingGameState : GameState
     {
         [SerializeField] private CameraFollow follow;
-        
-        public override void OnEnter()
+
+        protected override void OnEnter()
         {
-            base.OnEnter();
             follow.shouldFollow = true;
         }
 
-        public override void OnExit()
+        protected override void OnExit()
         {
-            base.OnExit();
             follow.shouldFollow = false;
         }
     }
