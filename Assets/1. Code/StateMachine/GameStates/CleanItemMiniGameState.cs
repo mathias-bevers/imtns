@@ -6,6 +6,7 @@ namespace CleanRoom.StateMachine.GameStates
 {
     public class CleanItemMiniGameState : GameState
     {
+        [field: SerializeField] public Wipe Wipe { get; private set; }
         [SerializeField] private GameObject interactables;
         [SerializeField] private Tablet tablet;
 
@@ -17,8 +18,7 @@ namespace CleanRoom.StateMachine.GameStates
             if (!Player.Instance.Inventory.HasItem("Tablet"))
             {
                 string message = "Zorg ervoor dat je de tablet bij je hebt!";
-                MenuManager.Instance.GetMenuOfType<PopupMenu>()
-                    .CreatePopup(message, Popup.Level.Warning);
+                MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.Level.Warning);
                 return;
             }
 

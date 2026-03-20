@@ -454,6 +454,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 66996844}
+  - component: {fileID: 66996847}
   - component: {fileID: 66996846}
   - component: {fileID: 66996845}
   m_Layer: 5
@@ -479,9 +480,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 10, y: 10}
+  m_AnchoredPosition: {x: 410, y: 210}
   m_SizeDelta: {x: 800, y: 400}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &66996845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +521,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66996843}
   m_CullTransparentMesh: 1
+--- !u!114 &66996847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66996843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1035f66b0c47a5a3b3beb30f7927d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.CleanMiniGame.Wipe
 --- !u!1 &69810821
 GameObject:
   m_ObjectHideFlags: 0
@@ -6410,6 +6423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19ff95c4b8d4f01a338e8ad595199c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.StateMachine.GameStates.ExampleBState
+  <Wipe>k__BackingField: {fileID: 66996847}
   interactables: {fileID: 1064092801}
   tablet: {fileID: 1918727706}
 --- !u!4 &1263192299
@@ -8857,7 +8871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a93214c760e446498253b3738c4cfce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.CleanMiniGame.Tablet
-  dirtPrefab: {fileID: 1250133175340167665, guid: 71128dc879d7b82e5bfe8549596ba6f6, type: 3}
+  dirtPrefab: {fileID: 2129522254896853773, guid: 71128dc879d7b82e5bfe8549596ba6f6, type: 3}
 --- !u!1 &1925001802
 GameObject:
   m_ObjectHideFlags: 0
