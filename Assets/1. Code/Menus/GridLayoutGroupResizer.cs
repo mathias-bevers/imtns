@@ -19,7 +19,7 @@ namespace CleanRoom.Menus
 
         private GridLayoutGroup grid;
 
-        public void Resize(float minHeight = 0)
+        public void Resize(int minHeight = 0)
         {
             grid ??= GetComponent<GridLayoutGroup>();
             

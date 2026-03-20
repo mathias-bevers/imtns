@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Tablet
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Inventory.InventoryItem
   <Name>k__BackingField: Tablet
-  <Sprite>k__BackingField: {fileID: 6604339808490387203, guid: c9b521346e1f09fc684f6d8275ad5216, type: 3}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: c9b521346e1f09fc684f6d8275ad5216, type: 3}
   <Destination>k__BackingField: 1
   <ForcedInInventory>k__BackingField: 1
-  ItemLimit: 1
-  <Scale>k__BackingField: 1
+  <SkipInRandomization>k__BackingField: 0
+  <ItemLimit>k__BackingField: 1

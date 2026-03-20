@@ -286,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.LockerMiniGame.ItemContainer
   <Destination>k__BackingField: 0
   <Grid>k__BackingField: {fileID: 6264794441479014282}
+  scrollRectTransform: {fileID: 5209798643685336097}
 --- !u!1 &6332259932720469058
 GameObject:
   m_ObjectHideFlags: 0

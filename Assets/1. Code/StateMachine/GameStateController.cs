@@ -20,7 +20,9 @@ namespace CleanRoom.StateMachine
             {
                 GameState gameState = foundStates[i];
                 gameStates.Add(gameState.GetType(), gameState);
-                gameState.OnExit();
+                gameState.gameObject.SetActive(true);
+                gameState.Initialize();
+                gameState.Exit(true);
             }
 
             SwitchToState(startingGameState);
@@ -36,9 +38,9 @@ namespace CleanRoom.StateMachine
             activeGameState.FixedTick(Time.fixedDeltaTime);
         }
 
-        public void SwitchToState<T>() => SwitchToState(gameStates[typeof(T)]);
+        public void SwitchToState<T>() where T : GameState => SwitchToState(gameStates[typeof(T)]);
 
-        public void SwitchToState<T>(T state) where T : GameState
+        public void SwitchToState(GameState state)
         {
             if (ReferenceEquals(state, activeGameState))
             {
@@ -46,14 +48,13 @@ namespace CleanRoom.StateMachine
                 return;
             }
 
-            if (!ReferenceEquals(null, activeGameState))
-            {
-                activeGameState.OnExit();
-            }
-
-            state.OnEnter();
+            activeGameState?.Exit();
+            state.Enter();
 
             activeGameState = state;
         }
+
+        public T GetGameState<T>() where T : GameState =>
+            (T)gameStates[typeof(T)];
     }
 }

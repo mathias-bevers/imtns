@@ -10,6 +10,8 @@ namespace CleanRoom
 
         public static T Instance => GetInstance();
 
+        private static bool _isPendingDestroy = false;
+
         public virtual void Awake()
         {
             if (ReferenceEquals(null, _instance))
@@ -24,6 +26,7 @@ namespace CleanRoom
 
         protected virtual void OnDestroy()
         {
+            _isPendingDestroy = true;
             _instance = null;
         }
 
@@ -39,6 +42,11 @@ namespace CleanRoom
             if (!ReferenceEquals(null, _instance))
             {
                 return _instance;
+            }
+
+            if (_isPendingDestroy)
+            {
+                return null;
             }
 
             GameObject gameObject = new();

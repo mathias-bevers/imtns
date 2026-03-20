@@ -1,4 +1,6 @@
+using System;
 using CleanRoom.Inventory;
+using CleanRoom.Menus;
 using CleanRoom.MiniGames.LockerMiniGame;
 using UnityEngine;
 
@@ -11,17 +13,22 @@ namespace CleanRoom.StateMachine.GameStates
         
         
         [SerializeField] private Item itemPrefab;
-        [SerializeField] private ItemContainer[] containers;
+        private Transform cleanRoomContainer;
+        private ItemContainer[] containers;
 
-        public override void OnEnter()
+
+        public override void Initialize()
         {
-            base.OnEnter();
+            containers = GetComponentsInChildren<ItemContainer>(true);
+        }
+
+        protected override void OnEnter()
+        {
             LoadInventory();
         }
 
-        public override void OnExit()
+        protected override void OnExit()
         {
-            base.OnExit();
             ValidateItems();
         }
 
@@ -29,20 +36,16 @@ namespace CleanRoom.StateMachine.GameStates
         {
             InventoryItem[] inventory = Player.Instance.Inventory.GetInventory();
 
-            int cleanRoomIndex = GetContainerByDestination(InventoryItem.DestinationType.CleanRoom);
-            
-            if (cleanRoomIndex < 0)
+            if (ReferenceEquals(null, cleanRoomContainer))
             {
-                Debug.LogError("could not find container for destination: clean room");
-                return;
+                SetCleanRoomContainer();
             }
-
-            Transform gridTransform = containers[cleanRoomIndex].Grid.transform;
-            gridTransform.DestroyAllChildren();
+            
+            cleanRoomContainer.DestroyAllChildren();
             
             for (int i = 0; i < inventory.Length; ++i)
             {
-                Item item = Instantiate(itemPrefab, gridTransform);
+                Item item = Instantiate(itemPrefab, cleanRoomContainer);
                 item.Setup(inventory[i]);
             }
         }
@@ -50,6 +53,7 @@ namespace CleanRoom.StateMachine.GameStates
         private void ValidateItems()
         {
             Mistakes = 0;
+            string log = string.Empty;
             
             for (int i = 0; i < containers.Length; ++i)
             {
@@ -61,11 +65,19 @@ namespace CleanRoom.StateMachine.GameStates
                         continue;
                     }
 
+                    log += $"{children[ii].name}: {containers[i].Destination} != {children[ii].Data.Destination}";
                     ++Mistakes;
                 }
             }
-            
-            Debug.Log("mistakes: " + Mistakes);
+
+            if (Mistakes < 1)
+            {
+                return;
+            }
+
+            string message = $"Oeps, je hebt {Mistakes} fout(en) gemaakt!";
+            MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.Level.Warning);
+            Debug.Log(log);
         }
 
         private int GetContainerByDestination(InventoryItem.DestinationType destination)
@@ -81,6 +93,19 @@ namespace CleanRoom.StateMachine.GameStates
             }
 
             return -1;
+        }
+
+        private void SetCleanRoomContainer()
+        {
+            int cleanRoomIndex = GetContainerByDestination(InventoryItem.DestinationType.CleanRoom);
+            
+            if (cleanRoomIndex < 0)
+            {
+                Debug.LogError("could not find container for destination: clean room");
+                return;
+            }
+
+            cleanRoomContainer = containers[cleanRoomIndex].Grid.transform;
         }
     }
 }

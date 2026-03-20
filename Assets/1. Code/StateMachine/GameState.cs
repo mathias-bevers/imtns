@@ -7,10 +7,14 @@ namespace CleanRoom.StateMachine
     {
         public bool IsActive { get; private set; } = false;
         
-        private readonly HashSet<IGameStateObject> gameStateObjects = new();
+        private readonly List<IGameStateObject> gameStateObjects = new();
         private Transform cachedTransform;
 
-        public virtual void OnEnter()
+        public virtual void Initialize() { }
+
+        protected virtual void OnEnter() { }
+
+        public void Enter(bool skipOnEnter = false)
         {
             cachedTransform ??= transform;
 
@@ -20,29 +24,56 @@ namespace CleanRoom.StateMachine
             }
 
             IsActive = true;
+
+            if (skipOnEnter)
+            {
+                return;
+            }
+            
+            OnEnter();
         }
 
-        public void AddStateObject(IGameStateObject gameStateObject) => gameStateObjects.Add(gameStateObject);
+        public void AddStateObject(IGameStateObject gameStateObject)
+        {
+            if (gameStateObjects.Contains(gameStateObject))
+            {
+                return;
+            }
+            
+            gameStateObjects.Add(gameStateObject);
+        }
 
         public void RemoveStateObject(IGameStateObject gameStateObject) => gameStateObjects.Remove(gameStateObject);
 
         public virtual void Tick(float deltaTime)
         {
-            foreach (IGameStateObject stateObject in gameStateObjects)
+            for (int i = gameStateObjects.Count - 1; i >= 0; --i)
             {
-                stateObject.Tick(deltaTime);
+                if (ReferenceEquals(null, gameStateObjects[i]))
+                {
+                    continue;
+                }
+                
+                gameStateObjects[i].Tick(deltaTime);
             }
         }
 
         public virtual void FixedTick(float fixedDeltaTime)
         {
-            foreach (IGameStateObject stateObject in gameStateObjects)
+            for (int i = gameStateObjects.Count - 1; i >= 0; --i)
             {
-                stateObject.FixedTick(fixedDeltaTime);
+                if (ReferenceEquals(null, gameStateObjects[i]))
+                {
+                    continue;
+                }
+                
+                gameStateObjects[i].FixedTick(fixedDeltaTime);
             }
         }
+        
+        protected virtual void OnExit() { }
 
-        public virtual void OnExit()
+        public void Exit(bool skipOnExit = false)
         {
             IsActive = false;
 
@@ -52,6 +83,13 @@ namespace CleanRoom.StateMachine
             {
                 cachedTransform.GetChild(i).gameObject.SetActive(false);
             }
+
+            if (skipOnExit)
+            {
+                return;
+            }
+            
+            OnExit();
         }
     }
 }
