@@ -35,5 +35,18 @@ namespace CleanRoom.StateMachine.GameStates
             interactables.SetActive(true);
             tablet.SpawnDirt();
         }
+
+        private void ValidateCleanliness()
+        {
+            int mistakes = tablet.GetComponentsInChildren<DirtPiece>().Length;
+
+            if (mistakes == 0)
+            {
+                return;
+            }
+            
+            string message = $"Oeps, je hebt {mistakes} fout(en) gemaakt!";
+            MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.Level.Warning);
+        }
     }
 }

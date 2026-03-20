@@ -19,8 +19,6 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
         public void Tick(float deltaTime)
         {
-            Debug.Log("dirt tick");
-
             distance = Vector2.Distance(CachedTransform.position, _wipe.transform.position);
 
             if (distance > cleanDistance)
