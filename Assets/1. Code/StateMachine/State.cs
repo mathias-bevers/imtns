@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace CleanRoom.StateMachine
 {
+    /// <summary>
+    ///     This is an abstract class that serves as a base for <see cref="GameState" /> and <see cref="RoomState" />
+    ///     It handles all default state behavior like entering, exiting, keeping track of its
+    ///     <see cref="IGameStateObject" />s
+    /// </summary>
     public abstract class State : MonoBehaviour
     {
         /// <summary>
