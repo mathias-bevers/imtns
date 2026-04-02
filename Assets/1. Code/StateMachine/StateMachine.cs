@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace CleanRoom.StateMachine
 {
-    public class GameStateController : Singleton<GameStateController>
+    public class StateMachine : Singleton<StateMachine>
     {
-        [SerializeField] private GameState startingGameState;
-        private readonly Dictionary<Type, GameState> gameStates = new();
-        private GameState activeGameState = null;
+        [SerializeField] private RoomState startingRoomState;
+        private readonly Dictionary<Type, State> states = new();
+        private State activeGameState = null;
 
         public override void Awake()
         {
@@ -19,13 +19,13 @@ namespace CleanRoom.StateMachine
             for (int i = 0; i < foundStates.Length; ++i)
             {
                 GameState gameState = foundStates[i];
-                gameStates.Add(gameState.GetType(), gameState);
+                states.Add(gameState.GetType(), gameState);
                 gameState.gameObject.SetActive(true);
                 gameState.Initialize();
                 gameState.Exit(true);
             }
 
-            SwitchToState(startingGameState);
+            SwitchToState(startingRoomState);
         }
 
         private void Update()
@@ -38,9 +38,9 @@ namespace CleanRoom.StateMachine
             activeGameState.FixedTick(Time.fixedDeltaTime);
         }
 
-        public void SwitchToState<T>() where T : GameState => SwitchToState(gameStates[typeof(T)]);
+        public void SwitchToState<T>() where T : State => SwitchToState(states[typeof(T)]);
 
-        public void SwitchToState(GameState state)
+        public void SwitchToState(State state)
         {
             if (ReferenceEquals(state, activeGameState))
             {
@@ -55,6 +55,6 @@ namespace CleanRoom.StateMachine
         }
 
         public T GetGameState<T>() where T : GameState =>
-            (T)gameStates[typeof(T)];
+            (T)states[typeof(T)];
     }
 }

@@ -1,6 +1,6 @@
 namespace CleanRoom.StateMachine
 {
-    public class GameState : State
+    public class RoomState : State
     {
         
     }

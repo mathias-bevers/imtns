@@ -72,5 +72,25 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             _state.RemoveStateObject(this);
             Destroy(gameObject);
         }
+
+        public void FixedTick(float fixedDeltaTime) { }
+
+        public void Initialize(float scale, Vector2 position)
+        {
+            this.scale = scale;
+            CachedTransform = (RectTransform)transform;
+
+            if (ReferenceEquals(null, _state))
+            {
+                _state = StateMachine.StateMachine.Instance.GetGameState<CleanItemMiniGameState>();
+                _wipe = _state.Wipe;
+            }
+            
+            _state.AddStateObject(this);
+            
+            CachedTransform.sizeDelta *= scale;
+            CachedTransform.anchoredPosition = position;
+            cleanDistance = cleanDistanceBase * scale;
+        }
     }
 }
