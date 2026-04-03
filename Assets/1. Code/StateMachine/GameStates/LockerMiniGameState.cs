@@ -32,6 +32,11 @@ namespace CleanRoom.StateMachine.GameStates
             ValidateItems();
         }
 
+        protected override void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
         private void LoadInventory()
         {
             InventoryItem[] inventory = Player.Instance.Inventory.GetInventory();

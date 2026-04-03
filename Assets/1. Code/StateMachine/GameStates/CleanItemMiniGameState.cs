@@ -34,6 +34,11 @@ namespace CleanRoom.StateMachine.GameStates
             base.OnExit();
         }
 
+        protected override void Reset()
+        {
+            throw new System.NotImplementedException();
+        }
+
         private void StartMiniGame()
         {
             interactables.SetActive(true);
