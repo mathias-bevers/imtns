@@ -10,6 +10,8 @@ namespace CleanRoom.StateMachine
         /// </summary>
         public int Attempt { get; private set; } = 0;
 
+        public abstract string Name { get; }
+
         /// <summary>
         ///     When the room enters, the <see cref="Attempt" /> property is increased by
         ///     one.
@@ -33,5 +35,31 @@ namespace CleanRoom.StateMachine
         ///     Resets the game to the starting state.
         /// </summary>
         protected abstract void Reset();
+
+        /// <summary>
+        ///     Converts the <see cref="GameState" /> into <see cref="GameStateData" />.
+        /// </summary>
+        /// <returns>
+        ///     <see cref="GameStateData" /> of the current <see cref="GameState" />.
+        /// </returns>
+        public GameStateData GetAsData() => new(Name, Attempt, IsCompleted);
+    }
+
+    /// <summary>
+    ///     A struct to that captures the essential data of the <see cref="GameState" /> for
+    ///     displaying info in the hud.
+    /// </summary>
+    public struct GameStateData
+    {
+        public readonly string name;
+        public readonly int attempts;
+        public readonly bool completed;
+
+        public GameStateData(string name, int attempts, bool completed)
+        {
+            this.name = name;
+            this.attempts = attempts;
+            this.completed = completed;
+        }
     }
 }
