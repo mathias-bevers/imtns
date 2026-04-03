@@ -11,7 +11,8 @@ namespace CleanRoom.StateMachine
         public int Attempt { get; private set; } = 0;
 
         /// <summary>
-        ///     When the room enters, the <see cref="Attempt" /> property is increased by one.
+        ///     When the room enters, the <see cref="Attempt" /> property is increased by
+        ///     one.
         /// </summary>
         protected override void OnEnter() => ++Attempt;
 

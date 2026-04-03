@@ -25,15 +25,18 @@ namespace CleanRoom.StateMachine
         private State activeGameState = null;
 
         /// <summary>
-        ///     This method is called by unity, it searches for all <see cref="State" />s in the current scene,
-        ///     it initializes and deactivates them. The <see cref="State.OnExit" /> method is skipped.
+        ///     This method is called by unity, it searches for all <see cref="State" />s
+        ///     in the current scene, it initializes and deactivates them. The
+        ///     <see cref="State.OnExit" /> method is skipped.
         /// </summary>
         public override void Awake()
         {
             base.Awake();
 
             GameState[] foundStates =
-                FindObjectsByType<GameState>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+                FindObjectsByType<GameState>(FindObjectsInactive.Include,
+                    FindObjectsSortMode.None);
+
             for (int i = 0; i < foundStates.Length; ++i)
             {
                 GameState gameState = foundStates[i];
@@ -47,27 +50,29 @@ namespace CleanRoom.StateMachine
         }
 
         /// <summary>
-        ///     Calls the <see cref="State.Tick" /> method from the <see cref="activeGameState" />.
+        ///     Calls the <see cref="State.Tick" /> method from the
+        ///     <see cref="activeGameState" />.
         /// </summary>
         private void Update() => activeGameState.Tick(Time.deltaTime);
 
         /// <summary>
-        ///     Calls the <see cref="State.FixedTick" /> method from the <see cref="activeGameState" />.
+        ///     Calls the <see cref="State.FixedTick" /> method from the
+        ///     <see cref="activeGameState" />.
         /// </summary>
         private void FixedUpdate() => activeGameState.FixedTick(Time.fixedDeltaTime);
 
         /// <summary>
-        ///     Switches to a state based on the type. It uses the <see cref="states" /> map to get the right instance.
+        ///     Switches to a state based on the type. It uses the <see cref="states" /> map
+        ///     to get the right instance.
         /// </summary>
         /// <typeparam name="T">The Type that needs to be switched to</typeparam>
         public void SwitchToState<T>() where T : State => SwitchToState(states[typeof(T)]);
 
         /// <summary>
-        ///     This method sets the <paramref name="state" /> instance to active. It first calls the
-        ///     <see
-        ///         cref="State.Exit" />
-        ///     on the currently active state, then calls the <see cref="State.Enter" /> state for
-        ///     the new active state and sets the <see cref="activeGameState" />.
+        ///     This method sets the <paramref name="state" /> instance to active.
+        ///     It first calls the <see cref="State.Exit" /> on the currently active
+        ///     state, then calls the <see cref="State.Enter" /> state for the new active
+        ///     state and sets the <see cref="activeGameState" />.
         /// </summary>
         /// <param name="state">The instance to switch to.</param>
         public void SwitchToState(State state)
@@ -85,7 +90,8 @@ namespace CleanRoom.StateMachine
         }
 
         /// <summary>
-        ///     This method gets the <see cref="State" /> instance form the <see cref="states" /> map.
+        ///     This method gets the <see cref="State" /> instance form the
+        ///     <see cref="states" /> map.
         /// </summary>
         /// <typeparam name="T"><see cref="State" /> type to get.</typeparam>
         /// <returns>The instance of Type <typeparamref name="T" /></returns>
