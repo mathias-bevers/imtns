@@ -49,18 +49,12 @@ namespace CleanRoom.StateMachine
         /// <summary>
         ///     Calls the <see cref="State.Tick" /> method from the <see cref="activeGameState" />.
         /// </summary>
-        private void Update()
-        {
-            activeGameState.Tick(Time.deltaTime);
-        }
+        private void Update() => activeGameState.Tick(Time.deltaTime);
 
         /// <summary>
         ///     Calls the <see cref="State.FixedTick" /> method from the <see cref="activeGameState" />.
         /// </summary>
-        private void FixedUpdate()
-        {
-            activeGameState.FixedTick(Time.fixedDeltaTime);
-        }
+        private void FixedUpdate() => activeGameState.FixedTick(Time.fixedDeltaTime);
 
         /// <summary>
         ///     Switches to a state based on the type. It uses the <see cref="states" /> map to get the right instance.
@@ -95,7 +89,6 @@ namespace CleanRoom.StateMachine
         /// </summary>
         /// <typeparam name="T"><see cref="State" /> type to get.</typeparam>
         /// <returns>The instance of Type <typeparamref name="T" /></returns>
-        public T GetGameState<T>() where T : GameState =>
-            (T)states[typeof(T)];
+        public T GetGameState<T>() where T : GameState => (T)states[typeof(T)];
     }
 }
