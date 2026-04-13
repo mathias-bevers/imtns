@@ -530,9 +530,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 66996843}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d1035f66b0c47a5a3b3beb30f7927d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 07ece43001e548eab47b1fb6e5c27b7f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.CleanMiniGame.Wipe
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.CleanMiniGame.DragAndSnap
 --- !u!1 &69810821
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,8 +2093,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 445036816}
-  - component: {fileID: 445036818}
+  - component: {fileID: 445036819}
   - component: {fileID: 445036817}
+  - component: {fileID: 445036818}
   m_Layer: 5
   m_Name: Isopropyl
   m_TagString: Untagged
@@ -2159,6 +2160,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445036815}
   m_CullTransparentMesh: 1
+--- !u!114 &445036819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445036815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ece43001e548eab47b1fb6e5c27b7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.CleanMiniGame.DragAndSnap
 --- !u!1 &479660032
 GameObject:
   m_ObjectHideFlags: 0
@@ -6288,7 +6301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1230327789
 Transform:
   m_ObjectHideFlags: 0
@@ -6639,7 +6652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1263192298
 MonoBehaviour:
   m_ObjectHideFlags: 0

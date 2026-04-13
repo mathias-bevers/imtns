@@ -1,10 +1,23 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CleanRoom.MiniGames.CleanMiniGame
 {
     public class Tablet : MonoBehaviour
     {
         [SerializeField] private DirtPiece dirtPrefab;
+        [SerializeField] private DragAndSnap isopropyl;
+        
+        private Transform cachedTransform;
+        public Transform CachedTransform
+        {
+            get
+            {
+                cachedTransform ??= transform;
+                return cachedTransform;
+            }
+        }
 
         public void SpawnDirt()
         {

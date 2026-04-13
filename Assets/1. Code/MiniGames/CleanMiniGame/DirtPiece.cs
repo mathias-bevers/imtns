@@ -7,13 +7,12 @@ namespace CleanRoom.MiniGames.CleanMiniGame
     public class DirtPiece : MonoBehaviour, IGameStateObject
     {
         private static CleanItemMiniGameState _state;
-        private static Wipe _wipe;
+        private static DragAndSnap _wipe;
 
         [SerializeField] private float cleanDistanceBase;
 
         public RectTransform CachedTransform { get; private set; }
 
-        private float scale;
         private float cleanDistance;
         private float distance;
 
@@ -34,7 +33,6 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
         public void Initialize(float scale, Vector2 position)
         {
-            this.scale = scale;
             CachedTransform = (RectTransform)transform;
 
             if (ReferenceEquals(null, _state))

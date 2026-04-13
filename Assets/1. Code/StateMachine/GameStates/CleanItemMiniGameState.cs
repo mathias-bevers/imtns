@@ -6,7 +6,7 @@ namespace CleanRoom.StateMachine.GameStates
 {
     public class CleanItemMiniGameState : GameState
     {
-        [field: SerializeField] public Wipe Wipe { get; private set; }
+        [field: SerializeField] public DragAndSnap Wipe { get; private set; }
         [SerializeField] private GameObject interactables;
         [SerializeField] private Tablet tablet;
 
