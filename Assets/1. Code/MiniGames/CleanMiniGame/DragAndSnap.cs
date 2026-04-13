@@ -6,36 +6,47 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 {
     public class DragAndSnap : MonoBehaviour, IDragHandler, IEndDragHandler
     {
-        public bool Draggable { get; private set; } = true;
+        private RectTransform cachedTransform = null;
+        public RectTransform CachedTransform
+        {
+            get
+            {
+                if (ReferenceEquals(null, cachedTransform))
+                {
+                    cachedTransform = (RectTransform)transform;
+                }
 
-        private RectTransform cachedTransform;
+                return cachedTransform;
+            }
+        }
+
+        private bool draggable = true;
         private Vector2 startingPosition;
 
         private void Awake()
         {
-            cachedTransform = (RectTransform)transform;
-            startingPosition = cachedTransform.anchoredPosition;
+            startingPosition = CachedTransform.anchoredPosition;
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (!Draggable)
+            if (!draggable)
             {
                 return;
             }
 
-            cachedTransform.position = eventData.position;
+            CachedTransform.position = eventData.position;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            cachedTransform.anchoredPosition = startingPosition;
+            CachedTransform.anchoredPosition = startingPosition;
         }
 
         public void SnapAndDisable()
         {
-            cachedTransform.anchoredPosition = startingPosition;
-            Draggable = false;
+            CachedTransform.anchoredPosition = startingPosition;
+            draggable = false;
         }
     }
 }

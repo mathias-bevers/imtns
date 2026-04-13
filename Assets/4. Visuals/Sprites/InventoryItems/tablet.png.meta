@@ -1,25 +1,7 @@
 fileFormatVersion: 2
-guid: c9b521346e1f09fc684f6d8275ad5216
+guid: 21395b4650f69f6cebb475935e71a720
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 6604339808490387203
-    second: tablet_0
-  - first:
-      213: -6596608778679774636
-    second: tablet_1
-  - first:
-      213: 6224072184683681966
-    second: tablet_2
-  - first:
-      213: 9215470020163120319
-    second: tablet_3
-  - first:
-      213: -4358816977576400062
-    second: tablet_4
-  - first:
-      213: 7421521345035999443
-    second: tablet_5
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -57,7 +39,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -66,8 +48,8 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
-  spriteBorder: {x: 22, y: 53, z: 23, w: 58}
+  spritePixelsToUnits: 545
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -87,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -126,145 +108,13 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: tablet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2282
-        height: 1421
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3077a05801457ab50800000000000000
-      internalID: 6604339808490387203
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tablet_1
-      rect:
-        serializedVersion: 2
-        x: 1016
-        y: 1417
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 452919024432474a0800000000000000
-      internalID: -6596608778679774636
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tablet_2
-      rect:
-        serializedVersion: 2
-        x: 1262
-        y: 1417
-        width: 12
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ea8d578eca8506650800000000000000
-      internalID: 6224072184683681966
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tablet_3
-      rect:
-        serializedVersion: 2
-        x: 1352
-        y: 0
-        width: 27
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fbca51e582de3ef70800000000000000
-      internalID: 9215470020163120319
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tablet_4
-      rect:
-        serializedVersion: 2
-        x: 1380
-        y: 0
-        width: 38
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 24bed9a8d0f5283c0800000000000000
-      internalID: -4358816977576400062
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tablet_5
-      rect:
-        serializedVersion: 2
-        x: 2259
-        y: 0
-        width: 31
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3d899d7a75a8ef660800000000000000
-      internalID: 7421521345035999443
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -272,13 +122,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      tablet_0: 6604339808490387203
-      tablet_1: -6596608778679774636
-      tablet_2: 6224072184683681966
-      tablet_3: 9215470020163120319
-      tablet_4: -4358816977576400062
-      tablet_5: 7421521345035999443
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

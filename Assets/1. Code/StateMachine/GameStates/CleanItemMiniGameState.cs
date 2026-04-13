@@ -7,8 +7,8 @@ namespace CleanRoom.StateMachine.GameStates
     public class CleanItemMiniGameState : GameState
     {
         [field: SerializeField] public DragAndSnap Wipe { get; private set; }
+        [field: SerializeField] public Tablet Tablet { get; private set; }
         [SerializeField] private GameObject interactables;
-        [SerializeField] private Tablet tablet;
 
         protected override void OnEnter()
         {
@@ -33,12 +33,12 @@ namespace CleanRoom.StateMachine.GameStates
         private void StartMiniGame()
         {
             interactables.SetActive(true);
-            tablet.SpawnDirt();
+            Tablet.SpawnDirt();
         }
 
         private void ValidateCleanliness()
         {
-            int mistakes = tablet.GetComponentsInChildren<DirtPiece>().Length;
+            int mistakes = Tablet.GetComponentsInChildren<DirtPiece>().Length;
 
             if (mistakes == 0)
             {
