@@ -8,6 +8,9 @@ namespace CleanRoom.StateMachine.GameStates
     {
         [field: SerializeField] public DragAndSnap Wipe { get; private set; }
         [field: SerializeField] public Tablet Tablet { get; private set; }
+        [field: SerializeField] public ConditionalOnClick WipeBox { get; private set; }
+        [field: SerializeField] public ConditionalOnClick BagDispenser { get; private set; }
+        
         [SerializeField] private GameObject interactables;
 
         protected override void OnEnter()
@@ -17,7 +20,8 @@ namespace CleanRoom.StateMachine.GameStates
             if (!Player.Instance.Inventory.HasItem("Tablet"))
             {
                 string message = "Zorg ervoor dat je de tablet bij je hebt!";
-                MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.Level.Warning);
+                MenuManager.Instance.GetMenuOfType<PopupMenu>()
+                    .CreatePopup(message, Popup.Level.Warning);
                 return;
             }
 
@@ -44,9 +48,10 @@ namespace CleanRoom.StateMachine.GameStates
             {
                 return;
             }
-            
+
             string message = $"Oeps, je hebt {mistakes} fout(en) gemaakt!";
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.Level.Warning);
+            MenuManager.Instance.GetMenuOfType<PopupMenu>()
+                .CreatePopup(message, Popup.Level.Warning);
         }
     }
 }

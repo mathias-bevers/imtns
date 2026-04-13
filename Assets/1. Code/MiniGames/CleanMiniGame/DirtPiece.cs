@@ -10,17 +10,19 @@ namespace CleanRoom.MiniGames.CleanMiniGame
     {
         private const string NO_SPRAY_WARNING =
             "Zorg er voor dat je eerst de isopropyl gebruikt";
-
-
+        
         private static CleanItemMiniGameState _state;
         private static DragAndSnap _wipe;
 
         [SerializeField] private float cleanDistanceBase;
-
-        public RectTransform CachedTransform { get; private set; }
-
         private float cleanDistance;
         private float distance;
+        private RectTransform cachedTransform;
+
+        private void OnDestroy()
+        {
+            destroyedEvent?.Invoke();
+        }
 
         public void Tick(float deltaTime)
         {
@@ -29,9 +31,11 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
         public void FixedTick(float fixedDeltaTime) { }
 
+        public event Action destroyedEvent;
+
         public void Initialize(float scale, Vector2 position)
         {
-            CachedTransform = (RectTransform)transform;
+            cachedTransform = (RectTransform)transform;
 
             if (ReferenceEquals(null, _state))
             {
@@ -42,14 +46,14 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
             _state.AddStateObject(this);
 
-            CachedTransform.sizeDelta *= scale;
-            CachedTransform.anchoredPosition = position;
+            cachedTransform.sizeDelta *= scale;
+            cachedTransform.anchoredPosition = position;
             cleanDistance = cleanDistanceBase * scale;
         }
 
         private void CheckWipe()
         {
-            distance = Vector2.Distance(CachedTransform.position,
+            distance = Vector2.Distance(cachedTransform.position,
                 _wipe.CachedTransform.position);
 
             if (distance > cleanDistance)
@@ -57,7 +61,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
                 return;
             }
 
-            if (!_state.Tablet.IsSprayed)
+            if (_state.Tablet.Cleanliness < Tablet.CleanlinessLevel.Sprayed)
             {
                 MenuManager.Instance.GetMenuOfType<PopupMenu>()
                     .CreatePopup(NO_SPRAY_WARNING, Popup.Level.Warning);

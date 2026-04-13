@@ -1,26 +1,36 @@
-using System;
 using CleanRoom.StateMachine;
+using CleanRoom.StateMachine.GameStates;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace CleanRoom.MiniGames.CleanMiniGame
 {
     public class Tablet : MonoBehaviour, IGameStateObject
     {
+        public enum CleanlinessLevel
+        {
+            Dirty,
+            Sprayed,
+            Cleaned,
+            Bagged
+        }
+
         [SerializeField] private Image isopropylStain;
         [SerializeField] private DirtPiece dirtPrefab;
         [SerializeField] private DragAndSnap isopropyl;
         [SerializeField] private float sprayRadius;
 
+        public CleanlinessLevel Cleanliness { get; private set; } = CleanlinessLevel.Dirty;
+
+        private CleanItemMiniGameState state = null;
         private float distance = 0;
-        public bool IsSprayed { get; private set; } = false;
         private Transform cachedTransform = null;
 
         private void Awake()
         {
             cachedTransform = transform;
-            cachedTransform.GetComponentInParents<GameState>().AddStateObject(this);
+            state = cachedTransform.GetComponentInParents<CleanItemMiniGameState>();
+            state.AddStateObject(this);
         }
 
         public void Tick(float deltaTime)
@@ -41,12 +51,27 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
                 DirtPiece dirtPiece = Instantiate(dirtPrefab, transform);
                 dirtPiece.Initialize(scale, position);
+                dirtPiece.destroyedEvent += OnDirtPieceDestroyed;
             }
+        }
+
+        private void OnDirtPieceDestroyed()
+        {
+            int piecesLeft = GetComponentsInChildren<DirtPiece>().Length;
+            if (piecesLeft > 0)
+            {
+                return;
+            }
+
+            Cleanliness = CleanlinessLevel.Cleaned;
+            state.Wipe.gameObject.SetActive(false);
+            state.WipeBox.PreventInvoke = true;
+            isopropylStain.gameObject.SetActive(false);
         }
 
         private void CheckIsopropyl()
         {
-            if (IsSprayed)
+            if (Cleanliness >= CleanlinessLevel.Sprayed)
             {
                 return;
             }
@@ -60,20 +85,10 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             }
 
             isopropyl.SnapAndDisable();
-            IsSprayed = true;
-            
+            Cleanliness = CleanlinessLevel.Sprayed;
+
             isopropylStain.gameObject.SetActive(true);
             isopropylStain.transform.SetAsLastSibling();
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.DrawWireSphere(transform.position, sprayRadius);
-        }
-
-        private void OnGUI()
-        {
-            GUI.Label(new Rect(10, 10, 210, 90), "iso dist: " + distance);
         }
     }
 }
