@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace CleanRoom.Menus
     {
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private float displayTime = 5f;
+
+        public event Action<string> destroyEvent;
+        
         private static readonly Dictionary<Level, Color32> LEVEL_COLORS = new()
         {
             { Level.Info, new Color32(198, 208, 245, 255) },
@@ -30,6 +34,11 @@ namespace CleanRoom.Menus
         public void OnPointerClick(PointerEventData eventData)
         {
             Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            destroyEvent?.Invoke(text.text);
         }
     }
 }
