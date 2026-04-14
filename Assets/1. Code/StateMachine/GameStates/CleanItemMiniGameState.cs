@@ -6,9 +6,12 @@ namespace CleanRoom.StateMachine.GameStates
 {
     public class CleanItemMiniGameState : GameState
     {
-        [field: SerializeField] public Wipe Wipe { get; private set; }
+        [field: SerializeField] public DragAndSnap Wipe { get; private set; }
+        [field: SerializeField] public Tablet Tablet { get; private set; }
+        [field: SerializeField] public ConditionalOnClick WipeBox { get; private set; }
+        [field: SerializeField] public ConditionalOnClick BagDispenser { get; private set; }
+        
         [SerializeField] private GameObject interactables;
-        [SerializeField] private Tablet tablet;
 
         protected override void OnEnter()
         {
@@ -17,7 +20,8 @@ namespace CleanRoom.StateMachine.GameStates
             if (!Player.Instance.Inventory.HasItem("Tablet"))
             {
                 string message = "Zorg ervoor dat je de tablet bij je hebt!";
-                MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.Level.Warning);
+                MenuManager.Instance.GetMenuOfType<PopupMenu>()
+                    .CreatePopup(message, Popup.Level.Warning);
                 return;
             }
 
@@ -33,20 +37,21 @@ namespace CleanRoom.StateMachine.GameStates
         private void StartMiniGame()
         {
             interactables.SetActive(true);
-            tablet.SpawnDirt();
+            Tablet.SpawnDirt();
         }
 
         private void ValidateCleanliness()
         {
-            int mistakes = tablet.GetComponentsInChildren<DirtPiece>().Length;
+            int mistakes = Tablet.GetComponentsInChildren<DirtPiece>().Length;
 
             if (mistakes == 0)
             {
                 return;
             }
-            
+
             string message = $"Oeps, je hebt {mistakes} fout(en) gemaakt!";
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.Level.Warning);
+            MenuManager.Instance.GetMenuOfType<PopupMenu>()
+                .CreatePopup(message, Popup.Level.Warning);
         }
     }
 }

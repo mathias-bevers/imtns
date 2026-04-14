@@ -22,7 +22,7 @@ namespace CleanRoom
             Selection.SetActiveObjectWithContext(menu, null);
         }
 
-        [MenuItem("CleanRoom/Force Recompile")]
+        [MenuItem("Tools/CleanRoom/Force Recompile")]
         private static void ForceRecompile() => AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
     }
 }
