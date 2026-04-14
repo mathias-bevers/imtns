@@ -45,7 +45,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
         public void SnapAndDisable()
         {
-            CachedTransform.anchoredPosition = startingPosition;
+            ExecuteEvents.endDragHandler.Invoke(this, new PointerEventData(EventSystem.current));
             draggable = false;
         }
     }
