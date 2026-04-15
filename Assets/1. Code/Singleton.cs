@@ -20,7 +20,7 @@ namespace CleanRoom
             }
             else
             {
-                Destroy(gameObject);
+                DestroyImmediate(gameObject);
             }
         }
 
