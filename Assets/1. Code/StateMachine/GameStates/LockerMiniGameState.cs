@@ -10,7 +10,7 @@ namespace CleanRoom.StateMachine.GameStates
     {
         [field: SerializeField] public Canvas Canvas { get; private set; }
         public int Mistakes { get; private set; }
-        
+        public override string Name => "Kluis Sorteren";
         
         [SerializeField] private Item itemPrefab;
         private Transform cleanRoomContainer;
@@ -21,6 +21,7 @@ namespace CleanRoom.StateMachine.GameStates
         {
             containers = GetComponentsInChildren<ItemContainer>(true);
         }
+
 
         protected override void OnEnter()
         {

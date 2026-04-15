@@ -13,6 +13,8 @@ namespace CleanRoom.StateMachine.GameStates
         
         [SerializeField] private GameObject interactables;
 
+        public override string Name => "Tablet Schoon Maken";
+
         protected override void OnEnter()
         {
             interactables.SetActive(false);
