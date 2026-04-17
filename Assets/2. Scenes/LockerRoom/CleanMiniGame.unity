@@ -246,7 +246,7 @@ MonoBehaviour:
         m_MethodName: SwitchState
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 049757b55b52df536ae0e30c821b4dad, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: db12796ac359e7b3887836ed0f858594, type: 2}
           m_ObjectArgumentAssemblyTypeName: CleanRoom.ScriptableStateMachine.ScriptableRoomState,
             Assembly-CSharp
           m_IntArgument: 0

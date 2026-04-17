@@ -19,4 +19,4 @@ MonoBehaviour:
   <ExitEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  nextRoom: {fileID: 0}
+  <NextRoom>k__BackingField: {fileID: 0}

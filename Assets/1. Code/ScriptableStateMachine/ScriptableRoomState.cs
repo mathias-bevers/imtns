@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace CleanRoom.ScriptableStateMachine
 {
@@ -7,5 +7,17 @@ namespace CleanRoom.ScriptableStateMachine
     public class ScriptableRoomState : ScriptableState
     {
         [field: SerializeField] public ScriptableRoomState NextRoom { get; private set; }
+
+        public void GotoNextRoom()
+        {
+            bool succes = StateMachine.Instance.TryEnterState(NextRoom);
+            
+            if (succes)
+            {
+                return;
+            }
+
+            throw new Exception($"could switch to state: {NextRoom.name}");
+        }
     }
 }

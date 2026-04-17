@@ -19,4 +19,4 @@ MonoBehaviour:
   <ExitEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  nextRoom: {fileID: 11400000, guid: 049757b55b52df536ae0e30c821b4dad, type: 2}
+  <NextRoom>k__BackingField: {fileID: 11400000, guid: 049757b55b52df536ae0e30c821b4dad, type: 2}
