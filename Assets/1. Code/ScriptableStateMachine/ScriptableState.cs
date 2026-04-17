@@ -27,21 +27,18 @@ namespace CleanRoom.ScriptableStateMachine
         /// </summary>
         public bool CanExit { get; protected set; } = true;
 
+        [field: SerializeField] public string StateName { get; protected set; } 
         [field: SerializeField, Scene] public string SceneName { get; protected set; }
+        [field: SerializeField] public ScriptableStateContainer container;
 
-        [field: SerializeField] public UnityEvent EnterEvent { get; protected set; }
-
-        [field: SerializeField] public UnityEvent ExitEvent { get; protected set; }
-        
         public void Enter()
         {
-            EnterEvent?.Invoke();
+            container.EnterEvent?.Invoke();
         }
 
-        public virtual void Exit()
+        public void Exit()
         {
-            
-            ExitEvent.Invoke();
+            container.ExitEvent?.Invoke();
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace CleanRoom.ScriptableStateMachine
@@ -10,14 +9,7 @@ namespace CleanRoom.ScriptableStateMachine
 
         public void GotoNextRoom()
         {
-            bool succes = StateMachine.Instance.TryEnterState(NextRoom);
-            
-            if (succes)
-            {
-                return;
-            }
-
-            throw new Exception($"could switch to state: {NextRoom.name}");
+            StateMachine.Instance.EnterState(NextRoom);
         }
     }
 }

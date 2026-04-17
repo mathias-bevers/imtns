@@ -12,11 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a2f03cdda4473486c31b5f45316600, type: 3}
   m_Name: MainMenu
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.ScriptableStateMachine.ScriptableRoomState
+  <StateName>k__BackingField: Main Menu
   <SceneName>k__BackingField: MainMenu
-  <EnterEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <ExitEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
+  container: {fileID: 797790148218434559, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
   <NextRoom>k__BackingField: {fileID: 11400000, guid: 049757b55b52df536ae0e30c821b4dad, type: 2}

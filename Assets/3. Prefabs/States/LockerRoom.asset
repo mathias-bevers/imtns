@@ -12,11 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a2f03cdda4473486c31b5f45316600, type: 3}
   m_Name: LockerRoom
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.ScriptableStateMachine.ScriptableRoomState
+  <StateName>k__BackingField: LockerRoom
   <SceneName>k__BackingField: LockerRoom
-  <EnterEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <ExitEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
+  container: {fileID: 5494372329356118393, guid: 5b3f6d446a0b4080fb32c7a61edbaee7, type: 3}
   <NextRoom>k__BackingField: {fileID: 0}

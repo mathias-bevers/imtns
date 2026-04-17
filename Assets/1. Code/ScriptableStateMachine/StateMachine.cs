@@ -12,7 +12,6 @@ namespace CleanRoom.ScriptableStateMachine
     {
         private enum TransitionType { RoomToRoom, RoomToGame, GameToRoom }
 
-
         [SerializeField] private ScriptableRoomState initialState;
         private ScriptableState activeState = null;
 
@@ -32,13 +31,13 @@ namespace CleanRoom.ScriptableStateMachine
         /// </summary>
         /// <param name="state">The state needs to be entered</param>
         /// <returns>true is a new state is entered.</returns>
-        public bool TryEnterState(ScriptableState state)
+        private bool TryEnterState(ScriptableState state)
         {
             if (state == activeState || !state.CanEnter)
             {
                 return false;
             }
-            
+
             TransitionType transitionType =
                 DetermineTransitionType(activeState.GetType(), state.GetType());
 
@@ -65,23 +64,21 @@ namespace CleanRoom.ScriptableStateMachine
                 default: throw new ArgumentOutOfRangeException();
             }
 
+            activeState = state;
             return true;
         }
 
-        public void GoToNextRoom()
+        public void EnterState(ScriptableState state)
         {
-            if (activeState is not ScriptableRoomState)
+            bool result = TryEnterState(state);
+
+            if (result)
             {
-                throw new InvalidOperationException("must be in room state to go to next");
+                return;
             }
 
-
-            if (!TryEnterState(((ScriptableRoomState)activeState).NextRoom))
-            {
-                throw new InvalidOperationException("could not enter next room");
-            }
+            Debug.LogWarning($"could not enter state: {state.name}");
         }
-
 
         /// <summary>
         ///     Determines the type of the state transition.
