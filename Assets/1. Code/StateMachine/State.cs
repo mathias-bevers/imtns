@@ -116,7 +116,7 @@ namespace CleanRoom.StateMachine
                     continue;
                 }
 
-                gameStateObjects[i].Tick(deltaTime);
+                //gameStateObjects[i].Tick(deltaTime);
             }
         }
 
@@ -139,7 +139,7 @@ namespace CleanRoom.StateMachine
                     continue;
                 }
 
-                gameStateObjects[i].FixedTick(fixedDeltaTime);
+                //gameStateObjects[i].FixedTick(fixedDeltaTime);
             }
         }
 

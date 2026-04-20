@@ -377,10 +377,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: db12796ac359e7b3887836ed0f858594, type: 2}
-        m_TargetAssemblyTypeName: CleanRoom.ScriptableStateMachine.ScriptableRoomState,
-          Assembly-CSharp
-        m_MethodName: GotoNextRoom
+      - m_Target: {fileID: 11400000, guid: a92182dabf63b9cc4915e33a1bf8d3e8, type: 2}
+        m_TargetAssemblyTypeName: CleanRoom.NewStateMachine.StateMachineAPI, Assembly-CSharp
+        m_MethodName: GoToNextRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -835,7 +834,7 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!1001 &2935440214160716276
+--- !u!1001 &5948478457530207398
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -843,55 +842,55 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2513199823535383270, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
-      propertyPath: m_Name
-      value: MainMenuState
-      objectReference: {fileID: 0}
-    - target: {fileID: 4985030206755046991, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+    - target: {fileID: 4521255357721084230, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4985030206755046991, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+    - target: {fileID: 4521255357721084230, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4985030206755046991, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+    - target: {fileID: 4521255357721084230, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4985030206755046991, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+    - target: {fileID: 4521255357721084230, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4985030206755046991, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+    - target: {fileID: 4521255357721084230, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4985030206755046991, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+    - target: {fileID: 4521255357721084230, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4985030206755046991, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+    - target: {fileID: 4521255357721084230, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4985030206755046991, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+    - target: {fileID: 4521255357721084230, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4985030206755046991, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+    - target: {fileID: 4521255357721084230, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4985030206755046991, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+    - target: {fileID: 4521255357721084230, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7976833422253737166, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
+      propertyPath: m_Name
+      value: MainMenuState
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e45aeb5d23877cba5bc301b04f8a1d5e, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -900,4 +899,4 @@ SceneRoots:
   - {fileID: 900952886}
   - {fileID: 1651641270}
   - {fileID: 1103161105}
-  - {fileID: 2935440214160716276}
+  - {fileID: 5948478457530207398}
