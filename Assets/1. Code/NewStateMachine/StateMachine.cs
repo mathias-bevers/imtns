@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +14,7 @@ namespace CleanRoom.NewStateMachine
         private enum TransitionType { RoomToRoom, RoomToGame, GameToRoom }
 
         [SerializeField] private RoomState initialState;
-        private State activeState = null;
+        public State ActiveState { get; private set;  }= null;
 
         public override void Awake()
         {
@@ -21,8 +22,8 @@ namespace CleanRoom.NewStateMachine
 
             base.Awake();
 
-            activeState = initialState;
-            SceneManager.LoadScene(activeState.SceneName, LoadSceneMode.Single);
+            ActiveState = initialState;
+            SceneManager.LoadScene(ActiveState.SceneName, LoadSceneMode.Single);
         }
 
         /// <summary>
@@ -33,15 +34,15 @@ namespace CleanRoom.NewStateMachine
         /// <returns>true is a new state is entered.</returns>
         private bool TryEnterState(State state)
         {
-            if (state == activeState || !state.CanEnter)
+            if (state == ActiveState || !state.CanEnter)
             {
                 return false;
             }
 
             TransitionType transitionType =
-                DetermineTransitionType(activeState.GetType(), state.GetType());
+                DetermineTransitionType(ActiveState.GetType(), state.GetType());
 
-            if (transitionType != TransitionType.RoomToGame && activeState is
+            if (transitionType != TransitionType.RoomToGame && ActiveState is
                     { CanExit: false })
             {
                 return false;
@@ -50,22 +51,21 @@ namespace CleanRoom.NewStateMachine
             switch (transitionType)
             {
                 case TransitionType.RoomToRoom:
-                    activeState?.Exit();
-                    SceneManager.LoadScene(state.SceneName, LoadSceneMode.Single);
-                    state.Enter();
+                    ActiveState?.Exit();
+                    SceneLoader.LoadScene(state.SceneName, LoadSceneMode.Single,
+                        OnSceneLoaded);
                     break;
                 case TransitionType.RoomToGame:
-                    SceneManager.LoadScene(state.SceneName, LoadSceneMode.Additive);
-                    ((RoomState)activeState).UnfocusEvent?.Invoke();
-                    state.Enter();
+                    SceneLoader.LoadScene(state.SceneName, LoadSceneMode.Additive,
+                        OnSceneLoaded);
                     break;
                 case TransitionType.GameToRoom:
-                    SceneManager.UnloadSceneAsync(state.SceneName);
+                    SceneManager.UnloadSceneAsync(ActiveState.SceneName);
+                    OnSceneLoaded(state.SceneName);
                     break;
                 default: throw new ArgumentOutOfRangeException();
             }
 
-            activeState = state;
             return true;
         }
 
@@ -88,7 +88,7 @@ namespace CleanRoom.NewStateMachine
 
         public void GoToNextRoom()
         {
-            if (activeState is not RoomState activeRoomState)
+            if (ActiveState is not RoomState activeRoomState)
             {
                 Debug.LogWarning("can only move to next room from a room");
                 return;
@@ -114,11 +114,13 @@ namespace CleanRoom.NewStateMachine
             {
                 type = TransitionType.RoomToRoom;
             }
-            else if (ot == typeof(RoomState) && tt == typeof(GameState))
+            else if (ot == typeof(RoomState) &&
+                     (tt == typeof(GameState) || tt.IsSubclassOf(typeof(GameState))))
             {
                 type = TransitionType.RoomToGame;
             }
-            else if (ot == typeof(GameState) && tt == typeof(RoomState))
+            else if ((ot == typeof(GameState) || ot.IsSubclassOf(typeof(GameState))) &&
+                     tt == typeof(RoomState))
             {
                 type = TransitionType.GameToRoom;
             }
@@ -129,6 +131,20 @@ namespace CleanRoom.NewStateMachine
             }
 
             return type;
+        }
+
+        private void OnSceneLoaded(string sceneName)
+        {
+            ActiveState = FindObjectsByType<State>(FindObjectsSortMode.InstanceID)
+                .FirstOrDefault(s => string.Equals(s.SceneName, sceneName));
+
+            if (ReferenceEquals(null, ActiveState))
+            {
+                throw new NullReferenceException($"could not find state for: {sceneName}");
+            }
+
+            Debug.Log($"entered state: {ActiveState.StateName}");
+            ActiveState.Enter();
         }
     }
 }

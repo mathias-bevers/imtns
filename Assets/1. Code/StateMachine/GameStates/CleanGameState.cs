@@ -2,43 +2,31 @@ using CleanRoom.Menus;
 using CleanRoom.MiniGames.CleanMiniGame;
 using UnityEngine;
 
-namespace CleanRoom.StateMachine.GameStates
+namespace CleanRoom.NewStateMachine
 {
-    public class CleanItemMiniGameState : GameState
+    public class CleanGameState : GameState
     {
+        public override bool CanEnter => Player.Instance.Inventory.HasItem("Tablet") ||
+                                         !IsCompleted;
+
         [field: SerializeField] public DragAndSnap Wipe { get; private set; }
         [field: SerializeField] public Tablet Tablet { get; private set; }
         [field: SerializeField] public ConditionalOnClick WipeBox { get; private set; }
         [field: SerializeField] public ConditionalOnClick BagDispenser { get; private set; }
-        
+
         [SerializeField] private GameObject interactables;
 
-        public override string Name => "Tablet Schoon Maken";
 
-        protected override void OnEnter()
+        protected void OnEnable()
         {
-            interactables.SetActive(false);
-
-            if (!Player.Instance.Inventory.HasItem("Tablet"))
-            {
-                string message = "Zorg ervoor dat je de tablet bij je hebt!";
-                MenuManager.Instance.GetMenuOfType<PopupMenu>()
-                    .CreatePopup(message, Popup.Level.Warning);
-                return;
-            }
-
-            StartMiniGame();
+            EnterEvent.AddListener(StartMiniGame);
+            ExitEvent.AddListener(ValidateCleanliness);
         }
 
-        protected override void OnExit()
+        protected void OnDisable()
         {
-            ValidateCleanliness();
-            base.OnExit();
-        }
-
-        protected override void Reset()
-        {
-            throw new System.NotImplementedException();
+            EnterEvent.RemoveAllListeners();
+            ExitEvent.RemoveAllListeners();
         }
 
         private void StartMiniGame()

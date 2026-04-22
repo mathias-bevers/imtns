@@ -11,11 +11,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         {
             get
             {
-                if (ReferenceEquals(null, cachedTransform))
-                {
-                    cachedTransform = (RectTransform)transform;
-                }
-
+                cachedTransform ??= (RectTransform)transform;
                 return cachedTransform;
             }
         }

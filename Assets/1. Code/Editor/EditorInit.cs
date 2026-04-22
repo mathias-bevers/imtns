@@ -26,7 +26,7 @@ namespace CleanRoom
                 AssetDatabase.LoadAssetAtPath<SceneAsset>(bootupScene.path);
 
             EditorSceneManager.playModeStartScene = sceneAsset;
-            Debug.Log(bootupScene.path +" was set as the default start scene");
+            //Debug.Log(bootupScene.path +" was set as the default start scene");
         }
     }
 }

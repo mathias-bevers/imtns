@@ -14,17 +14,17 @@ namespace CleanRoom.NewStateMachine
         /// <summary>
         ///     Indicates if the state is completed.
         /// </summary>
-        public bool IsCompleted { get; protected set; } = false;
+        public virtual bool IsCompleted { get; protected set; } = false;
 
         /// <summary>
         ///     Indicated if the state can be entered.
         /// </summary>
-        public bool CanEnter { get; protected set; } = true;
+        public virtual bool CanEnter { get; protected set; } = true;
 
         /// <summary>
         ///     Indicated if the state can be exited.
         /// </summary>
-        public bool CanExit { get; protected set; } = true;
+        public virtual bool CanExit { get; protected set; } = true;
 
         [field: SerializeField] public string StateName { get; protected set; } 
         [field: SerializeField, Scene] public string SceneName { get; protected set; }
