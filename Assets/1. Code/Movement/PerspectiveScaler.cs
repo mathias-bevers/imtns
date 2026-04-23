@@ -9,14 +9,11 @@ public class PerspectiveScaler : MonoBehaviour
     [SerializeField] private Vector2 scaleRange;
     
     private Transform cachedTransform;
-    private float? yDifference;
-    private float? scaleDifference;
+  
     
     private void Awake()
     {
         cachedTransform = transform;
-        yDifference = yRange.y - yRange.x;
-        scaleDifference = scaleRange.y - scaleRange.x;
     }
 
     private void LateUpdate()
@@ -39,14 +36,12 @@ public class PerspectiveScaler : MonoBehaviour
     
     private void Scale(Transform target)
     {
-        if (!yDifference.HasValue || !scaleDifference.HasValue)
-        {
-            yDifference = yRange.y - yRange.x;
-            scaleDifference = scaleRange.y - scaleRange.x;
-        }
+        float yDifference = yRange.y - yRange.x;
+        float scaleDifference = scaleRange.y - scaleRange.x;
         
-        float yPercent  = (yRange.y - target.position.y) / yDifference.Value;
-        float scale = scaleRange.x + (scaleDifference.Value * yPercent);
+        float yPercent  = (yRange.y - target.position.y) / yDifference;
+        yPercent = Mathf.Clamp01(yPercent);
+        float scale = scaleRange.x + (scaleDifference * yPercent);
         target.localScale = new Vector3(scale, scale, 1);
     }
 }
