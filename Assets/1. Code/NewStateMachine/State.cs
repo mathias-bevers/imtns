@@ -21,12 +21,17 @@ namespace CleanRoom.NewStateMachine
         ///     Indicated if the state can be exited.
         /// </summary>
         public virtual bool CanExit { get; protected set; } = true;
+        
+        /// <summary>
+        ///     Invoked when the state is completed.
+        /// </summary>
+        public event Action<string> completedEvent;
 
         [field: SerializeField] public string StateName { get; protected set; }
         [field: SerializeField, Scene] public string SceneName { get; protected set; }
         [field: SerializeField] public UnityEvent EnterEvent { get; private set; }
         [field: SerializeField] public UnityEvent ExitEvent { get; private set; }
-        public event Action<string> completedEvent;
+
 
         public void Enter()
         {

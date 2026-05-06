@@ -71,7 +71,8 @@ namespace CleanRoom.NewStateMachine
                         OnSceneLoaded);
                     break;
                 case TransitionType.GameToRoom:
-                    SceneManager.UnloadSceneAsync(ActiveState.SceneName);
+                    ActiveState?.Exit();
+                    SceneManager.UnloadSceneAsync(ActiveState?.SceneName);
                     OnSceneLoaded(state.SceneName);
                     break;
                 default: throw new ArgumentOutOfRangeException();
@@ -157,10 +158,14 @@ namespace CleanRoom.NewStateMachine
             }
 
             Debug.Log($"entered state: {ActiveState.StateName}");
-            ActiveState.Enter();
             ActiveState.completedEvent += OnStateCompleted;
+            ActiveState.Enter();
         }
 
-        private void OnStateCompleted(string stateName) => completedStates.Add(stateName);
+        private void OnStateCompleted(string stateName)
+        {
+            completedStates.Add(stateName);
+            Debug.Log("completed state: " + stateName);
+        }
     }
 }

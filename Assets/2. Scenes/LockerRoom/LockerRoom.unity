@@ -2461,15 +2461,13 @@ MonoBehaviour:
   <OnInteract>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8211395702315262059, guid: 97fa4a5f1c0e97a3c92964753375b4fa, type: 3}
-        m_TargetAssemblyTypeName: CleanRoom.ScriptableStateMachine.StateMachine,
-          Assembly-CSharp
+      - m_Target: {fileID: 11400000, guid: a92182dabf63b9cc4915e33a1bf8d3e8, type: 2}
+        m_TargetAssemblyTypeName: CleanRoom.NewStateMachine.StateMachineAPI, Assembly-CSharp
         m_MethodName: EnterState
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 105db471332fdff91b7effb0b1e2dc41, type: 2}
-          m_ObjectArgumentAssemblyTypeName: CleanRoom.ScriptableStateMachine.ScriptableState,
-            Assembly-CSharp
+          m_ObjectArgument: {fileID: 4298008395357795535, guid: ef63e694a779ebc819b0d9b0066edbaf, type: 3}
+          m_ObjectArgumentAssemblyTypeName: CleanRoom.NewStateMachine.State, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
