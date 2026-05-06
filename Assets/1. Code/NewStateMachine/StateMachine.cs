@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,7 +15,9 @@ namespace CleanRoom.NewStateMachine
         private enum TransitionType { RoomToRoom, RoomToGame, GameToRoom }
 
         [SerializeField] private RoomState initialState;
-        public State ActiveState { get; private set;  }= null;
+        public State ActiveState { get; private set; } = null;
+
+        private HashSet<string> completedStates = null;
 
         public override void Awake()
         {
@@ -22,6 +25,7 @@ namespace CleanRoom.NewStateMachine
 
             base.Awake();
 
+            completedStates = new HashSet<string>();
             ActiveState = initialState;
             SceneManager.LoadScene(ActiveState.SceneName, LoadSceneMode.Single);
         }
@@ -39,6 +43,11 @@ namespace CleanRoom.NewStateMachine
                 return false;
             }
 
+            if (completedStates.Contains(state.StateName))
+            {
+                return false;
+            }
+
             TransitionType transitionType =
                 DetermineTransitionType(ActiveState.GetType(), state.GetType());
 
@@ -47,6 +56,8 @@ namespace CleanRoom.NewStateMachine
             {
                 return false;
             }
+
+            ActiveState.completedEvent -= OnStateCompleted;
 
             switch (transitionType)
             {
@@ -84,8 +95,7 @@ namespace CleanRoom.NewStateMachine
 
             Debug.LogWarning($"could not enter state: {state.name}");
         }
-
-
+        
         public void GoToNextRoom()
         {
             if (ActiveState is not RoomState activeRoomState)
@@ -96,6 +106,9 @@ namespace CleanRoom.NewStateMachine
 
             EnterState(activeRoomState.NextRoom);
         }
+
+        public bool IsStateCompleted(string stateName) =>
+            completedStates.Contains(stateName);
 
         /// <summary>
         ///     Determines the type of the state transition.
@@ -145,6 +158,9 @@ namespace CleanRoom.NewStateMachine
 
             Debug.Log($"entered state: {ActiveState.StateName}");
             ActiveState.Enter();
+            ActiveState.completedEvent += OnStateCompleted;
         }
+
+        private void OnStateCompleted(string stateName) => completedStates.Add(stateName);
     }
 }

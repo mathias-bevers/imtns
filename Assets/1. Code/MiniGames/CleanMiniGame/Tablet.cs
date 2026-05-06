@@ -103,7 +103,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             bag.gameObject.SetActive(false);
             gameObject.SetActive(false);
             state.BagDispenser.PreventInvoke = true;
-            state.CompleteGame();
+            state.Complete();
         }
 
         private bool InInteractionRadius(Vector2 otherPosition)

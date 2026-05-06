@@ -6,8 +6,8 @@ namespace CleanRoom.NewStateMachine
 {
     public class CleanGameState : GameState
     {
-        public override bool CanEnter => Player.Instance.Inventory.HasItem("Tablet") ||
-                                         !IsCompleted;
+        public override bool CanEnter =>
+            base.CanEnter && Player.Instance.Inventory.HasItem("Tablet");
 
         [field: SerializeField] public DragAndSnap Wipe { get; private set; }
         [field: SerializeField] public Tablet Tablet { get; private set; }
@@ -15,7 +15,6 @@ namespace CleanRoom.NewStateMachine
         [field: SerializeField] public ConditionalOnClick BagDispenser { get; private set; }
 
         [SerializeField] private GameObject interactables;
-
 
         protected void OnEnable()
         {
