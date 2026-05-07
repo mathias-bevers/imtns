@@ -18,6 +18,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
         public void Setup(InventoryItem data)
         {
             cachedTransform = transform;
+            TransformAfterDrag = cachedTransform.parent;
             Data = data;
 
             image = GetComponent<Image>();

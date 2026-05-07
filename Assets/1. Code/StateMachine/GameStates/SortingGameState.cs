@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using CleanRoom.Inventory;
 using CleanRoom.Menus;
 using CleanRoom.MiniGames.LockerMiniGame;
@@ -8,12 +10,11 @@ namespace CleanRoom.NewStateMachine
     public class SortingGameState : GameState
     {
         [field: SerializeField] public Canvas Canvas { get; private set; }
-        public int Mistakes { get; private set; }
 
         [SerializeField] private Item itemPrefab;
+        private Dictionary<InventoryItem.DestinationType, ItemContainer> containers;
         private PopupMenu popupMenu;
         private Transform cleanRoomContainer;
-        private ItemContainer[] containers;
 
         private void OnEnable()
         {
@@ -30,14 +31,15 @@ namespace CleanRoom.NewStateMachine
         private void StartMiniGame()
         {
             popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>();
+            containers = new Dictionary<InventoryItem.DestinationType, ItemContainer>();
 
-            containers = GetComponentsInChildren<ItemContainer>(true);
-            for (int i = 0; i < containers.Length; ++i)
+            foreach (ItemContainer container in GetComponentsInChildren<ItemContainer>(true))
             {
-                containers[i].itemDroppedEvent += OnItemDropped;
+                containers.Add(container.Destination, container);
+                container.itemDroppedEvent += OnItemDropped;
             }
 
-            LoadInventory();
+            LoadItems();
         }
 
         private void OnItemDropped(bool isCorrect)
@@ -46,101 +48,84 @@ namespace CleanRoom.NewStateMachine
             {
                 popupMenu.CreatePopup("dat was niet correct!", Popup.Level.Warning);
             }
-            
+
             ValidateItems(false);
         }
 
-        private void LoadInventory()
+        private void PopulateContainer(Transform container, InventoryItem[] items)
         {
-            InventoryItem[] inventory = Player.Instance.Inventory.GetInventory();
-
-            if (ReferenceEquals(null, cleanRoomContainer))
+            if (ReferenceEquals(container, null))
             {
-                SetCleanRoomContainer();
+                throw new NullReferenceException("container is null");
             }
 
-            cleanRoomContainer.DestroyAllChildren();
+            container.DestroyAllChildren();
 
-            for (int i = 0; i < inventory.Length; ++i)
+            if (items.IsNullOrEmpty())
             {
-                Item item = Instantiate(itemPrefab, cleanRoomContainer);
-                item.Setup(inventory[i]);
+                return;
+            }
+
+            for (int i = 0; i < items.Length; ++i)
+            {
+                Item item = Instantiate(itemPrefab, container);
+                item.Setup(items[i]);
             }
         }
 
+        private void LoadItems()
+        {
+            PopulateContainer(containers[InventoryItem.DestinationType.CleanRoom].Grid.transform,
+                Player.Instance.Inventory.GetInventory());
+
+            //TODO: load for locker and trash
+        }
+
         private void ValidateItems() => ValidateItems(true);
-        
+
         private void ValidateItems(bool isClosing)
         {
-            Mistakes = 0;
+            int mistakes = 0;
             string log = string.Empty;
 
-            for (int i = 0; i < containers.Length; ++i)
+            foreach (ItemContainer container in containers.Values)
             {
-                Item[] children = containers[i].Grid.GetComponentsInChildren<Item>();
-                for (int ii = 0; ii < children.Length; ++ii)
+                Item[] contents = container.Grid.GetComponentsInChildren<Item>();
+                for (int i = 0; i < contents.Length; ++i)
                 {
-                    if (containers[i].Destination == children[ii].Data.Destination)
+                    if (container.Destination == contents[i].Data.Destination)
                     {
                         continue;
                     }
 
-                    log += $"{children[ii].name}: {containers[i].Destination} != " +
-                           $"{children[ii].Data.Destination}\n";
-                    ++Mistakes;
+                    log += $"{contents[i].name}: {container.Destination} != {contents[i].Data.Destination}\n";
+                    ++mistakes;
                 }
             }
 
-            if (Mistakes < 1 && !isClosing)
+            switch (isClosing)
             {
-                popupMenu.CreatePopup("Je hebt alles op de goede plek!", Popup.Level.Info);
-                Complete();
-                
-                foreach (Item item in GetComponentsInChildren<Item>())
+                case true when mistakes >= 1:
                 {
-                    item.enabled = false;
-                    item.OnEndDrag(null);
+                    string message = $"Oeps, je hebt {mistakes} fout(en) gemaakt!";
+                    popupMenu.CreatePopup(message, Popup.Level.Warning);
+                    Debug.Log(log);
+                    return;
                 }
-                return;
-            }
-
-            if (!isClosing)
-            {
-                return;
-            }
-            
-            string message = $"Oeps, je hebt {Mistakes} fout(en) gemaakt!";
-            popupMenu.CreatePopup(message, Popup.Level.Warning);
-            Debug.Log(log);
-        }
-
-        private int GetContainerByDestination(InventoryItem.DestinationType destination)
-        {
-            for (int i = 0; i < containers.Length; ++i)
-            {
-                if (destination != containers[i].Destination)
+                case false when mistakes < 1:
                 {
-                    continue;
+                    popupMenu.CreatePopup("Je hebt alles op de goede plek!", Popup.Level.Info);
+                    Complete();
+
+                    foreach (Item item in GetComponentsInChildren<Item>())
+                    {
+                        item.OnEndDrag(null);
+                        item.enabled = false;
+                    }
+
+                    return;
                 }
-
-                return i;
             }
-
-            return -1;
-        }
-
-        private void SetCleanRoomContainer()
-        {
-            int cleanRoomIndex =
-                GetContainerByDestination(InventoryItem.DestinationType.CleanRoom);
-
-            if (cleanRoomIndex < 0)
-            {
-                Debug.LogError("could not find container for destination: clean room");
-                return;
-            }
-
-            cleanRoomContainer = containers[cleanRoomIndex].Grid.transform;
         }
     }
 }
