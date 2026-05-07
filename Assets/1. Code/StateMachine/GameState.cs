@@ -1,95 +1,65 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace CleanRoom.StateMachine
 {
-    public abstract class GameState : MonoBehaviour
+    /// <summary>
+    ///     This class is the base for all the <see cref="State" /> that hold a game.
+    /// </summary>
+    public abstract class GameState : State
     {
-        public bool IsActive { get; private set; } = false;
-        
-        private readonly List<IGameStateObject> gameStateObjects = new();
-        private Transform cachedTransform;
+        /// <summary>
+        ///     Times the user has attempted to complete the game.
+        /// </summary>
+        public int Attempt { get; private set; } = 0;
 
-        public virtual void Initialize() { }
+        public abstract string Name { get; }
 
-        protected virtual void OnEnter() { }
+        /// <summary>
+        ///     When the room enters, the <see cref="Attempt" /> property is increased by
+        ///     one.
+        /// </summary>
+        protected override void OnEnter() => ++Attempt;
 
-        public void Enter(bool skipOnEnter = false)
+        /// <summary>
+        ///     Unless the game is completed, the game is reset on exit.
+        /// </summary>
+        protected override void OnExit()
         {
-            cachedTransform ??= transform;
-
-            for (int i = 0; i < cachedTransform.childCount; ++i)
-            {
-                cachedTransform.GetChild(i).gameObject.SetActive(true);
-            }
-
-            IsActive = true;
-
-            if (skipOnEnter)
+            if (IsCompleted)
             {
                 return;
             }
-            
-            OnEnter();
+
+            Reset();
         }
 
-        public void AddStateObject(IGameStateObject gameStateObject)
+        /// <summary>
+        ///     Resets the game to the starting state.
+        /// </summary>
+        protected abstract void Reset();
+
+        /// <summary>
+        ///     Converts the <see cref="GameState" /> into <see cref="GameStateData" />.
+        /// </summary>
+        /// <returns>
+        ///     <see cref="GameStateData" /> of the current <see cref="GameState" />.
+        /// </returns>
+        public GameStateData GetAsData() => new(Name, Attempt, IsCompleted);
+    }
+
+    /// <summary>
+    ///     A struct to that captures the essential data of the <see cref="GameState" /> for
+    ///     displaying info in the hud.
+    /// </summary>
+    public struct GameStateData
+    {
+        public readonly string name;
+        public readonly int attempts;
+        public readonly bool completed;
+
+        public GameStateData(string name, int attempts, bool completed)
         {
-            if (gameStateObjects.Contains(gameStateObject))
-            {
-                return;
-            }
-            
-            gameStateObjects.Add(gameStateObject);
-        }
-
-        public void RemoveStateObject(IGameStateObject gameStateObject) => gameStateObjects.Remove(gameStateObject);
-
-        public virtual void Tick(float deltaTime)
-        {
-            for (int i = gameStateObjects.Count - 1; i >= 0; --i)
-            {
-                if (ReferenceEquals(null, gameStateObjects[i]))
-                {
-                    continue;
-                }
-                
-                gameStateObjects[i].Tick(deltaTime);
-            }
-        }
-
-        public virtual void FixedTick(float fixedDeltaTime)
-        {
-            for (int i = gameStateObjects.Count - 1; i >= 0; --i)
-            {
-                if (ReferenceEquals(null, gameStateObjects[i]))
-                {
-                    continue;
-                }
-                
-                gameStateObjects[i].FixedTick(fixedDeltaTime);
-            }
-        }
-        
-        protected virtual void OnExit() { }
-
-        public void Exit(bool skipOnExit = false)
-        {
-            IsActive = false;
-
-            cachedTransform ??= transform;
-
-            for (int i = 0; i < cachedTransform.childCount; ++i)
-            {
-                cachedTransform.GetChild(i).gameObject.SetActive(false);
-            }
-
-            if (skipOnExit)
-            {
-                return;
-            }
-            
-            OnExit();
+            this.name = name;
+            this.attempts = attempts;
+            this.completed = completed;
         }
     }
 }

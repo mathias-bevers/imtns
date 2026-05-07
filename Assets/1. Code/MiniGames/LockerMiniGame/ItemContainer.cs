@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using CleanRoom.Inventory;
 using CleanRoom.Menus;
@@ -13,6 +14,8 @@ namespace CleanRoom.MiniGames.LockerMiniGame
         [field: SerializeField] public GridLayoutGroup Grid { get; private set; }
         [SerializeField] private RectTransform scrollRectTransform;
 
+        public event Action<bool> itemDroppedEvent;
+
         private GridLayoutGroupResizer resizer;
         private int minHeight;
 
@@ -21,6 +24,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             resizer = GetComponentInChildren<GridLayoutGroupResizer>();
             minHeight = Mathf.RoundToInt(scrollRectTransform.rect.height);
             resizer.Resize(minHeight);
+            //Debug.Log(name + ": " + minHeight);
         }
 
 
@@ -35,6 +39,8 @@ namespace CleanRoom.MiniGames.LockerMiniGame
 
             item.TransformAfterDrag = Grid.transform;
             resizer.Resize(minHeight);
+            
+            itemDroppedEvent?.Invoke(item.Data.Destination == Destination);
             
             if (Destination == InventoryItem.DestinationType.CleanRoom)
             {

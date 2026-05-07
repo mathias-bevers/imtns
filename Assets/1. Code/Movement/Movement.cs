@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CleanRoom.Movement
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Movement : MonoBehaviour, IGameStateObject
+    public class Movement : MonoBehaviour
     {
         [SerializeField] private MovementInput input;
         [SerializeField] private float movementSpeed;
@@ -20,7 +20,6 @@ namespace CleanRoom.Movement
             }
 
             rigidbody2D = GetComponent<Rigidbody2D>();
-            transform.GetComponentInParents<GameState>().AddStateObject(this);
         }
 
         private void Move(Vector2 inputAxis)
@@ -28,13 +27,8 @@ namespace CleanRoom.Movement
             Vector2 target = rigidbody2D.position + (inputAxis * (Time.fixedDeltaTime * movementSpeed)); 
             rigidbody2D.MovePosition(target);
         }
-
-        public void Tick(float deltaTime)
-        {
-            
-        }
         
-        public void FixedTick(float fixedDeltaTime)
+        public void FixedUpdate()
         {
             Move(input.GetInput());
         }

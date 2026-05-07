@@ -7,6 +7,12 @@ namespace CleanRoom.Menus
     {
         private readonly HashSet<Menu> menus = new();
 
+        public override void Awake()
+        {
+            base.Awake();
+            DontDestroyOnLoad(gameObject);
+        }
+
         public void RegisterMenu(Menu menu)
         {
             menus.Add(menu);

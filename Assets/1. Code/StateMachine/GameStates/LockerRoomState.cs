@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CleanRoom.StateMachine.GameStates
 {
-    public class RoamingGameState : GameState
+    public class LockerRoomState : State
     {
         [SerializeField] private CameraFollow follow;
 

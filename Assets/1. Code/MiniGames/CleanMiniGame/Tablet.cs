@@ -1,10 +1,9 @@
-using CleanRoom.StateMachine;
-using CleanRoom.StateMachine.GameStates;
+using CleanRoom.NewStateMachine;
 using UnityEngine;
 
 namespace CleanRoom.MiniGames.CleanMiniGame
 {
-    public class Tablet : MonoBehaviour, IGameStateObject
+    public class Tablet : MonoBehaviour
     {
         public enum CleanlinessLevel
         {
@@ -21,7 +20,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         [SerializeField] private GameObject baggedTablet;
         
         public CleanlinessLevel Cleanliness { get; private set; } = CleanlinessLevel.Dirty;
-        private CleanItemMiniGameState state = null;
+        private CleanGameState state = null;
         private float distance = 0;
 
         private Transform isopropylStain;
@@ -31,20 +30,22 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         {
             cachedTransform = transform;
             isopropylStain = cachedTransform.GetChild(0);
-            state = cachedTransform.GetComponentInParents<CleanItemMiniGameState>();
-            state.AddStateObject(this);
+            state = FindAnyObjectByType<CleanGameState>();
         }
 
-        public void Tick(float deltaTime)
+        private void Update()
         {
             CheckIsopropyl();
             CheckBag();
         }
 
-        public void FixedTick(float fixedDeltaTime) { }
-
         public void SpawnDirt()
         {
+            for (int i = 0; i < cachedTransform.childCount - 1; ++i)
+            {
+                Destroy(cachedTransform.GetChild(i).gameObject);
+            }
+            
             int dirtCount = Random.Range(3, 6);
 
             for (int i = 0; i < dirtCount; ++i)
@@ -102,8 +103,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             bag.gameObject.SetActive(false);
             gameObject.SetActive(false);
             state.BagDispenser.PreventInvoke = true;
-            
-            //TODO: set state as completed
+            state.Complete();
         }
 
         private bool InInteractionRadius(Vector2 otherPosition)

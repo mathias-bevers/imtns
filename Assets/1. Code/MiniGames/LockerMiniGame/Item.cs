@@ -1,5 +1,5 @@
 using CleanRoom.Inventory;
-using CleanRoom.StateMachine.GameStates;
+using CleanRoom.NewStateMachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,10 +15,10 @@ namespace CleanRoom.MiniGames.LockerMiniGame
         private Transform cachedTransform = null;
         private Image image;
 
-
         public void Setup(InventoryItem data)
         {
             cachedTransform = transform;
+            TransformAfterDrag = cachedTransform.parent;
             Data = data;
 
             image = GetComponent<Image>();
@@ -30,7 +30,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
                 return;
             }
 
-            _canvas = cachedTransform.GetComponentInParents<LockerMiniGameState>().Canvas;
+            _canvas = cachedTransform.GetComponentInParents<SortingGameState>().Canvas;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
