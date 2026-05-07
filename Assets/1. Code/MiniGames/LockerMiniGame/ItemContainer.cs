@@ -1,6 +1,5 @@
 using System;
-using System.Globalization;
-using CleanRoom.Inventory;
+using CleanRoom.InventorySystem;
 using CleanRoom.Menus;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,6 +37,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             }
 
             item.TransformAfterDrag = Grid.transform;
+            item.CachedTransform.SetParent(item.TransformAfterDrag);
             resizer.Resize(minHeight);
             
             itemDroppedEvent?.Invoke(item.Data.Destination == Destination);
