@@ -725,7 +725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6472638634135833938
 RectTransform:
   m_ObjectHideFlags: 0
@@ -766,7 +766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.1882353, g: 0.20392157, b: 0.27450982, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1430,12 +1430,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: a92182dabf63b9cc4915e33a1bf8d3e8, type: 2}
-        m_TargetAssemblyTypeName: CleanRoom.NewStateMachine.StateMachineAPI, Assembly-CSharp
+        m_TargetAssemblyTypeName: CleanRoom.StateMachine.StateMachineAPI, Assembly-CSharp
         m_MethodName: EnterState
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-          m_ObjectArgumentAssemblyTypeName: CleanRoom.NewStateMachine.State, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: CleanRoom.StateMachine.State, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

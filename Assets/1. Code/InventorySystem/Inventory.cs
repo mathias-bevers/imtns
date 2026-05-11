@@ -59,13 +59,14 @@ namespace CleanRoom.InventorySystem
 
         public bool Remove(InventoryItem item)
         {
-            int itemCount = GetItemCount(item.Name);
-            if (itemCount <= 0)
+            int index = inventory.IndexOf(item);
+            
+            if (index < 0)
             {
                 return false;
             }
 
-            inventory.Remove(item);
+            inventory.RemoveAt(index);
             return true;
         }
 

@@ -7,7 +7,7 @@ using CleanRoom.MiniGames.LockerMiniGame;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-namespace CleanRoom.NewStateMachine
+namespace CleanRoom.StateMachine
 {
     public class SortingGameState : GameState
     {
@@ -51,6 +51,7 @@ namespace CleanRoom.NewStateMachine
             if (!isCorrect)
             {
                 popupMenu.CreatePopup("dat was niet correct!", Popup.Level.Warning);
+                MenuManager.Instance.GetMenuOfType<OverlayMenu>().PlayMistakeAnimation();
             }
 
             ValidateItems(false);

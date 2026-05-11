@@ -6,16 +6,16 @@ namespace CleanRoom.Interactables
 {
     public class InteractionZone : MonoBehaviour
     {
+        private const string PLAYER_TAG = "Player";
+        
         [field: SerializeField] public UnityEvent OnInteract { get; private set; }
         private static OnScreenControllerMenu _hud;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Player player = other.GetComponent<Player>();
-
-            if (ReferenceEquals(null, player))
+            if (!other.CompareTag(PLAYER_TAG))
             {
-                return;
+                 return;  
             }
 
             _hud ??= MenuManager.Instance.GetMenuOfType<OnScreenControllerMenu>();
@@ -24,9 +24,7 @@ namespace CleanRoom.Interactables
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            Player player = other.GetComponent<Player>();
-
-            if (ReferenceEquals(null, player))
+            if (!other.CompareTag(PLAYER_TAG))
             {
                 return;
             }

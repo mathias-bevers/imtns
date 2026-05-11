@@ -2,7 +2,7 @@ using CleanRoom.Menus;
 using CleanRoom.MiniGames.CleanMiniGame;
 using UnityEngine;
 
-namespace CleanRoom.NewStateMachine
+namespace CleanRoom.StateMachine
 {
     public class CleanGameState : GameState
     {

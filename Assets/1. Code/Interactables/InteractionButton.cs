@@ -10,14 +10,12 @@ namespace CleanRoom.Interactables
         {
             this.interactionZone = interactionZone;
             onClick.AddListener(this.interactionZone.OnInteract.Invoke);
-            interactable = true;
         }
 
         public void OnInteractionZoneExit(InteractionZone interactionZone)
         {
             this.interactionZone = interactionZone;
             onClick.RemoveListener(this.interactionZone.OnInteract.Invoke);
-            interactable = false;
         }
     }
 }

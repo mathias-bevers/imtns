@@ -1,6 +1,6 @@
 using System;
 using CleanRoom.Menus;
-using CleanRoom.NewStateMachine;
+using CleanRoom.StateMachine;
 using UnityEngine;
 
 namespace CleanRoom.MiniGames.CleanMiniGame
@@ -34,7 +34,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         {
             cachedTransform = (RectTransform)transform;
 
-            state = NewStateMachine.StateMachine.Instance.ActiveState as CleanGameState;
+            state = StateMachine.StateMachine.Instance.ActiveState as CleanGameState;
             wipe = state?.Wipe;
 
             cachedTransform.sizeDelta *= scale;
@@ -54,8 +54,10 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
             if (state.Tablet.Cleanliness < Tablet.CleanlinessLevel.Sprayed)
             {
-                MenuManager.Instance.GetMenuOfType<PopupMenu>()
-                    .CreatePopup(NO_SPRAY_WARNING, Popup.Level.Warning);
+                MenuManager menuManager = MenuManager.Instance;
+                menuManager.GetMenuOfType<PopupMenu>().CreatePopup(NO_SPRAY_WARNING, Popup.Level.Warning);
+                menuManager.GetMenuOfType<OverlayMenu>().PlayMistakeAnimation();
+                
                 wipe.OnEndDrag(null);
                 return;
             }
