@@ -51,6 +51,7 @@ namespace CleanRoom.StateMachine
             if (!isCorrect)
             {
                 popupMenu.CreatePopup("dat was niet correct!", Popup.Level.Warning);
+                MenuManager.Instance.GetMenuOfType<OverlayMenu>().PlayMistakeAnimation();
             }
 
             ValidateItems(false);

@@ -54,8 +54,10 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
             if (state.Tablet.Cleanliness < Tablet.CleanlinessLevel.Sprayed)
             {
-                MenuManager.Instance.GetMenuOfType<PopupMenu>()
-                    .CreatePopup(NO_SPRAY_WARNING, Popup.Level.Warning);
+                MenuManager menuManager = MenuManager.Instance;
+                menuManager.GetMenuOfType<PopupMenu>().CreatePopup(NO_SPRAY_WARNING, Popup.Level.Warning);
+                menuManager.GetMenuOfType<OverlayMenu>().PlayMistakeAnimation();
+                
                 wipe.OnEndDrag(null);
                 return;
             }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CleanRoom.Menus;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,8 +13,6 @@ namespace CleanRoom.StateMachine
     /// </summary>
     public class StateMachine : Singleton<StateMachine>
     {
-        private enum TransitionType { RoomToRoom, RoomToGame, GameToRoom }
-
         [SerializeField] private RoomState initialState;
         public State ActiveState { get; private set; } = null;
 
@@ -48,27 +47,24 @@ namespace CleanRoom.StateMachine
                 return false;
             }
 
-            TransitionType transitionType =
-                DetermineTransitionType(ActiveState.GetType(), state.GetType());
+            TransitionType transitionType = DetermineTransitionType(ActiveState.GetType(), state.GetType());
 
-            if (transitionType != TransitionType.RoomToGame && ActiveState is
-                    { CanExit: false })
+            if (transitionType != TransitionType.RoomToGame && ActiveState is { CanExit: false })
             {
                 return false;
             }
 
             ActiveState.completedEvent -= OnStateCompleted;
+            ActiveState.completedEvent -= OnGameStateCompleted;
 
             switch (transitionType)
             {
                 case TransitionType.RoomToRoom:
                     ActiveState?.Exit();
-                    SceneLoader.LoadScene(state.SceneName, LoadSceneMode.Single,
-                        OnSceneLoaded);
+                    SceneLoader.LoadScene(state.SceneName, LoadSceneMode.Single, OnSceneLoaded);
                     break;
                 case TransitionType.RoomToGame:
-                    SceneLoader.LoadScene(state.SceneName, LoadSceneMode.Additive,
-                        OnSceneLoaded);
+                    SceneLoader.LoadScene(state.SceneName, LoadSceneMode.Additive, OnSceneLoaded);
                     break;
                 case TransitionType.GameToRoom:
                     ActiveState?.Exit();
@@ -96,7 +92,7 @@ namespace CleanRoom.StateMachine
 
             Debug.LogWarning($"could not enter state: {state.name}");
         }
-        
+
         public void GoToNextRoom()
         {
             if (ActiveState is not RoomState activeRoomState)
@@ -128,20 +124,17 @@ namespace CleanRoom.StateMachine
             {
                 type = TransitionType.RoomToRoom;
             }
-            else if (ot == typeof(RoomState) &&
-                     (tt == typeof(GameState) || tt.IsSubclassOf(typeof(GameState))))
+            else if (ot == typeof(RoomState) && (tt == typeof(GameState) || tt.IsSubclassOf(typeof(GameState))))
             {
                 type = TransitionType.RoomToGame;
             }
-            else if ((ot == typeof(GameState) || ot.IsSubclassOf(typeof(GameState))) &&
-                     tt == typeof(RoomState))
+            else if ((ot == typeof(GameState) || ot.IsSubclassOf(typeof(GameState))) && tt == typeof(RoomState))
             {
                 type = TransitionType.GameToRoom;
             }
             else
             {
-                throw new InvalidOperationException(
-                    $"Invalid transition: {ot.Name}->{tt.Name}");
+                throw new InvalidOperationException($"Invalid transition: {ot.Name}->{tt.Name}");
             }
 
             return type;
@@ -156,8 +149,13 @@ namespace CleanRoom.StateMachine
             {
                 throw new NullReferenceException($"could not find state for: {sceneName}");
             }
-            
+
             ActiveState.completedEvent += OnStateCompleted;
+            if (ActiveState is GameState)
+            {
+                ActiveState.completedEvent += OnGameStateCompleted;
+            }
+
             ActiveState.Enter();
         }
 
@@ -166,5 +164,10 @@ namespace CleanRoom.StateMachine
             completedStates.Add(stateName);
             Debug.Log("completed state: " + stateName);
         }
+
+        private void OnGameStateCompleted(string _) =>
+            MenuManager.Instance.GetMenuOfType<OverlayMenu>().PlayCompleteAnimation();
+
+        private enum TransitionType { RoomToRoom, RoomToGame, GameToRoom }
     }
 }

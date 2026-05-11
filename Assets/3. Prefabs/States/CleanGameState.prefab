@@ -1430,12 +1430,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: a92182dabf63b9cc4915e33a1bf8d3e8, type: 2}
-        m_TargetAssemblyTypeName: CleanRoom.NewStateMachine.StateMachineAPI, Assembly-CSharp
+        m_TargetAssemblyTypeName: CleanRoom.StateMachine.StateMachineAPI, Assembly-CSharp
         m_MethodName: EnterState
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-          m_ObjectArgumentAssemblyTypeName: CleanRoom.NewStateMachine.State, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: CleanRoom.StateMachine.State, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
