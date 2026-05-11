@@ -156,8 +156,7 @@ namespace CleanRoom.NewStateMachine
             {
                 throw new NullReferenceException($"could not find state for: {sceneName}");
             }
-
-            Debug.Log($"entered state: {ActiveState.StateName}");
+            
             ActiveState.completedEvent += OnStateCompleted;
             ActiveState.Enter();
         }
