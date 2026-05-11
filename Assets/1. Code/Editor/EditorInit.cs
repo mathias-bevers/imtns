@@ -9,24 +9,31 @@ namespace CleanRoom
     public class EditorInit
     {
         private const string BOOTUP = "_BOOTUP";
+        private static readonly bool TESTING_MODE = false;
 
         static EditorInit()
         {
-            EditorBuildSettingsScene bootupScene = Array.Find(EditorBuildSettings.scenes,
-                s => s.path.Contains(BOOTUP));
-
-            if (ReferenceEquals(null, bootupScene))
+            if (TESTING_MODE)
             {
-                Debug.LogError("Could not find \"_BOOTUP\" scene, make sure it exists and" +
-                               " is in the build settings");
-                return;
+                EditorSceneManager.playModeStartScene = null;
             }
+            else
+            {
+                EditorBuildSettingsScene bootupScene = Array.Find(EditorBuildSettings.scenes,
+                    s => s.path.Contains(BOOTUP));
 
-            SceneAsset sceneAsset =
-                AssetDatabase.LoadAssetAtPath<SceneAsset>(bootupScene.path);
+                if (ReferenceEquals(null, bootupScene))
+                {
+                    Debug.LogError("Could not find \"_BOOTUP\" scene, make sure it exists and" +
+                                   " is in the build settings");
+                    return;
+                }
 
-            EditorSceneManager.playModeStartScene = sceneAsset;
-            //Debug.Log(bootupScene.path +" was set as the default start scene");
+                SceneAsset sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(bootupScene.path);
+
+                EditorSceneManager.playModeStartScene = sceneAsset;
+                //Debug.Log(bootupScene.path +" was set as the default start scene");
+            }
         }
     }
 }
