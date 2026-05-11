@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
-using CleanRoom.Inventory;
+using System.Linq;
+using CleanRoom.InventorySystem;
 using CleanRoom.Menus;
 using CleanRoom.MiniGames.LockerMiniGame;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace CleanRoom.NewStateMachine
 {
     public class SortingGameState : GameState
     {
-        [field: SerializeField] public Canvas Canvas { get; private set; }
+        private const string FILENAME = "sorting_game.json";
 
+        [field: SerializeField] public Canvas Canvas { get; private set; }
         [SerializeField] private Item itemPrefab;
+
         private Dictionary<InventoryItem.DestinationType, ItemContainer> containers;
         private PopupMenu popupMenu;
         private Transform cleanRoomContainer;
@@ -78,15 +82,32 @@ namespace CleanRoom.NewStateMachine
             PopulateContainer(containers[InventoryItem.DestinationType.CleanRoom].Grid.transform,
                 Player.Instance.Inventory.GetInventory());
 
-            //TODO: load for locker and trash
+            string json = SaveSystem.LoadFile(FILENAME);
+            if (string.IsNullOrEmpty(json))
+            {
+                return;
+            }
+
+            JObject jObject = JObject.Parse(json);
+            
+            string[] locker = (jObject[nameof(InventoryItem.DestinationType.Locker)] as JArray)?.ToObject<string[]>();
+            PopulateContainer(containers[InventoryItem.DestinationType.Locker].Grid.transform,
+                GenerateItemList(locker));
+
+            string[] trash = (jObject[nameof(InventoryItem.DestinationType.Trash)] as JArray)?.ToObject<string[]>();
+            PopulateContainer(containers[InventoryItem.DestinationType.Trash].Grid.transform,
+                GenerateItemList(trash));
         }
+
+        private static InventoryItem[] GenerateItemList(string[] itemNames) =>
+            itemNames.Select(Inventory.GetItemResource).ToArray();
 
         private void ValidateItems() => ValidateItems(true);
 
         private void ValidateItems(bool isClosing)
         {
             int mistakes = 0;
-            string log = string.Empty;
+            JObject json = new();
 
             foreach (ItemContainer container in containers.Values)
             {
@@ -98,10 +119,13 @@ namespace CleanRoom.NewStateMachine
                         continue;
                     }
 
-                    log += $"{contents[i].name}: {container.Destination} != {contents[i].Data.Destination}\n";
                     ++mistakes;
                 }
+
+                json.Add(container.Destination.ToString(), new JArray(contents.Select(i => i.Data.Name)));
             }
+
+            SaveSystem.SaveFile(FILENAME, json.ToString());
 
             switch (isClosing)
             {
@@ -109,12 +133,12 @@ namespace CleanRoom.NewStateMachine
                 {
                     string message = $"Oeps, je hebt {mistakes} fout(en) gemaakt!";
                     popupMenu.CreatePopup(message, Popup.Level.Warning);
-                    Debug.Log(log);
                     return;
                 }
                 case false when mistakes < 1:
                 {
                     popupMenu.CreatePopup("Je hebt alles op de goede plek!", Popup.Level.Info);
+                    SaveSystem.SaveFile(FILENAME, string.Empty);
                     Complete();
 
                     foreach (Item item in GetComponentsInChildren<Item>())

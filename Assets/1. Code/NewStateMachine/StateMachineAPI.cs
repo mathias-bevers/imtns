@@ -15,5 +15,10 @@ namespace CleanRoom.NewStateMachine
         {
             StateMachine.Instance.EnterState(state);
         }
+
+        public void ClearSaves()
+        {
+            SaveSystem.DeleteAllSaves();
+        }
     }
 }

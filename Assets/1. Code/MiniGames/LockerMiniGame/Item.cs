@@ -1,4 +1,4 @@
-using CleanRoom.Inventory;
+using CleanRoom.InventorySystem;
 using CleanRoom.NewStateMachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,46 +9,46 @@ namespace CleanRoom.MiniGames.LockerMiniGame
     public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public InventoryItem Data { get; private set; }
+        public Transform CachedTransform { get; private set;  }
         public Transform TransformAfterDrag { get; set; }
 
-        private static Canvas _canvas;
-        private Transform cachedTransform = null;
+        private Canvas canvas;
         private Image image;
 
         public void Setup(InventoryItem data)
         {
-            cachedTransform = transform;
-            TransformAfterDrag = cachedTransform.parent;
+            CachedTransform = transform;
+            TransformAfterDrag = CachedTransform.parent;
             Data = data;
 
             image = GetComponent<Image>();
             image.sprite = Data.Sprite;
             name = Data.Name;
 
-            if (!ReferenceEquals(null, _canvas))
+            if (!ReferenceEquals(null, canvas))
             {
                 return;
             }
 
-            _canvas = cachedTransform.GetComponentInParents<SortingGameState>().Canvas;
+            canvas = CachedTransform.GetComponentInParents<SortingGameState>().Canvas;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            TransformAfterDrag = cachedTransform.parent;
-            cachedTransform.SetParent(_canvas.transform, true);
+            TransformAfterDrag = CachedTransform.parent;
+            CachedTransform.SetParent(canvas.transform, true);
             image.raycastTarget = false;
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            cachedTransform.position = eventData.position;
+            CachedTransform.position = eventData.position;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
             image.raycastTarget = true;
-            cachedTransform.SetParent(TransformAfterDrag);
+            CachedTransform.SetParent(TransformAfterDrag);
         }
     }
 }
