@@ -7,7 +7,7 @@ using CleanRoom.MiniGames.LockerMiniGame;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-namespace CleanRoom.NewStateMachine
+namespace CleanRoom.StateMachine
 {
     public class SortingGameState : GameState
     {

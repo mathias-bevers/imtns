@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine.UIElements;
 
-namespace CleanRoom.NewStateMachine.Editor
+namespace CleanRoom.StateMachine.Editor
 {
     [CustomEditor(typeof(RoomState))]
     public class RoomStateEditor : UnityEditor.Editor

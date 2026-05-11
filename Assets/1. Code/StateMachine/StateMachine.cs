@@ -1,100 +1,170 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CleanRoom.StateMachine
 {
     /// <summary>
-    ///     This class keeps track of the <see cref="State" />s, update, and switches them.
+    ///     This class keeps track of the <see cref="State" />s, update, and switches
+    ///     them.
     /// </summary>
     public class StateMachine : Singleton<StateMachine>
     {
-        /// <summary>
-        ///     The state the game is entered into first
-        /// </summary>
-        [SerializeField] private RoomState startingRoomState;
+        private enum TransitionType { RoomToRoom, RoomToGame, GameToRoom }
 
-        /// <summary>
-        ///     A map for converting types to their instances.
-        /// </summary>
-        private readonly Dictionary<Type, State> states = new();
+        [SerializeField] private RoomState initialState;
+        public State ActiveState { get; private set; } = null;
 
-        /// <summary>
-        ///     The state that is currently active.
-        /// </summary>
-        private State activeGameState = null;
+        private HashSet<string> completedStates = null;
 
-        /// <summary>
-        ///     This method is called by unity, it searches for all <see cref="State" />s
-        ///     in the current scene, it initializes and deactivates them. The
-        ///     <see cref="State.OnExit" /> method is skipped.
-        /// </summary>
         public override void Awake()
         {
+            DontDestroyOnLoad(gameObject);
+
             base.Awake();
 
-            GameState[] foundStates =
-                FindObjectsByType<GameState>(FindObjectsInactive.Include,
-                    FindObjectsSortMode.None);
-
-            for (int i = 0; i < foundStates.Length; ++i)
-            {
-                GameState gameState = foundStates[i];
-                states.Add(gameState.GetType(), gameState);
-                gameState.gameObject.SetActive(true);
-                gameState.Initialize();
-                gameState.Exit(true);
-            }
-
-            SwitchToState(startingRoomState);
+            completedStates = new HashSet<string>();
+            ActiveState = initialState;
+            SceneManager.LoadScene(ActiveState.SceneName, LoadSceneMode.Single);
         }
 
         /// <summary>
-        ///     Calls the <see cref="State.Tick" /> method from the
-        ///     <see cref="activeGameState" />.
+        ///     This method tries to enter the requested state. When it fails false will be
+        ///     returned.
         /// </summary>
-        private void Update() => activeGameState.Tick(Time.deltaTime);
-
-        /// <summary>
-        ///     Calls the <see cref="State.FixedTick" /> method from the
-        ///     <see cref="activeGameState" />.
-        /// </summary>
-        private void FixedUpdate() => activeGameState.FixedTick(Time.fixedDeltaTime);
-
-        /// <summary>
-        ///     Switches to a state based on the type. It uses the <see cref="states" /> map
-        ///     to get the right instance.
-        /// </summary>
-        /// <typeparam name="T">The Type that needs to be switched to</typeparam>
-        public void SwitchToState<T>() where T : State => SwitchToState(states[typeof(T)]);
-
-        /// <summary>
-        ///     This method sets the <paramref name="state" /> instance to active.
-        ///     It first calls the <see cref="State.Exit" /> on the currently active
-        ///     state, then calls the <see cref="State.Enter" /> state for the new active
-        ///     state and sets the <see cref="activeGameState" />.
-        /// </summary>
-        /// <param name="state">The instance to switch to.</param>
-        public void SwitchToState(State state)
+        /// <param name="state">The state needs to be entered</param>
+        /// <returns>true is a new state is entered.</returns>
+        private bool TryEnterState(State state)
         {
-            if (ReferenceEquals(state, activeGameState))
+            if (state == ActiveState || !state.CanEnter)
             {
-                Debug.LogWarning("trying to set same type, ignoring");
+                return false;
+            }
+
+            if (completedStates.Contains(state.StateName))
+            {
+                return false;
+            }
+
+            TransitionType transitionType =
+                DetermineTransitionType(ActiveState.GetType(), state.GetType());
+
+            if (transitionType != TransitionType.RoomToGame && ActiveState is
+                    { CanExit: false })
+            {
+                return false;
+            }
+
+            ActiveState.completedEvent -= OnStateCompleted;
+
+            switch (transitionType)
+            {
+                case TransitionType.RoomToRoom:
+                    ActiveState?.Exit();
+                    SceneLoader.LoadScene(state.SceneName, LoadSceneMode.Single,
+                        OnSceneLoaded);
+                    break;
+                case TransitionType.RoomToGame:
+                    SceneLoader.LoadScene(state.SceneName, LoadSceneMode.Additive,
+                        OnSceneLoaded);
+                    break;
+                case TransitionType.GameToRoom:
+                    ActiveState?.Exit();
+                    SceneManager.UnloadSceneAsync(ActiveState?.SceneName);
+                    OnSceneLoaded(state.SceneName);
+                    break;
+                default: throw new ArgumentOutOfRangeException();
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        ///     Wrapper for entering a state
+        /// </summary>
+        /// <param name="state">State to be entered</param>
+        public void EnterState(State state)
+        {
+            bool result = TryEnterState(state);
+
+            if (result)
+            {
                 return;
             }
 
-            activeGameState?.Exit();
-            state.Enter();
+            Debug.LogWarning($"could not enter state: {state.name}");
+        }
+        
+        public void GoToNextRoom()
+        {
+            if (ActiveState is not RoomState activeRoomState)
+            {
+                Debug.LogWarning("can only move to next room from a room");
+                return;
+            }
 
-            activeGameState = state;
+            EnterState(activeRoomState.NextRoom);
         }
 
+        public bool IsStateCompleted(string stateName) =>
+            completedStates.Contains(stateName);
+
         /// <summary>
-        ///     This method gets the <see cref="State" /> instance form the
-        ///     <see cref="states" /> map.
+        ///     Determines the type of the state transition.
         /// </summary>
-        /// <typeparam name="T"><see cref="State" /> type to get.</typeparam>
-        /// <returns>The instance of Type <typeparamref name="T" /></returns>
-        public T GetGameState<T>() where T : GameState => (T)states[typeof(T)];
+        /// <param name="ot">The type of the state that is left</param>
+        /// <param name="tt">The type of the state that is entered</param>
+        /// <returns>A enum based on the type</returns>
+        /// <exception cref="InvalidOperationException">
+        ///     Thrown when a game to game transition happens
+        /// </exception>
+        private static TransitionType DetermineTransitionType(Type ot, Type tt)
+        {
+            TransitionType type;
+
+            if (ot == typeof(RoomState) && tt == typeof(RoomState))
+            {
+                type = TransitionType.RoomToRoom;
+            }
+            else if (ot == typeof(RoomState) &&
+                     (tt == typeof(GameState) || tt.IsSubclassOf(typeof(GameState))))
+            {
+                type = TransitionType.RoomToGame;
+            }
+            else if ((ot == typeof(GameState) || ot.IsSubclassOf(typeof(GameState))) &&
+                     tt == typeof(RoomState))
+            {
+                type = TransitionType.GameToRoom;
+            }
+            else
+            {
+                throw new InvalidOperationException(
+                    $"Invalid transition: {ot.Name}->{tt.Name}");
+            }
+
+            return type;
+        }
+
+        private void OnSceneLoaded(string sceneName)
+        {
+            ActiveState = FindObjectsByType<State>(FindObjectsSortMode.InstanceID)
+                .FirstOrDefault(s => string.Equals(s.SceneName, sceneName));
+
+            if (ReferenceEquals(null, ActiveState))
+            {
+                throw new NullReferenceException($"could not find state for: {sceneName}");
+            }
+            
+            ActiveState.completedEvent += OnStateCompleted;
+            ActiveState.Enter();
+        }
+
+        private void OnStateCompleted(string stateName)
+        {
+            completedStates.Add(stateName);
+            Debug.Log("completed state: " + stateName);
+        }
     }
 }

@@ -1,5 +1,5 @@
 using CleanRoom.InventorySystem;
-using CleanRoom.NewStateMachine;
+using CleanRoom.StateMachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

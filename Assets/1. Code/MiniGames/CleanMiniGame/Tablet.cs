@@ -1,4 +1,4 @@
-using CleanRoom.NewStateMachine;
+using CleanRoom.StateMachine;
 using UnityEngine;
 
 namespace CleanRoom.MiniGames.CleanMiniGame

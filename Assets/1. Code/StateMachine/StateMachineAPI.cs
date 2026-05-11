@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CleanRoom.NewStateMachine
+namespace CleanRoom.StateMachine
 {
     [CreateAssetMenu(fileName = "StateMachine API", menuName = "CleanRoom/StateMachine API",
         order = 0)]
