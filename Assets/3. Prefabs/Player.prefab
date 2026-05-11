@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3946373194566719047}
   - component: {fileID: 8035262535607782297}
+  - component: {fileID: 3969983763301142157}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Player
@@ -26,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 1373660263266865317}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.082, z: 0}
+  m_LocalScale: {x: 0.53, y: 0.53, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 199772098848102150}
@@ -81,8 +82,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 32767
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.09157461, g: 0.09157461, b: 0.09157461, a: 1}
+  m_Sprite: {fileID: 1912851342, guid: 0e1db151714df45528e7a28c962d7d06, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -91,6 +92,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &3969983763301142157
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373660263266865317}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b98239e1bd73d43b4bbe44580b2247b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7410812635499205634
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +145,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
+  m_LocalScale: {x: 1.4033333, y: 1.4033333, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3946373194566719047}
@@ -167,8 +190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eecd53d3abe227849b2d071d65e39e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PerspectiveScaler
-  yRange: {x: -5.2, y: -0.75}
-  scaleRange: {x: 1.25, y: 1.75}
+  yRange: {x: -3.45, y: -0.14}
+  scaleRange: {x: 1.25, y: 2}
 --- !u!50 &1242268280395148496
 Rigidbody2D:
   serializedVersion: 5

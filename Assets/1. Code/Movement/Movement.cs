@@ -6,14 +6,14 @@ namespace CleanRoom.Movement
     [RequireComponent(typeof(Rigidbody2D))]
     public class Movement : MonoBehaviour
     {
-        [SerializeField] private MovementInput input;
+        [field: SerializeField] public MovementInput Input { get; private set; }
         [SerializeField] private float movementSpeed;
         
         private new Rigidbody2D rigidbody2D = null;
 
         private void Start()
         {
-            if (ReferenceEquals(null, input))
+            if (ReferenceEquals(null, Input))
             {
                 throw new Exception("the input has not been assigned");
             }
@@ -29,7 +29,7 @@ namespace CleanRoom.Movement
         
         public void FixedUpdate()
         {
-            Move(input.GetInput());
+            Move(Input.GetInput());
         }
     }
 }
