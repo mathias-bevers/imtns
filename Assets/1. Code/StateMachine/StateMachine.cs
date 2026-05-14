@@ -15,7 +15,6 @@ namespace CleanRoom.StateMachine
     {
         [SerializeField] private RoomState initialState;
         public State ActiveState { get; private set; } = null;
-
         private HashSet<string> completedStates = null;
 
         public override void Awake()
@@ -25,8 +24,7 @@ namespace CleanRoom.StateMachine
             base.Awake();
 
             completedStates = new HashSet<string>();
-            ActiveState = initialState;
-            SceneManager.LoadScene(ActiveState.SceneName, LoadSceneMode.Single);
+            SceneLoader.LoadScene(initialState.SceneName, LoadSceneMode.Single, OnSceneLoaded);
         }
 
         /// <summary>

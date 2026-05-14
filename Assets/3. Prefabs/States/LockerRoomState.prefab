@@ -56,3 +56,6 @@ MonoBehaviour:
   <UnfocusEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+  gameStates:
+  - {fileID: 4775774331386487115, guid: a9131273cc562ef2aa74daece569b825, type: 3}
+  - {fileID: 4298008395357795535, guid: ef63e694a779ebc819b0d9b0066edbaf, type: 3}

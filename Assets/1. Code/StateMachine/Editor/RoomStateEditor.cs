@@ -16,6 +16,7 @@ namespace CleanRoom.StateMachine.Editor
            properties.Add(serializedObject.FindProperty(ToBackingField("StateName")));
            properties.Add(serializedObject.FindProperty(ToBackingField("SceneName")));
            properties.Add(serializedObject.FindProperty(ToBackingField("NextRoom")));
+           properties.Add(serializedObject.FindProperty("gameStates"));
            properties.Add(serializedObject.FindProperty(ToBackingField("EnterEvent")));
            properties.Add(serializedObject.FindProperty(ToBackingField("ExitEvent")));
            properties.Add(serializedObject.FindProperty(ToBackingField("UnfocusEvent")));

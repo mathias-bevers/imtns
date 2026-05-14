@@ -33,7 +33,7 @@ namespace CleanRoom.StateMachine
         [field: SerializeField] public UnityEvent ExitEvent { get; private set; }
 
 
-        public void Enter()
+        public virtual void Enter()
         {
             EnterEvent?.Invoke();
         }
