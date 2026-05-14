@@ -23,7 +23,6 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             resizer = GetComponentInChildren<GridLayoutGroupResizer>();
             minHeight = Mathf.RoundToInt(scrollRectTransform.rect.height);
             resizer.Resize(minHeight);
-            //Debug.Log(name + ": " + minHeight);
         }
 
 
