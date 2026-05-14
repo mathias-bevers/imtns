@@ -29,6 +29,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         }
 
         public event Action destroyedEvent;
+        public event Action mistakeMade;
 
         public void Initialize(float scale, Vector2 position)
         {
@@ -57,6 +58,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
                 MenuManager menuManager = MenuManager.Instance;
                 menuManager.GetMenuOfType<PopupMenu>().CreatePopup(NO_SPRAY_WARNING, Popup.Level.Warning);
                 menuManager.GetMenuOfType<OverlayMenu>().PlayMistakeAnimation();
+                mistakeMade?.Invoke();
                 
                 wipe.OnEndDrag(null);
                 return;

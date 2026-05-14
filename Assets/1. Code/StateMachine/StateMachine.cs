@@ -20,6 +20,7 @@ namespace CleanRoom.StateMachine
         public override void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            SaveSystem.GetGameMistakes();
 
             base.Awake();
 
