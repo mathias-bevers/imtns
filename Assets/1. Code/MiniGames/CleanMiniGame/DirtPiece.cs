@@ -29,7 +29,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         }
 
         public event Action destroyedEvent;
-        public event Action mistakeMade;
+        public event Action<string> mistakeMade;
 
         public void Initialize(float scale, Vector2 position)
         {
@@ -55,10 +55,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
             if (state.Tablet.Cleanliness < Tablet.CleanlinessLevel.Sprayed)
             {
-                MenuManager menuManager = MenuManager.Instance;
-                menuManager.GetMenuOfType<PopupMenu>().CreatePopup(NO_SPRAY_WARNING, Popup.Level.Warning);
-                menuManager.GetMenuOfType<OverlayMenu>().PlayMistakeAnimation();
-                mistakeMade?.Invoke();
+                mistakeMade?.Invoke(NO_SPRAY_WARNING);
                 
                 wipe.OnEndDrag(null);
                 return;

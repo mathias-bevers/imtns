@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using CleanRoom.StateMachine;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -42,23 +41,30 @@ namespace CleanRoom
             }
         }
 
+        public static JProperty MistakesToJProperty(string gameName, string[] feedback, bool isCompleted)
+        {
+            return new JProperty(gameName,
+                new JObject(new JProperty("is_completed", isCompleted),
+                    new JProperty("feedback", new JArray(feedback))));
+        }
+
         public static JObject GetGameMistakes()
         {
             if (File.Exists(Path.Combine(SAVE_FOLDER, GAME_MISTAKES)))
             {
                 return JObject.Parse(LoadFile(GAME_MISTAKES));
             }
-            
-            Type[] gameStates = Assembly.GetExecutingAssembly().GetTypes()
+
+            Type[] gameStatesTypes = Assembly.GetExecutingAssembly().GetTypes()
                 .Where(type => type.BaseType == typeof(GameState)).ToArray();
 
-            JObject jObject = new JObject();
-            
-            foreach (Type gameState in gameStates)
+            JObject jObject = new();
+
+            foreach (Type gameStateType in gameStatesTypes)
             {
-                jObject.Add(gameState.Name, 0);
+                jObject.Add(MistakesToJProperty(gameStateType.Name, Array.Empty<string>(), false));
             }
-            
+
             SaveFile(GAME_MISTAKES, jObject.ToString());
             return jObject;
         }
