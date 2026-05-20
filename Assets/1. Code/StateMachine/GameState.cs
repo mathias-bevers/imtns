@@ -15,7 +15,7 @@ namespace CleanRoom.StateMachine
 
         public override void Enter()
         {
-            _gameMistakes = SaveSystem.GetGameMistakes();
+            _gameMistakes = SaveSystem.LoadGameStates();
             JToken token = _gameMistakes[GetType().Name];
 
             if (ReferenceEquals(null, token))
@@ -36,19 +36,28 @@ namespace CleanRoom.StateMachine
             MenuManager menuManager = MenuManager.Instance;
             menuManager.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.Level.Warning);
             MenuManager.Instance.GetMenuOfType<OverlayMenu>().PlayMistakeAnimation();
+
+            string typeName = GetType().Name;
             
-            JToken token = _gameMistakes[GetType().Name];
+            JToken token = _gameMistakes[typeName];
             if (ReferenceEquals(null, token))
             {
                 throw new NullReferenceException();
             }
             
-            token["is_completed"] = StateMachine.Instance.IsStateCompleted(StateName);
+            token["is_completed"] = StateMachine.Instance.IsStateCompleted(typeName);
             ((JArray)token["feedback"])?.Add(message);
             
             SaveSystem.SaveFile(SaveSystem.GAME_MISTAKES, _gameMistakes.ToString());
-            Debug.Log(SaveSystem.LoadFile(SaveSystem.GAME_MISTAKES));
             previousMistakeTime = DateTime.Now;
+        }
+
+        public override void Complete(string name = null)
+        {
+            string typeName = GetType().Name;
+            base.Complete(typeName);
+            _gameMistakes[typeName]["is_completed"] = true;
+            SaveSystem.SaveFile(SaveSystem.GAME_MISTAKES, _gameMistakes.ToString());
         }
     }
 }

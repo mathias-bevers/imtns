@@ -12,7 +12,7 @@ namespace CleanRoom.UserInterface
 
         private void OnEnable()
         {
-            JObject mistakes = SaveSystem.GetGameMistakes();
+            JObject mistakes = SaveSystem.LoadGameStates();
             Debug.Log(mistakes.ToString());
 
             for (int i = 0; i < transformStatePairs.Length; ++i)

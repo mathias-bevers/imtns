@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CleanRoom.Menus;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,29 +21,37 @@ namespace CleanRoom.StateMachine
         public override void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            SaveSystem.GetGameMistakes();
 
             base.Awake();
 
-            completedStates = new HashSet<string>();
+            completedStates = new HashSet<string>(GetCompletedStates());
             SceneLoader.LoadScene(initialState.SceneName, LoadSceneMode.Single, OnSceneLoaded);
         }
+
+        private IEnumerable<string> GetCompletedStates() =>
+            from KeyValuePair<string, JToken> kvp in SaveSystem.LoadGameStates()
+            where kvp.Value["is_completed"].ToObject<bool>()
+            select kvp.Key;
+
 
         /// <summary>
         ///     This method tries to enter the requested state. When it fails false will be
         ///     returned.
         /// </summary>
         /// <param name="state">The state needs to be entered</param>
+        /// <param name="errorMessage">If the switch fails, the error message will tell why</param>
         /// <returns>true is a new state is entered.</returns>
-        private bool TryEnterState(State state)
+        private bool TryEnterState(State state, out string errorMessage)
         {
             if (state == ActiveState || !state.CanEnter)
             {
+                errorMessage = "could not enter new state";
                 return false;
             }
 
-            if (completedStates.Contains(state.StateName))
+            if (completedStates.Contains(state.GetType().Name))
             {
+                errorMessage = "new state is already completed";
                 return false;
             }
 
@@ -50,6 +59,7 @@ namespace CleanRoom.StateMachine
 
             if (transitionType != TransitionType.RoomToGame && ActiveState is { CanExit: false })
             {
+                errorMessage = "could not exit current state";
                 return false;
             }
 
@@ -73,6 +83,7 @@ namespace CleanRoom.StateMachine
                 default: throw new ArgumentOutOfRangeException();
             }
 
+            errorMessage = string.Empty;
             return true;
         }
 
@@ -82,14 +93,12 @@ namespace CleanRoom.StateMachine
         /// <param name="state">State to be entered</param>
         public void EnterState(State state)
         {
-            bool result = TryEnterState(state);
-
-            if (result)
+            if (TryEnterState(state, out string message))
             {
                 return;
             }
 
-            Debug.LogWarning($"could not enter state: {state.name}");
+            Debug.Log(message);
         }
 
         public void GoToNextRoom()
@@ -161,7 +170,6 @@ namespace CleanRoom.StateMachine
         private void OnStateCompleted(string stateName)
         {
             completedStates.Add(stateName);
-            Debug.Log("completed state: " + stateName);
         }
 
         private void OnGameStateCompleted(string _) =>

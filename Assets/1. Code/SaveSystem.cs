@@ -48,7 +48,7 @@ namespace CleanRoom
                     new JProperty("feedback", new JArray(feedback))));
         }
 
-        public static JObject GetGameMistakes()
+        public static JObject LoadGameStates()
         {
             if (File.Exists(Path.Combine(SAVE_FOLDER, GAME_MISTAKES)))
             {

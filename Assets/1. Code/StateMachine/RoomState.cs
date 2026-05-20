@@ -15,7 +15,9 @@ namespace CleanRoom.StateMachine
         public override void Enter()
         {
             StateMachine stateMachine = StateMachine.Instance;
-            bool completedAllGames = gameStates.All(gameState => stateMachine.IsStateCompleted(gameState.StateName));
+            bool completedAllGames =
+                gameStates.All(gameState => stateMachine.IsStateCompleted(gameState.GetType().Name));
+            
             if (gameStates.IsNullOrEmpty() || completedAllGames)
             {
                 Complete();
@@ -24,6 +26,6 @@ namespace CleanRoom.StateMachine
             base.Enter();
         }
 
-        public string[] GetGameStateNames() => gameStates.Select(gameState => gameState.name).ToArray();
+        public string[] GetGameStateNames() => gameStates.Select(gameState => gameState.StateName).ToArray();
     }
 }

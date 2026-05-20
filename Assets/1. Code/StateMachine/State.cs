@@ -15,7 +15,7 @@ namespace CleanRoom.StateMachine
         /// <summary>
         ///     Indicated if the state can be entered.
         /// </summary>
-        public virtual bool CanEnter => !StateMachine.Instance.IsStateCompleted(StateName);
+        public virtual bool CanEnter => !StateMachine.Instance.IsStateCompleted(GetType().Name);
 
         /// <summary>
         ///     Indicated if the state can be exited.
@@ -43,9 +43,9 @@ namespace CleanRoom.StateMachine
             ExitEvent?.Invoke();
         }
 
-        public void Complete()
+        public virtual void Complete(string name = null)
         {
-            completedEvent?.Invoke(StateName);
+            completedEvent?.Invoke(string.IsNullOrEmpty(name) ? StateName : name);
         }
     }
 }
