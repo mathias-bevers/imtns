@@ -26,6 +26,6 @@ namespace CleanRoom.StateMachine
             base.Enter();
         }
 
-        public string[] GetGameStateNames() => gameStates.Select(gameState => gameState.StateName).ToArray();
+        public string[] GetGameStateNames() => gameStates.Select(gameState => gameState.GetType().Name).ToArray();
     }
 }

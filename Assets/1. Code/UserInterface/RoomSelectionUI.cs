@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using CleanRoom.StateMachine;
 using Newtonsoft.Json.Linq;
 using TMPro;
@@ -12,26 +13,57 @@ namespace CleanRoom.UserInterface
 
         private void OnEnable()
         {
-            JObject mistakes = SaveSystem.LoadGameStates();
-            Debug.Log(mistakes.ToString());
+            JObject gameStates = SaveSystem.LoadGameStates();
 
             for (int i = 0; i < transformStatePairs.Length; ++i)
             {
-                TransformStatePair<RoomState> transformStatePair = transformStatePairs[i];
-                TextMeshProUGUI text = transformStatePair.Transform.GetComponentInChildren<TextMeshProUGUI>();
+                TransformStatePair<RoomState> tsp = transformStatePairs[i];
+                TextMeshProUGUI text = tsp.Transform.GetComponentInChildren<TextMeshProUGUI>();
 
-                if (ReferenceEquals(null, transformStatePair.State))
+                if (ReferenceEquals(null, tsp.State))
                 {
                     text.SetText("Nog niet hier!");
                     continue;
                 }
 
-                string[] gameStateNames = transformStatePair.State.GetGameStateNames();
+                int gameCount = 0;
+                int completedGameCount = 0;
+                int stars = 0;
+                int roomMistakes = 0;
 
-                for (int ii = 0; ii < gameStateNames.Length; ++ii)
+                foreach (string gameStateName in tsp.State.GetGameStateNames())
                 {
-                    Debug.Log(mistakes[gameStateNames[i]]);
+                    JToken gameState = gameStates[gameStateName];
+                    ++gameCount;
+                    if (gameState["is_completed"].ToObject<bool>())
+                    {
+                        ++completedGameCount;
+                    }
+
+                    JArray array = gameState["feedback"] as JArray;
+                    int mistakes = array.Count;
+                    roomMistakes += mistakes;
+                    stars += 3 - Mathf.Min(mistakes, 3);
                 }
+
+                StringBuilder builder = new();
+
+                if (completedGameCount == gameCount)
+                {
+                    builder.Append("Score: ").Append(stars / gameCount).AppendLine();
+                }
+                else
+                {
+                    builder.AppendLine("Nog Niet Voltooid");
+                }
+
+
+                builder.Append("Mini Games Voltooid: ").Append(completedGameCount).Append('/').Append(gameCount)
+                    .AppendLine();
+
+                builder.Append("Fouten Gemaakt: ").AppendLine(roomMistakes.ToString());
+
+                text.SetText(builder.ToString());
             }
         }
 
