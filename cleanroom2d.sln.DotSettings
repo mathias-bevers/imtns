@@ -3,16 +3,16 @@
   &amp;lt;option name="myName" value="Mathias: Full Cleanup" /&amp;gt;
 &amp;lt;/profile&amp;gt;&lt;/IDEA_SETTINGS&gt;&lt;RIDER_SETTINGS&gt;&amp;lt;profile&amp;gt;
   &amp;lt;Language id="CSS"&amp;gt;
-    &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
     &amp;lt;Rearrange&amp;gt;true&amp;lt;/Rearrange&amp;gt;
+    &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
   &amp;lt;/Language&amp;gt;
   &amp;lt;Language id="EditorConfig"&amp;gt;
     &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
   &amp;lt;/Language&amp;gt;
   &amp;lt;Language id="HTML"&amp;gt;
-    &amp;lt;OptimizeImports&amp;gt;true&amp;lt;/OptimizeImports&amp;gt;
-    &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
     &amp;lt;Rearrange&amp;gt;true&amp;lt;/Rearrange&amp;gt;
+    &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
+    &amp;lt;OptimizeImports&amp;gt;true&amp;lt;/OptimizeImports&amp;gt;
   &amp;lt;/Language&amp;gt;
   &amp;lt;Language id="HTTP Request"&amp;gt;
     &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
@@ -30,9 +30,9 @@
     &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
   &amp;lt;/Language&amp;gt;
   &amp;lt;Language id="JavaScript"&amp;gt;
-    &amp;lt;OptimizeImports&amp;gt;true&amp;lt;/OptimizeImports&amp;gt;
-    &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
     &amp;lt;Rearrange&amp;gt;true&amp;lt;/Rearrange&amp;gt;
+    &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
+    &amp;lt;OptimizeImports&amp;gt;true&amp;lt;/OptimizeImports&amp;gt;
   &amp;lt;/Language&amp;gt;
   &amp;lt;Language id="Markdown"&amp;gt;
     &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
@@ -53,11 +53,11 @@
     &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
   &amp;lt;/Language&amp;gt;
   &amp;lt;Language id="XML"&amp;gt;
-    &amp;lt;OptimizeImports&amp;gt;true&amp;lt;/OptimizeImports&amp;gt;
-    &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
     &amp;lt;Rearrange&amp;gt;true&amp;lt;/Rearrange&amp;gt;
+    &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
+    &amp;lt;OptimizeImports&amp;gt;true&amp;lt;/OptimizeImports&amp;gt;
   &amp;lt;/Language&amp;gt;
   &amp;lt;Language id="yaml"&amp;gt;
     &amp;lt;Reformat&amp;gt;true&amp;lt;/Reformat&amp;gt;
   &amp;lt;/Language&amp;gt;
-&amp;lt;/profile&amp;gt;&lt;/RIDER_SETTINGS&gt;&lt;UpgradedBackendToFrontendHtml&gt;True&lt;/UpgradedBackendToFrontendHtml&gt;&lt;CSharpReformatComments&gt;True&lt;/CSharpReformatComments&gt;&lt;/Profile&gt;</s:String></wpf:ResourceDictionary>
+&amp;lt;/profile&amp;gt;&lt;/RIDER_SETTINGS&gt;&lt;UpgradedBackendToFrontendHtml&gt;True&lt;/UpgradedBackendToFrontendHtml&gt;&lt;/Profile&gt;</s:String></wpf:ResourceDictionary>
