@@ -4,6 +4,7 @@ using System.Linq;
 using CleanRoom.InventorySystem;
 using CleanRoom.Menus;
 using CleanRoom.MiniGames.LockerMiniGame;
+using CleanRoom.Utils;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
@@ -50,8 +51,7 @@ namespace CleanRoom.StateMachine
         {
             if (!isCorrect)
             {
-                popupMenu.CreatePopup("dat was niet correct!", Popup.Level.Warning);
-                MenuManager.Instance.GetMenuOfType<OverlayMenu>().PlayMistakeAnimation();
+                OnMistakeMade("Dat item hoort daar niet!");
             }
 
             ValidateItems(false);
