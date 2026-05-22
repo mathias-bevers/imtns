@@ -2300,7 +2300,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: a92182dabf63b9cc4915e33a1bf8d3e8, type: 2}
         m_TargetAssemblyTypeName: CleanRoom.StateMachine.StateMachineAPI, Assembly-CSharp
-        m_MethodName: ClearSaves
+        m_MethodName: Reset
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
