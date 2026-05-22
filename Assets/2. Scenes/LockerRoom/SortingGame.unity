@@ -171,6 +171,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SortingGameState
       objectReference: {fileID: 0}
+    - target: {fileID: 5700615443334036712, guid: ef63e694a779ebc819b0d9b0066edbaf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700615443334036712, guid: ef63e694a779ebc819b0d9b0066edbaf, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127313653658658859, guid: ef63e694a779ebc819b0d9b0066edbaf, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8412751465432217865, guid: ef63e694a779ebc819b0d9b0066edbaf, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
