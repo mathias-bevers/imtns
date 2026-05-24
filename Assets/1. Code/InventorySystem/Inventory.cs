@@ -10,6 +10,7 @@ namespace CleanRoom.InventorySystem
     {
         private static InventoryItem[] _resources;
 
+        public int Size => inventory.Count;
         private readonly List<InventoryItem> inventory;
 
         public Inventory(InventoryContents initialContents)
@@ -53,6 +54,22 @@ namespace CleanRoom.InventorySystem
         public bool HasItem(string itemName) => inventory.Any(item => string.Equals(item.Name, itemName));
 
         private int GetItemCount(string itemName) => inventory.Count(item => string.Equals(item.Name, itemName));
+
+        public InventoryItem GetItemAtIndex(int i)
+        {
+            InventoryItem item = null;
+            
+            try
+            {
+                item = inventory[i];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Debug.LogError($"The index {i} is out of range");
+            }
+
+            return item;
+        }
 
         public static InventoryItem GetItemResource(string name) =>
             _resources.IsNullOrEmpty() ? null : Array.Find(_resources, item => item.Name == name);
