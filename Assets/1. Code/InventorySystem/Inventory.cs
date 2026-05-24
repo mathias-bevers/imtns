@@ -13,37 +13,19 @@ namespace CleanRoom.InventorySystem
         
         private readonly List<InventoryItem> inventory;
 
-        public Inventory(int initialItemCount)
+        public Inventory(InventoryContents initialContents)
         {
             inventory = new List<InventoryItem>();
 
             LoadItems();
-            AddInitialItems(initialItemCount);
+            AddInitialItems(initialContents);
         }
 
-        private void AddInitialItems(int initialItemCount)
+        private void AddInitialItems(InventoryContents initialContents)
         {
-            for (int i = 0; i < _resources.Length; ++i)
+            for (int i = 0; i < initialContents.Contents.Length; ++i)
             {
-                InventoryItem item = _resources[i];
-                if (!item.ForcedInInventory)
-                {
-                    continue;
-                }
-
-                inventory.Add(item);
-            }
-
-            while (inventory.Count < initialItemCount)
-            {
-                InventoryItem item = _resources[Random.Range(0, _resources.Length)];
-
-                if (item.SkipInRandomization)
-                {
-                    continue;
-                }
-
-                Add(item);
+                inventory.Add(initialContents.Contents[i]);
             }
         }
 
