@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace CleanRoom.MiniGames.CleanMiniGame
 {
-    public class DragAndSnap : MonoBehaviour, IDragHandler, IEndDragHandler
+    public class DragAndSnap : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private RectTransform cachedTransform = null;
         public RectTransform CachedTransform
@@ -23,6 +23,11 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         {
             startingPosition = CachedTransform.anchoredPosition;
         }
+        
+        public virtual void OnBeginDrag(PointerEventData eventData)
+        {
+            
+        }
 
         public void OnDrag(PointerEventData eventData)
         {
@@ -34,7 +39,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             CachedTransform.position = eventData.position;
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        public virtual void OnEndDrag(PointerEventData eventData)
         {
             CachedTransform.anchoredPosition = startingPosition;
         }
