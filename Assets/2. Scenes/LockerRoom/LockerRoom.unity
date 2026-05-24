@@ -1267,11 +1267,6 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &1040317918 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3969983763301142157, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
-  m_PrefabInstance: {fileID: 1357514170}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1074544375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1898,20 +1893,13 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8808898435546357266, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
-      propertyPath: input
-      value: 
-      objectReference: {fileID: 1633792018195699436}
-    - target: {fileID: 8808898435546357266, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
       propertyPath: <Input>k__BackingField
       value: 
       objectReference: {fileID: 1633792018195699436}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7410812635499205634, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 2095224811}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
 --- !u!1 &1405003206
 GameObject:
@@ -2463,7 +2451,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0}
+  m_AnchoredPosition: {x: 0.00024414062, y: 0}
   m_SizeDelta: {x: 45.315918, y: 20.23706}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1694643098
@@ -2611,7 +2599,6 @@ GameObject:
   - component: {fileID: 1796561280}
   - component: {fileID: 1796561282}
   - component: {fileID: 1796561281}
-  - component: {fileID: 1796561283}
   m_Layer: 5
   m_Name: Welcome
   m_TagString: Untagged
@@ -2678,35 +2665,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796561279}
   m_CullTransparentMesh: 1
---- !u!114 &1796561283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1796561279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b03c0d048450a9abbc5981e3b516652, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EventAfterSeconds
-  events:
-  - <First>k__BackingField:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1796561279}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    <Second>k__BackingField: 3
 --- !u!1 &1815245915
 GameObject:
   m_ObjectHideFlags: 0
@@ -3427,6 +3385,7 @@ GameObject:
   - component: {fileID: 2050792260}
   - component: {fileID: 2050792259}
   - component: {fileID: 2050792258}
+  - component: {fileID: 2050792261}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -3495,6 +3454,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2050792261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050792257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b03c0d048450a9abbc5981e3b516652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.EventAfterSeconds
+  events:
+  - <First>k__BackingField:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1796561279}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    <Second>k__BackingField: 3
 --- !u!1 &2064737912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,24 +3561,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2064737912}
   m_CullTransparentMesh: 1
---- !u!1 &2095224805 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7410812635499205634, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
-  m_PrefabInstance: {fileID: 1357514170}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2095224811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095224805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7028635772e32a6f93a1bae5ea72889, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Movement.AnimatorHandler
-  animator: {fileID: 1040317918}
 --- !u!1 &2101374299
 GameObject:
   m_ObjectHideFlags: 0
@@ -5309,37 +5279,13 @@ PrefabInstance:
       value: LockerRoomState
       objectReference: {fileID: 0}
     - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
       propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 2050792261}
+    - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
+      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
       objectReference: {fileID: 1796561279}
-    - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

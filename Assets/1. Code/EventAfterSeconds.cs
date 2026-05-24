@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CleanRoom.Utils;
 using UnityEngine;
@@ -7,7 +8,9 @@ namespace CleanRoom
 {
     public class EventAfterSeconds : MonoBehaviour
     {
+        
         [SerializeField] private List<SerializablePair<UnityEvent, float>> events;
+        private readonly List<int> completedEventIndexes = new();
         
         private float timer = 0;
 
@@ -23,14 +26,20 @@ namespace CleanRoom
 
             for (int i = events.Count - 1; i >= 0; --i)
             {
+                if (completedEventIndexes.Contains(i))
+                {
+                    continue;
+                }
+                
                 SerializablePair<UnityEvent, float> eventTimePair = events[i];
+                
                 if (timer < eventTimePair.Second)
                 {
                     continue;
                 }
 
                 eventTimePair.First.Invoke();
-                events.RemoveAt(i);
+                completedEventIndexes.Add(i);
             }
         }
 
@@ -43,6 +52,12 @@ namespace CleanRoom
             });
 
             enabled = true;
+        }
+
+        public void ResetEvents()
+        {
+            timer = 0;
+            completedEventIndexes.Clear();
         }
     }
 }

@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 9109608108489475972}
   - component: {fileID: 8808898435546357266}
   - component: {fileID: 96105932256214239}
+  - component: {fileID: 3837372931129347837}
   - component: {fileID: 1242268280395148496}
   - component: {fileID: 8805050534759522258}
   m_Layer: 0
@@ -163,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff66faddea6140bbbbab08c4691d5c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Player
-  initialInventorySize: 6
+  initialInventoryContents: {fileID: 11400000, guid: e225bdd3b5ebc19acb8b7419ec388ef6, type: 2}
 --- !u!114 &8808898435546357266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1f251cb2964889b201248fcae999a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Movement.Movement
-  input: {fileID: 0}
+  <Input>k__BackingField: {fileID: 0}
   movementSpeed: 5
 --- !u!114 &96105932256214239
 MonoBehaviour:
@@ -192,6 +193,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PerspectiveScaler
   yRange: {x: -3.45, y: -0.14}
   scaleRange: {x: 1.25, y: 2}
+--- !u!114 &3837372931129347837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7410812635499205634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7028635772e32a6f93a1bae5ea72889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Movement.AnimatorHandler
+  animator: {fileID: 3969983763301142157}
 --- !u!50 &1242268280395148496
 Rigidbody2D:
   serializedVersion: 5
