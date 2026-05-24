@@ -1,5 +1,6 @@
-using System.Collections;
+using CleanRoom.Utils;
 using NaughtyAttributes;
+using PrimeTween;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,38 +8,35 @@ namespace CleanRoom.Menus
 {
     public class OverlayMenu : Menu
     {
-        // color is in 0.0 - 1.0 format, thus color32 is used.
-        [SerializeField] private Color32 mistake = new(231, 130, 132, 100);
-        [SerializeField] private Color32 complete = new(166, 209, 137, 100);
-        [SerializeField] private Image overlay;
-        [SerializeField] private Animation overlayAnimation;
+        [SerializeField] private SerializablePair<Color, Sprite> completePair;
+        [SerializeField] private SerializablePair<Color, Sprite> mistakePair;
 
-        private float animationTime = -1.0f;
+        [SerializeField] private Image overlay;
+        [SerializeField] private Image icon;
+        [SerializeField] private float animationTime = 1.0f;
+
 
         protected override void Start()
         {
             base.Start();
             Close();
-            animationTime = overlayAnimation.clip.length + 0.01f;
         }
 
-        [Button] public void PlayCompleteAnimation() => PlayAnimation(complete);
+        [Button] public void PlayCompleteAnimation() => PlayAnimation(completePair);
 
-        [Button] public void PlayMistakeAnimation() => PlayAnimation(mistake);
+        [Button] public void PlayMistakeAnimation() => PlayAnimation(mistakePair);
 
-        private void PlayAnimation(Color color)
+        private void PlayAnimation(SerializablePair<Color, Sprite> pair)
         {
             Open();
-            overlay.color = color;
-            overlayAnimation.Play();
-            StopAllCoroutines(); 
-            StartCoroutine(CloseOnClipFinish());
-        }
+            overlay.color = Color.clear;
+            icon.color = Color.clear;
+            icon.sprite = pair.Second;
 
-        private IEnumerator CloseOnClipFinish()
-        {
-            yield return new WaitForSecondsRealtime(animationTime);
-            Close();
+
+            Sequence.Create().Group(Tween.Color(overlay, pair.First, animationTime))
+                .Group(Tween.Color(icon, Color.white, animationTime - 0.5f, startDelay: 0.5f))
+                .OnComplete(Close);
         }
     }
 }
