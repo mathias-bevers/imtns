@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using CleanRoom.StateMachine;
 using Newtonsoft.Json.Linq;
 using TMPro;
@@ -22,7 +23,7 @@ namespace CleanRoom.UserInterface
                 return;
             }
 
-            if (!StateMachine.StateMachine.Instance.IsStateCompleted(roomState.StateName))
+            if (!controller.IsRoomStateCompleted(roomState.StateName))
             {
                 text.SetText("Je hebt deze kamer nog niet voltooid!");
                 return;
@@ -32,7 +33,10 @@ namespace CleanRoom.UserInterface
 
             foreach (string gameStateName in roomState.GetGameStateNames())
             {
-                builder.Append(ACCENT_HEX).Append(gameStateName).AppendLine("</color>");
+                string formattedStateName = gameStateName.Replace("State", string.Empty);
+                // PascalCase -> Pascal Case
+                formattedStateName = Regex.Replace(formattedStateName, "(\\B[A-Z])", " $1"); 
+                builder.Append(ACCENT_HEX).Append(formattedStateName).AppendLine("</color>");
 
                 if (controller.GameStates[gameStateName]["feedback"] is not JArray array)
                 {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text;
 using CleanRoom.StateMachine;
 using CleanRoom.Utils;
@@ -15,11 +16,12 @@ namespace CleanRoom.UserInterface
         public JObject GameStates { get; set; }
         
         [SerializeField] private SerializablePair<Button, RoomState>[] roomSelectors;
-        
+        private readonly HashSet<string> completedRoomStates = new();
 
         private void OnEnable()
         {
             GameStates = SaveSystem.LoadGameStates();
+            completedRoomStates.Clear();
 
             for (int i = 0; i < roomSelectors.Length; ++i)
             {
@@ -72,6 +74,8 @@ namespace CleanRoom.UserInterface
 
                 if (completedGameCount == gameCount)
                 {
+                    completedRoomStates.Add(tsp.Second.StateName);
+                    
                     builder.AppendLine("Score: ");
                     int averageStars = stars / gameCount;
                     for (int ii = 0; ii < starParent.childCount; ++ii)
@@ -94,5 +98,7 @@ namespace CleanRoom.UserInterface
                 text.SetText(builder.ToString());
             }
         }
+
+        public bool IsRoomStateCompleted(string roomStateName) => completedRoomStates.Contains(roomStateName);
     }
 }

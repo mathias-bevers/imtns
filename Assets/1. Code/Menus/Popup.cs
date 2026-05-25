@@ -37,7 +37,7 @@ namespace CleanRoom.Menus
                 Match match = NUMBERS_REGEX.Match(text);
                 int stars = int.Parse(match.Value);
 
-                text = text.Replace(match.Value, string.Empty);
+                text = text[match.Value.Length..];
                 
                 SetStars(stars);
             }

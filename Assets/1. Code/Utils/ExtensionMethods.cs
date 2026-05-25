@@ -5,11 +5,8 @@ namespace CleanRoom.Utils
 {
     public static class ExtensionMethods
     {
-        public static string ToBackingField(this string source)
-        {
-            return string.Concat('<', source, '>', "k__BackingField");
-        }
-        
+        public static string ToBackingField(this string source) => string.Concat('<', source, '>', "k__BackingField");
+
         public static T GetComponentInParents<T>(this Transform origin) where T : Component
         {
             Transform parent = origin.parent;
@@ -60,6 +57,9 @@ namespace CleanRoom.Utils
                 Object.DestroyImmediate(child.gameObject);
             }
         }
+
+        public static T GetRandomElement<T>(this IList<T> collection) => collection[Random.Range(0, collection.Count)];
+
 
         public static bool IsNullOrEmpty<T>(this ICollection<T> collection)
         {

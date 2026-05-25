@@ -35,7 +35,7 @@ namespace CleanRoom.StateMachine
             Tablet.SpawnDirt();
             foreach (DirtPiece dirtPiece in Tablet.GetComponentsInChildren<DirtPiece>())
             {
-                dirtPiece.mistakeMade += OnMistakeMade;
+                dirtPiece.mistakeMadeEvent += OnMistakeMade;
             }
         }
 
