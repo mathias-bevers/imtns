@@ -7,7 +7,7 @@ namespace CleanRoom.Menus
 {
     public class PopupMenu : Menu
     {
-        [SerializeField] private Popup popup;
+        public Popup Popup { get; private set; } = null;
         private readonly Queue<PopupInfo> queue = new();
         
         private readonly struct PopupInfo
@@ -27,8 +27,10 @@ namespace CleanRoom.Menus
 
         private void Awake()
         {
-            popup.closeEvent += OnPopupClose;
-            popup.Close();
+            Popup = GetComponentInChildren<Popup>();
+            
+            Popup.closeEvent += OnPopupClose;
+            Popup.Close();
         }
 
         private void OnPopupClose()
@@ -45,7 +47,7 @@ namespace CleanRoom.Menus
         {
             queue.Enqueue(new PopupInfo(message, type, title));
             
-            if (popup.gameObject.activeInHierarchy)
+            if (Popup.gameObject.activeInHierarchy)
             {
                 return;
             }
@@ -56,7 +58,7 @@ namespace CleanRoom.Menus
         private void ShowPopup()
         {
             PopupInfo info = queue.Dequeue();
-            popup.Initialize(info.Message, info.Type, info.Title);
+            Popup.Initialize(info.Message, info.Type, info.Title);
         }
 
         [Button]
