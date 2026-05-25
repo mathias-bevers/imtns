@@ -34,8 +34,7 @@ namespace CleanRoom.StateMachine
             }
             
             MenuManager menuManager = MenuManager.Instance;
-            menuManager.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.Level.Warning);
-            MenuManager.Instance.GetMenuOfType<OverlayMenu>().PlayMistakeAnimation();
+            menuManager.GetMenuOfType<PopupMenu>().CreatePopup(message, Popup.MessageType.Incorrect);
 
             string typeName = GetType().Name;
             

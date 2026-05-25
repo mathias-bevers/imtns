@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -6,26 +6,21 @@ namespace CleanRoom.Menus
 {
     public class PopupMenu : Menu
     {
-        [SerializeField] private Popup popupPrefab;
-        [SerializeField] private Transform popupParent;
+        [SerializeField] private Popup popup;
 
-        private readonly HashSet<string> popups = new();
-
-        public void CreatePopup(string message, Popup.Level level)
+        private void Awake()
         {
-            if (!popups.Add(message))
+            popup.Close();
+        }
+
+        public void CreatePopup(string message, Popup.MessageType type, string title = null)
+        {
+            if (popup.gameObject.activeInHierarchy)
             {
                 return;
             }
 
-            Popup popup = Instantiate(popupPrefab, popupParent);
-            popup.Initialize(message, level);
-            popup.destroyEvent += OnPopupDestroy;
-        }
-
-        private void OnPopupDestroy(string message)
-        {
-            popups.Remove(message);
+            popup.Initialize(message, type, title);
         }
 
         [Button]
@@ -36,7 +31,7 @@ namespace CleanRoom.Menus
                 return;
             }
 
-            CreatePopup("This is a test", Popup.Level.Info);
+            CreatePopup("This is a test", Popup.MessageType.Correct);
         }
     }
 }

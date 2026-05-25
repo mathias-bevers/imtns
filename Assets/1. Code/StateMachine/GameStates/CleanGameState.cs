@@ -46,7 +46,7 @@ namespace CleanRoom.StateMachine
                 return;
             }
             
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(NOT_CLEAN_MESSAGE, Popup.Level.Warning);
+            MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(NOT_CLEAN_MESSAGE, Popup.MessageType.Incorrect);
         }
     }
 }
