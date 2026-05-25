@@ -1,27 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CleanRoom.Utils;
 using UnityEngine;
 
 namespace CleanRoom.InventorySystem
 {
     public class Inventory
     {
-        private static InventoryItem[] _resources;
-
         public int Size => inventory.Count;
         private readonly List<InventoryItem> inventory;
 
         public Inventory(InventoryContents initialContents)
         {
-            inventory = new List<InventoryItem>();
-
-            LoadItems();
-         
-            for (int i = 0; i < initialContents.Contents.Length; ++i)
+            inventory = new List<InventoryItem>(initialContents.Contents);
+            int n = inventory.Count;
+            while (n > 1)
             {
-                inventory.Add(initialContents.Contents[i]);
+                int k = UnityEngine.Random.Range(0, n--);
+                (inventory[n], inventory[k]) = (inventory[k], inventory[n]);
             }
         }
 
@@ -48,9 +44,7 @@ namespace CleanRoom.InventorySystem
             inventory.RemoveAt(index);
             return true;
         }
-
-        public InventoryItem[] GetInventory() => inventory.ToArray();
-
+        
         public bool HasItem(string itemName) => inventory.Any(item => string.Equals(item.Name, itemName));
 
         private int GetItemCount(string itemName) => inventory.Count(item => string.Equals(item.Name, itemName));
@@ -69,19 +63,6 @@ namespace CleanRoom.InventorySystem
             }
 
             return item;
-        }
-
-        public static InventoryItem GetItemResource(string name) =>
-            _resources.IsNullOrEmpty() ? null : Array.Find(_resources, item => item.Name == name);
-
-        private static void LoadItems()
-        {
-            if (_resources.IsNullOrEmpty())
-            {
-                return;
-            }
-
-            _resources = Resources.LoadAll<InventoryItem>("InventoryItems");
         }
 
 

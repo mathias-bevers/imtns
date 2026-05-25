@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671f6c9beddab30d0821eef50f5f5b10, type: 3}
   m_Name: Jewelry
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Inventory.InventoryItem
-  <Name>k__BackingField: Ketting
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 23eea9400a4719e10850bd75a31848a1, type: 3}
+  <Name>k__BackingField: stapel accessoires
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 8e3234ba499faa7dca7022f904411189, type: 3}
   <Destination>k__BackingField: 0
   <ForcedInInventory>k__BackingField: 0
   <SkipInRandomization>k__BackingField: 1
