@@ -63,12 +63,12 @@ namespace CleanRoom.StateMachine
             {
                 popupMenu.CreatePopup(
                     string.Concat("Een ", item.Name, " hoort niet in de " + NAME_MAP[dropZoneType], '.'),
-                    Popup.Level.Error);
+                    Popup.MessageType.Incorrect);
                 return;
             }
 
 
-            popupMenu.CreatePopup("Dat was correct!", Popup.Level.Info);
+            popupMenu.CreatePopup("Dat was correct!", Popup.MessageType.Correct);
 
             if (string.Equals(TABLET_NAME, item.name))
             {

@@ -30,7 +30,7 @@ namespace CleanRoom.StateMachine
 
         private IEnumerable<string> GetCompletedStates() =>
             from KeyValuePair<string, JToken> kvp in SaveSystem.LoadGameStates()
-            where kvp.Value["is_completed"].ToObject<bool>()
+            where kvp.Value["is_completed"]!.ToObject<bool>()
             select kvp.Key;
 
 
@@ -109,6 +109,12 @@ namespace CleanRoom.StateMachine
                 return;
             }
 
+            if (ReferenceEquals(null, activeRoomState.NextRoom))
+            {
+                Debug.LogWarning($"the room: {activeRoomState.StateName} has no next room");
+                return;
+            }
+
             EnterState(activeRoomState.NextRoom);
         }
 
@@ -120,7 +126,7 @@ namespace CleanRoom.StateMachine
         /// </summary>
         /// <param name="ot">The type of the state that is left</param>
         /// <param name="tt">The type of the state that is entered</param>
-        /// <returns>A enum based on the type</returns>
+        /// <returns>An enum based on the type</returns>
         /// <exception cref="InvalidOperationException">
         ///     Thrown when a game to game transition happens
         /// </exception>
@@ -172,8 +178,8 @@ namespace CleanRoom.StateMachine
             completedStates.Add(stateName);
         }
 
-        private void OnGameStateCompleted(string _) =>
-            MenuManager.Instance.GetMenuOfType<OverlayMenu>().PlayCompleteAnimation();
+        private void OnGameStateCompleted(string _) => MenuManager.Instance.GetMenuOfType<PopupMenu>()
+            .CreatePopup("Je bent klaar!", Popup.MessageType.Correct, "Deze minigame is afgerond!");
 
         private enum TransitionType { RoomToRoom, RoomToGame, GameToRoom }
     }
