@@ -9,7 +9,7 @@ namespace CleanRoom.Interactables
         private const string PLAYER_TAG = "Player";
         
         [field: SerializeField] public UnityEvent OnInteract { get; private set; }
-        private static OnScreenControllerMenu _hud;
+        private OnScreenControllerMenu _hud;
 
         private void OnTriggerEnter2D(Collider2D other)
         {

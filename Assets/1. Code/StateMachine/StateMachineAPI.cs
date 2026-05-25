@@ -1,4 +1,6 @@
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CleanRoom.StateMachine
 {
@@ -6,6 +8,8 @@ namespace CleanRoom.StateMachine
         order = 0)]
     public class StateMachineAPI : ScriptableObject
     {
+        [SerializeField, Scene] private int bootupScene;
+        
         public void GoToNextRoom()
         {
             StateMachine.Instance.GoToNextRoom();
@@ -16,9 +20,12 @@ namespace CleanRoom.StateMachine
             StateMachine.Instance.EnterState(state);
         }
 
-        public void ClearSaves()
+        public void Reset()
         {
             SaveSystem.DeleteAllSaves();
+            DestroyImmediate(StateMachine.Instance.gameObject);
+            DestroyImmediate(StateMachine.Instance);
+            SceneManager.LoadScene(bootupScene);
         }
     }
 }

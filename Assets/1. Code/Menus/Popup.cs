@@ -1,44 +1,68 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace CleanRoom.Menus
 {
-    public class Popup : MonoBehaviour, IPointerClickHandler
+    public class Popup : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI text;
-        [SerializeField] private float displayTime = 5f;
+        public enum MessageType { Incorrect, Correct, Feedback }
 
-        public event Action<string> destroyEvent;
-        
-        private static readonly Dictionary<Level, Color32> LEVEL_COLORS = new()
+        private static readonly Regex NUMBERS_REGEX = new(@"\d+");
+        private static readonly Dictionary<MessageType, Color32> COLOR_MAP = new()
         {
-            { Level.Info, new Color32(198, 208, 245, 255) },
-            { Level.Warning, new Color32(229, 200, 144, 255) },
-            { Level.Error, new Color32(231, 130, 132, 255) }
+            { MessageType.Feedback, new Color32(162, 242, 206, 255) },
+            { MessageType.Correct, new Color32(166, 209, 137, 255) },
+            { MessageType.Incorrect, new Color32(231, 130, 132, 255) }
         };
 
-        public void Initialize(string message, Level level)
-        {
-            text.SetText(message);
-            text.overrideColorTags = true;
-            text.color = LEVEL_COLORS[level];
+        [SerializeField] private TextMeshProUGUI title;
+        [SerializeField] private TextMeshProUGUI text;
+        [SerializeField] private Transform starsParent;
 
-            Destroy(gameObject, displayTime);
+        private void Awake()
+        {
+            title.overrideColorTags = true;
+            title.color = COLOR_MAP[MessageType.Correct];
         }
 
-        public enum Level { Info, Warning, Error }
+        public event Action closeEvent;
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void Initialize(string text, MessageType messageType, string title)
         {
-            Destroy(gameObject);
+            if (messageType == MessageType.Feedback)
+            {
+                Match match = NUMBERS_REGEX.Match(text);
+                int stars = int.Parse(match.Value);
+
+                text = text[match.Value.Length..];
+                
+                SetStars(stars);
+            }
+            
+            this.title.SetText(title);
+            this.title.color = COLOR_MAP[messageType];
+            this.text.SetText(text);
+            
+            gameObject.SetActive(true);
         }
 
-        private void OnDestroy()
+        public void Close()
         {
-            destroyEvent?.Invoke(text.text);
+            starsParent.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+            closeEvent?.Invoke();
+        }
+
+        public void SetStars(int count)
+        {
+            starsParent.gameObject.SetActive(true);
+            for (int i = 0; i < starsParent.childCount; ++i)
+            {
+                starsParent.GetChild(i).gameObject.SetActive(i < count);
+            }
         }
     }
 }

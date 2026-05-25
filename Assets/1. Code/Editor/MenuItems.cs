@@ -24,5 +24,11 @@ namespace CleanRoom
 
         [MenuItem("Tools/CleanRoom/Force Recompile")]
         private static void ForceRecompile() => AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+
+        [MenuItem("Tools/CleanRoom/Open Persistent Data Path")]
+        private static void OpenPDP() => Application.OpenURL("file://" + Application.persistentDataPath);
+
+        [MenuItem("Tools/CleanRoom/Clear Saves")]
+        private static void ClearSaves() => SaveSystem.DeleteAllSaves();
     }
 }

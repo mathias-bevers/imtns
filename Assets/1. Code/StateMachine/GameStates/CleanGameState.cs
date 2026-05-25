@@ -6,8 +6,7 @@ namespace CleanRoom.StateMachine
 {
     public class CleanGameState : GameState
     {
-        public override bool CanEnter =>
-            base.CanEnter && Player.Instance.Inventory.HasItem("Tablet");
+        private const string NOT_CLEAN_MESSAGE = "Oeps, de tablet was nog niet helemaal school!";
 
         [field: SerializeField] public DragAndSnap Wipe { get; private set; }
         [field: SerializeField] public Tablet Tablet { get; private set; }
@@ -15,6 +14,8 @@ namespace CleanRoom.StateMachine
         [field: SerializeField] public ConditionalOnClick BagDispenser { get; private set; }
 
         [SerializeField] private GameObject interactables;
+        public override bool CanEnter =>
+            base.CanEnter && Player.Instance.Inventory.HasItem("Tablet");
 
         protected void OnEnable()
         {
@@ -32,20 +33,20 @@ namespace CleanRoom.StateMachine
         {
             interactables.SetActive(true);
             Tablet.SpawnDirt();
+            foreach (DirtPiece dirtPiece in Tablet.GetComponentsInChildren<DirtPiece>())
+            {
+                dirtPiece.mistakeMadeEvent += OnMistakeMade;
+            }
         }
 
         private void ValidateCleanliness()
         {
-            int mistakes = Tablet.GetComponentsInChildren<DirtPiece>().Length;
-
-            if (mistakes == 0)
+            if (Tablet.GetComponentsInChildren<DirtPiece>().Length == 0)
             {
                 return;
             }
-
-            string message = $"Oeps, je hebt {mistakes} fout(en) gemaakt!";
-            MenuManager.Instance.GetMenuOfType<PopupMenu>()
-                .CreatePopup(message, Popup.Level.Warning);
+            
+            MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(NOT_CLEAN_MESSAGE, Popup.MessageType.Incorrect);
         }
     }
 }
