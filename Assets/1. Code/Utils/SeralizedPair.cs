@@ -8,15 +8,15 @@ namespace CleanRoom.Utils
     [Serializable]
     public class SerializablePair<T, U>
     {
-        [field: SerializeField] public T First {get; set; }
-        [field: SerializeField] public U Second {get; set; }
+        [field: SerializeField] public T First { get; set; }
+        [field: SerializeField] public U Second { get; set; }
     }
-
+#if UNITY_EDITOR
     public class SerializablePairEditor<T, U> : Editor
     {
         private SerializedProperty first;
         private SerializedProperty second;
-        
+
         private void OnEnable()
         {
             serializedObject.FindProperty("First".ToBackingField());
@@ -26,7 +26,7 @@ namespace CleanRoom.Utils
         public override void OnInspectorGUI()
         {
             EditorGUILayout.BeginHorizontal();
-            
+
             EditorGUILayout.PropertyField(first);
             EditorGUILayout.PropertyField(second);
 
@@ -40,7 +40,7 @@ namespace CleanRoom.Utils
     {
         private SerializedProperty first;
         private SerializedProperty second;
-        
+
         private void OnEnable()
         {
             serializedObject.FindProperty("First".ToBackingField());
@@ -50,11 +50,12 @@ namespace CleanRoom.Utils
         public override void OnInspectorGUI()
         {
             EditorGUILayout.BeginHorizontal();
-            
+
             EditorGUILayout.PropertyField(first);
             EditorGUILayout.PropertyField(second);
 
             EditorGUILayout.EndHorizontal();
         }
     }
+#endif
 }
