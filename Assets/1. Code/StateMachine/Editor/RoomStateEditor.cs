@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine.UIElements;
+using CleanRoom.Utils;
 
 namespace CleanRoom.StateMachine.Editor
 {
@@ -13,12 +14,13 @@ namespace CleanRoom.StateMachine.Editor
         private void OnEnable()
         {
            properties.Clear();
-           properties.Add(serializedObject.FindProperty(ToBackingField("StateName")));
-           properties.Add(serializedObject.FindProperty(ToBackingField("SceneName")));
-           properties.Add(serializedObject.FindProperty(ToBackingField("NextRoom")));
-           properties.Add(serializedObject.FindProperty(ToBackingField("EnterEvent")));
-           properties.Add(serializedObject.FindProperty(ToBackingField("ExitEvent")));
-           properties.Add(serializedObject.FindProperty(ToBackingField("UnfocusEvent")));
+           properties.Add(serializedObject.FindProperty("gameStates"));
+           properties.Add(serializedObject.FindProperty("StateName".ToBackingField()));
+           properties.Add(serializedObject.FindProperty("SceneName".ToBackingField()));
+           properties.Add(serializedObject.FindProperty("NextRoom".ToBackingField()));
+           properties.Add(serializedObject.FindProperty("EnterEvent".ToBackingField()));
+           properties.Add(serializedObject.FindProperty("ExitEvent".ToBackingField()));
+           properties.Add(serializedObject.FindProperty("UnfocusEvent".ToBackingField()));
         }
 
 
@@ -31,11 +33,6 @@ namespace CleanRoom.StateMachine.Editor
             }
 
             serializedObject.ApplyModifiedProperties();
-        }
-
-        private static string ToBackingField(string source)
-        {
-            return string.Concat('<', source, '>', "k__BackingField");
         }
     }
 }

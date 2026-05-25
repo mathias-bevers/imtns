@@ -1,48 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CleanRoom.Utils;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace CleanRoom.InventorySystem
 {
     public class Inventory
     {
         private static InventoryItem[] _resources;
-        
+
+        public int Size => inventory.Count;
         private readonly List<InventoryItem> inventory;
 
-        public Inventory(int initialItemCount)
+        public Inventory(InventoryContents initialContents)
         {
             inventory = new List<InventoryItem>();
 
             LoadItems();
-            AddInitialItems(initialItemCount);
-        }
-
-        private void AddInitialItems(int initialItemCount)
-        {
-            for (int i = 0; i < _resources.Length; ++i)
+         
+            for (int i = 0; i < initialContents.Contents.Length; ++i)
             {
-                InventoryItem item = _resources[i];
-                if (!item.ForcedInInventory)
-                {
-                    continue;
-                }
-
-                inventory.Add(item);
-            }
-
-            while (inventory.Count < initialItemCount)
-            {
-                InventoryItem item = _resources[Random.Range(0, _resources.Length)];
-
-                if (item.SkipInRandomization)
-                {
-                    continue;
-                }
-
-                Add(item);
+                inventory.Add(initialContents.Contents[i]);
             }
         }
 
@@ -60,7 +39,7 @@ namespace CleanRoom.InventorySystem
         public bool Remove(InventoryItem item)
         {
             int index = inventory.IndexOf(item);
-            
+
             if (index < 0)
             {
                 return false;
@@ -73,17 +52,31 @@ namespace CleanRoom.InventorySystem
         public InventoryItem[] GetInventory() => inventory.ToArray();
 
         public bool HasItem(string itemName) => inventory.Any(item => string.Equals(item.Name, itemName));
-        
+
         private int GetItemCount(string itemName) => inventory.Count(item => string.Equals(item.Name, itemName));
 
-        public static InventoryItem GetItemResource(string name)
+        public InventoryItem GetItemAtIndex(int i)
         {
-            return _resources.IsNullOrEmpty() ? null : Array.Find(_resources, item => item.Name == name);
+            InventoryItem item = null;
+            
+            try
+            {
+                item = inventory[i];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Debug.LogError($"The index {i} is out of range");
+            }
+
+            return item;
         }
+
+        public static InventoryItem GetItemResource(string name) =>
+            _resources.IsNullOrEmpty() ? null : Array.Find(_resources, item => item.Name == name);
 
         private static void LoadItems()
         {
-            if (_resources is { Length: > 0 })
+            if (_resources.IsNullOrEmpty())
             {
                 return;
             }

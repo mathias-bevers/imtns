@@ -1,10 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CleanRoom
+namespace CleanRoom.Utils
 {
-    public static class Utils
+    public static class ExtensionMethods
     {
+        public static string ToBackingField(this string source)
+        {
+            return string.Concat('<', source, '>', "k__BackingField");
+        }
+        
         public static T GetComponentInParents<T>(this Transform origin) where T : Component
         {
             Transform parent = origin.parent;
