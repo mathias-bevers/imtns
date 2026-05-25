@@ -1,5 +1,7 @@
+using System;
 using CleanRoom.StateMachine;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CleanRoom.MiniGames.CleanMiniGame
 {
@@ -51,7 +53,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             for (int i = 0; i < dirtCount; ++i)
             {
                 float scale = Random.Range(50, 111) * 0.01f;
-                Vector2 position = Random.insideUnitCircle * 201;
+                Vector2 position = Random.insideUnitCircle * 150;
                 
                 DirtPiece dirtPiece = Instantiate(dirtPrefab, transform);
                 dirtPiece.Initialize(scale, position);

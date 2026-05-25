@@ -51,6 +51,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.CleanMiniGame.DirtPiece
   cleanDistanceBase: 50
+  sprites:
+  - {fileID: 1781506669, guid: 4ad2a50e86d813a339d7f9651cbf6533, type: 3}
+  - {fileID: 1478382135, guid: 4ad2a50e86d813a339d7f9651cbf6533, type: 3}
+  - {fileID: -1851225743, guid: 207c0520de05cb4bc84d669129caa6d9, type: 3}
 --- !u!222 &7018139347947708248
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -72,16 +76,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.86764425, g: 0.75356513, b: 0.66041327, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e90d58016e9342e359f6cd845bd399b5, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: e5d2916631f0336c3ba7e12264b6712e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
