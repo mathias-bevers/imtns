@@ -22,6 +22,7 @@ namespace CleanRoom.Menus
         
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private TextMeshProUGUI text;
+        public event Action closeEvent;
 
         private void Awake()
         {
@@ -37,7 +38,7 @@ namespace CleanRoom.Menus
                 return;
             }
              
-            this.title.SetText(string.IsNullOrEmpty(title) ? messageType.ToString() : title);
+            this.title.SetText(title);
             this.title.color = COLOR_MAP[messageType];
             this.text.SetText(text);
             gameObject.SetActive(true);
@@ -46,6 +47,7 @@ namespace CleanRoom.Menus
         public void Close()
         {
             gameObject.SetActive(false);
+            closeEvent?.Invoke();
         }
     }
 }
