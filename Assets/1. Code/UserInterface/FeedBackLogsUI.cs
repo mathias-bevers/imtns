@@ -8,7 +8,7 @@ namespace CleanRoom.UserInterface
 {
     public class FeedBackLogsUI : MonoBehaviour
     {
-        private const string ACCENT_HEX = "#A3F2CE";
+        private const string ACCENT_HEX = "<color=#A3F2CE>";
         
         [SerializeField] private FeedbackUI controller;
         [SerializeField] private RoomState roomState;
@@ -32,8 +32,7 @@ namespace CleanRoom.UserInterface
 
             foreach (string gameStateName in roomState.GetGameStateNames())
             {
-                builder.Append("<color=").Append(ACCENT_HEX).Append('>');
-                builder.Append(gameStateName).AppendLine("</color>");
+                builder.Append(ACCENT_HEX).Append(gameStateName).AppendLine("</color>");
 
                 if (controller.GameStates[gameStateName]["feedback"] is not JArray array)
                 {

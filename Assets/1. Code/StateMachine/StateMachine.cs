@@ -109,6 +109,12 @@ namespace CleanRoom.StateMachine
                 return;
             }
 
+            if (ReferenceEquals(null, activeRoomState.NextRoom))
+            {
+                Debug.LogWarning($"the room: {activeRoomState.StateName} has no next room");
+                return;
+            }
+
             EnterState(activeRoomState.NextRoom);
         }
 
