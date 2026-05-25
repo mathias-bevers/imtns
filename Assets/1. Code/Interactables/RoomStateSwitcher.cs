@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using CleanRoom.Menus;
 using CleanRoom.StateMachine;
 using Newtonsoft.Json.Linq;
@@ -66,7 +67,11 @@ namespace CleanRoom.Interactables
 
                 totalStars += Mathf.Max(0, MAX_STARS - array.Count);
 
-                builder.Append(ACCENT_HEX).Append(gameStateName).AppendLine("</color>");
+                string formattedStateName = gameStateName.Replace("State", string.Empty);
+                // PascalCase -> Pascal Case
+                formattedStateName = Regex.Replace(formattedStateName, "(\\B[A-Z])", " $1"); 
+                builder.Append(ACCENT_HEX).Append(formattedStateName).AppendLine("</color>");
+                
                 builder.Append(array.Count == 0
                     ? "Je hebt deze mini game perfect gedaan, goed bezig!"
                     : string.Join('\n', array));
