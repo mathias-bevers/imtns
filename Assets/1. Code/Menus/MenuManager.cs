@@ -9,8 +9,8 @@ namespace CleanRoom.Menus
 
         public override void Awake()
         {
-            base.Awake();
             DontDestroyOnLoad(gameObject);
+            base.Awake();
         }
 
         public void RegisterMenu(Menu menu)

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671f6c9beddab30d0821eef50f5f5b10, type: 3}
   m_Name: Keys
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Inventory.InventoryItem
-  <Name>k__BackingField: Sleutel
-  <Sprite>k__BackingField: {fileID: 7304244184475788409, guid: 3381574cdddd76310bf53cec83239ea3, type: 3}
+  <Name>k__BackingField: sleutel bos
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 9c83ffa2b52091aa39f6985263cca253, type: 3}
   <Destination>k__BackingField: 0
   <ForcedInInventory>k__BackingField: 0
-  ItemLimit: 1
-  <Scale>k__BackingField: 1
+  <SkipInRandomization>k__BackingField: 0
+  <ItemLimit>k__BackingField: 1
