@@ -31,7 +31,6 @@ namespace CleanRoom.Interactables
 
             (string title, string text) feedback = GetFeedBack();
             popupMenu.CreatePopup(feedback.text, Popup.MessageType.Feedback, feedback.title);
-
         }
 
         private (string title, string text) GetFeedBack()

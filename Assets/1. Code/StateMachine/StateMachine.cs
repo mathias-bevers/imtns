@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using CleanRoom.Menus;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -202,7 +203,9 @@ namespace CleanRoom.StateMachine
             {
                 throw new InvalidCastException("get an j-array for the key \"feedback\"");
             }
-            
+
+            stateTypeName = stateTypeName.Replace("State", string.Empty);
+            stateTypeName = Regex.Replace(stateTypeName, "(\\B[A-Z])", " $1");
             GameState gameState = ActiveState as GameState;
             int stars = Mathf.Max(3 - array.Count, 0);
 
