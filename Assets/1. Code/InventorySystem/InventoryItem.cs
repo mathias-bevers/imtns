@@ -10,8 +10,8 @@ namespace CleanRoom.InventorySystem
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public Sprite Sprite { get; private set; }
         [field: SerializeField] public DestinationType Destination { get; private set; }
-        [field: SerializeField] public bool ForcedInInventory { get; private set; }
-        [field: SerializeField] public bool SkipInRandomization { get; private set; }
-        [field: SerializeField] public int ItemLimit { get; private set; } = 1;
+
+        [field: SerializeField, TextArea] public string CorrectMessage { get; private set; }
+        [field: SerializeField, TextArea] public string IncorrectMessage { get; private set; }
     }
 }
