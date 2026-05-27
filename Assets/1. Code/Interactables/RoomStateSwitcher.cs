@@ -3,6 +3,7 @@ using CleanRoom.Menus;
 using CleanRoom.StateMachine;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CleanRoom.Interactables
 {
@@ -11,8 +12,11 @@ namespace CleanRoom.Interactables
         private const string ACCENT_HEX = "<color=#A3F2CE>";
         private const int MAX_STARS = 3;
 
+        [SerializeField] private UnityEvent notReadyEvent;
+        
         private PopupMenu popupMenu = null;
         private StateMachine.StateMachine stateMachine = null;
+        
 
         public void RequestNextRoom()
         {
@@ -21,20 +25,12 @@ namespace CleanRoom.Interactables
 
             if (!stateMachine.IsStateCompleted(stateMachine.ActiveState.StateName))
             {
-                popupMenu.CreatePopup("Je hebt nog niet alle minigames in deze kamer voltooid.",
-                    Popup.MessageType.Incorrect, "Nog niet klaar!");
+                notReadyEvent?.Invoke();
                 return;
             }
 
             (string title, string text) feedback = GetFeedBack();
             popupMenu.CreatePopup(feedback.text, Popup.MessageType.Feedback, feedback.title);
-            popupMenu.Popup.closeEvent += OnPopupClose;
-        }
-
-        private void OnPopupClose()
-        {
-            stateMachine.GoToNextRoom();
-            popupMenu.Popup.closeEvent -= OnPopupClose;
         }
 
         private (string title, string text) GetFeedBack()

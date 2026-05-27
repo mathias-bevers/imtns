@@ -15,6 +15,6 @@ MonoBehaviour:
   <Name>k__BackingField: pen
   <Sprite>k__BackingField: {fileID: 21300000, guid: 41f632b65de6735afb2f99dc6815d678, type: 3}
   <Destination>k__BackingField: 0
-  <ForcedInInventory>k__BackingField: 0
-  <SkipInRandomization>k__BackingField: 0
-  <ItemLimit>k__BackingField: 999
+  <CorrectMessage>k__BackingField: Writing items should stay outside the cleanroom
+    preparation process.
+  <IncorrectMessage>k__BackingField: The pen should be stored away, not discarded.

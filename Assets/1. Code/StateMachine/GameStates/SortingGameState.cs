@@ -47,7 +47,7 @@ namespace CleanRoom.StateMachine
             {
                 dropZones[i].itemDroppedEvent += OnItemDropped;
             }
-            
+
             tabletOnTray.SetActive(false);
             sortingItem.Image.enabled = true;
 
@@ -61,20 +61,18 @@ namespace CleanRoom.StateMachine
 
             if (!isCorrect)
             {
-                popupMenu.CreatePopup(
-                    string.Concat("Een ", item.Name, " hoort niet in de " + NAME_MAP[dropZoneType], '.'),
-                    Popup.MessageType.Incorrect);
+                OnMistakeMade(item.IncorrectMessage);
                 return;
             }
 
 
-            popupMenu.CreatePopup("Dat was correct!", Popup.MessageType.Correct);
+            popupMenu.CreatePopup(item.CorrectMessage, Popup.MessageType.Correct);
 
             if (string.Equals(TABLET_NAME, item.name))
             {
                 tabletOnTray.SetActive(true);
             }
-            
+
             NextItem();
         }
 

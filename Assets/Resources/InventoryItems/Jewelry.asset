@@ -15,6 +15,6 @@ MonoBehaviour:
   <Name>k__BackingField: stapel accessoires
   <Sprite>k__BackingField: {fileID: 21300000, guid: 8e3234ba499faa7dca7022f904411189, type: 3}
   <Destination>k__BackingField: 0
-  <ForcedInInventory>k__BackingField: 0
-  <SkipInRandomization>k__BackingField: 1
-  <ItemLimit>k__BackingField: 1
+  <CorrectMessage>k__BackingField: Accessories are personal items and should be stored
+    before continuing.
+  <IncorrectMessage>k__BackingField: Accessories should be stored, not discarded.
