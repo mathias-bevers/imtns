@@ -1318,10 +1318,10 @@ MonoBehaviour:
   <OnInteract>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45503075}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 345645393}
+        m_TargetAssemblyTypeName: CleanRoom.Interactables.RoomStateSwitcher, Assembly-CSharp
+        m_MethodName: RequestNextRoom
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8094,10 +8094,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
       propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1796561279}
     m_RemovedComponents: []
