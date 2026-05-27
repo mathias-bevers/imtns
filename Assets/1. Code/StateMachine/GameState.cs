@@ -12,6 +12,7 @@ namespace CleanRoom.StateMachine
         private static JObject _gameMistakes;
 
         [field: SerializeField] public RoomState ParentState { get; private set; }
+        [field: SerializeField, TextArea] public string CompletionMessage { get; private set; }
 
         private DateTime previousMistakeTime;
 

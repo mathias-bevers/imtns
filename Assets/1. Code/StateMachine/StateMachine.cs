@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using CleanRoom.Menus;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -115,7 +114,7 @@ namespace CleanRoom.StateMachine
                 EnterState(activeRoomState.NextRoom);
                 return;
             }
-            
+
             if (ActiveState is GameState activeGameState)
             {
                 if (ReferenceEquals(null, activeGameState.ParentState))
@@ -127,7 +126,7 @@ namespace CleanRoom.StateMachine
                 EnterState(activeGameState.ParentState);
                 return;
             }
-            
+
             throw new NotSupportedException($"Could not process next room for type: {ActiveState.GetType()}");
         }
 
@@ -198,20 +197,17 @@ namespace CleanRoom.StateMachine
             {
                 throw new NullReferenceException("could not find token for state: " + stateTypeName);
             }
-
+            
             if (token["feedback"] is not JArray array)
             {
                 throw new InvalidCastException("get an j-array for the key \"feedback\"");
             }
-
-            stateTypeName = stateTypeName.Replace("State", string.Empty);
-            stateTypeName = Regex.Replace(stateTypeName, "(\\B[A-Z])", " $1");
-            string message = array.Count == 0 ? "Je hebt deze minigame perfect gedaan" : string.Join('\n', array);
+            
+            GameState gameState = ActiveState as GameState;
             int stars = Mathf.Max(3 - array.Count, 0);
 
-
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(stars + message, Popup.MessageType.Feedback,
-                stateTypeName + " is voltooid!");
+            MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(stars + gameState?.CompletionMessage,
+                Popup.MessageType.Feedback, stateTypeName + " is voltooid!");
         }
 
         private enum TransitionType { RoomToRoom, RoomToGame, GameToRoom }

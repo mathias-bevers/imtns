@@ -23,11 +23,6 @@ namespace CleanRoom.InventorySystem
 
         public bool Add(InventoryItem item)
         {
-            if (GetItemCount(item.Name) >= item.ItemLimit)
-            {
-                return false;
-            }
-
             inventory.Add(item);
             return true;
         }
