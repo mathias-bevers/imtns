@@ -47,7 +47,7 @@ namespace CleanRoom.StateMachine
             {
                 dropZones[i].itemDroppedEvent += OnItemDropped;
             }
-            
+
             tabletOnTray.SetActive(false);
             sortingItem.Image.enabled = true;
 
@@ -61,9 +61,7 @@ namespace CleanRoom.StateMachine
 
             if (!isCorrect)
             {
-                popupMenu.CreatePopup(
-                    string.Concat("Een ", item.Name, " hoort niet in de " + NAME_MAP[dropZoneType], '.'),
-                    Popup.MessageType.Incorrect);
+                OnMistakeMade(string.Concat("Een ", item.Name, " hoort niet in de " + NAME_MAP[dropZoneType], '.'));
                 return;
             }
 
@@ -74,7 +72,7 @@ namespace CleanRoom.StateMachine
             {
                 tabletOnTray.SetActive(true);
             }
-            
+
             NextItem();
         }
 

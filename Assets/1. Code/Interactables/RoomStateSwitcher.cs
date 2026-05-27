@@ -28,13 +28,7 @@ namespace CleanRoom.Interactables
 
             (string title, string text) feedback = GetFeedBack();
             popupMenu.CreatePopup(feedback.text, Popup.MessageType.Feedback, feedback.title);
-            popupMenu.Popup.closeEvent += OnPopupClose;
-        }
 
-        private void OnPopupClose()
-        {
-            stateMachine.GoToNextRoom();
-            popupMenu.Popup.closeEvent -= OnPopupClose;
         }
 
         private (string title, string text) GetFeedBack()
