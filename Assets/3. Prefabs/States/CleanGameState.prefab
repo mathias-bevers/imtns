@@ -1129,6 +1129,7 @@ MonoBehaviour:
   <ExitEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+  <ParentState>k__BackingField: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
   <Wipe>k__BackingField: {fileID: 697199911645979407}
   <Tablet>k__BackingField: {fileID: 1520143213807125523}
   <WipeBox>k__BackingField: {fileID: 3378514598510619189}

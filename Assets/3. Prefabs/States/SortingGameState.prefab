@@ -671,6 +671,7 @@ MonoBehaviour:
   <ExitEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+  <ParentState>k__BackingField: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
   tabletOnTray: {fileID: 8644362993870074772}
 --- !u!1 &6505556784007547260
 GameObject:
