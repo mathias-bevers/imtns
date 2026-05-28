@@ -21,6 +21,8 @@ namespace CleanRoom.Menus
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private Transform starsParent;
+        [SerializeField] private GameObject backgroundPanel;
+        
         private MessageType? showingMessageType = null;
 
         private void Awake()
@@ -48,6 +50,7 @@ namespace CleanRoom.Menus
             this.title.color = COLOR_MAP[messageType];
             this.text.SetText(text);
             
+            backgroundPanel.SetActive(true);
             gameObject.SetActive(true);
         }
 
@@ -55,6 +58,7 @@ namespace CleanRoom.Menus
         {
             starsParent.gameObject.SetActive(false);
             gameObject.SetActive(false);
+            backgroundPanel.SetActive(false);
             
             if (showingMessageType == MessageType.Feedback)
             {

@@ -33,7 +33,7 @@ namespace CleanRoom.Interactables
             popupMenu.CreatePopup(feedback.text, Popup.MessageType.Feedback, feedback.title);
         }
 
-        private (string title, string text) GetFeedBack()
+        private static (string title, string text) GetFeedBack()
         {
             RoomState roomState = StateMachine.StateMachine.Instance.ActiveState as RoomState;
             string[] gameStateNames = roomState?.GetGameStateNames();
