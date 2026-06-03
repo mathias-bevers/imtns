@@ -1,15 +1,14 @@
+using CleanRoom.StateMachine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DressUpGameManager : MonoBehaviour
+public class DressUpGameManager : GameState
 {
     [SerializeField] public List<ItemType> SlotOrder = new();
     [SerializeField] public List<ItemSlot> Slots = new();
 
-    [field: SerializeField] public UnityEvent EnterEvent { get; private set; }
-    [field: SerializeField] public UnityEvent ExitEvent { get; private set; }
     [field: SerializeField] public UnityEvent<string> OnMistake { get; private set; }
 
     protected void OnEnable()

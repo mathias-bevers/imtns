@@ -7,5 +7,6 @@ public enum ItemType
     DressUp_Overalls,
     DressUp_Facemask,
     DressUp_SafetyGoggles,
-    DressUp_Glove
+    DressUp_Glove,
+    ShoeProcedure_Shoe
 }

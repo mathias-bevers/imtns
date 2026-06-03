@@ -2263,6 +2263,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd3c21014998b14dac3280d0b116fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DressUpGameState
+  <StateName>k__BackingField: DressUp Minigame
+  <SceneName>k__BackingField: DressUpMinigame
+  <EnterEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <ExitEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <ParentState>k__BackingField: {fileID: 0}
+  <CompletionMessage>k__BackingField: 
   SlotOrder: 010000000200000003000000040000000500000005000000
   Slots:
   - {fileID: 1790619561}
@@ -2271,12 +2281,6 @@ MonoBehaviour:
   - {fileID: 1191505235}
   - {fileID: 1671024980}
   - {fileID: 342300464}
-  <EnterEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <ExitEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
   <OnMistake>k__BackingField:
     m_PersistentCalls:
       m_Calls: []

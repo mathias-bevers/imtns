@@ -12,13 +12,12 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         public ItemType ItemType;
         [HideInInspector] public Vector3 startPosition;
 
+        protected Vector3 offset;
+
         private CanvasGroup canvasGroup;
         private Image itemImage;
 
-        private Vector3 offset;
-
-
-        private void Awake()
+        protected virtual void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
             itemImage = GetComponent<Image>();

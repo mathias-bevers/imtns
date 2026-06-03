@@ -12,7 +12,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     [SerializeField] protected List<ItemType> AllowedItems;
     [SerializeField] protected bool hideOnSlot;
 
-    protected bool isEmpty = true;
+    public bool isEmpty = true;
     protected bool allowAllItems = false;
     protected DragAndDropItem slottedItem = null;
 
