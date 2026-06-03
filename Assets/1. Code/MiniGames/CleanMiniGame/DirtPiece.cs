@@ -1,5 +1,4 @@
 using System;
-using CleanRoom.StateMachine;
 using CleanRoom.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +12,8 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         [SerializeField] private float cleanDistanceBase;
         [SerializeField] private Sprite[] sprites;
 
-        private CleanGameState state;
+        private string stateName;
+        private CleanGame state;
         private DragAndSnap wipe;
         private float cleanDistance;
         private float distance;
@@ -32,14 +32,15 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         }
 
         public event Action destroyedEvent;
-        public event Action<string> mistakeMadeEvent;
+        public event Action<string, string> mistakeMadeEvent;
 
         public void Initialize(float scale, Vector2 position)
         {
             cachedTransform = (RectTransform)transform;
             image = GetComponent<Image>();
+            
 
-            state = StateMachine.StateMachine.Instance.ActiveState as CleanGameState;
+            stateName = KattenKasteel.FSM.StateMachine.Instance.ActiveState.Name;
             wipe = state?.Wipe;
 
             image.sprite = sprites.GetRandomElement();
@@ -60,7 +61,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
             if (state.Tablet.Cleanliness < Tablet.CleanlinessLevel.Sprayed)
             {
-                mistakeMadeEvent?.Invoke(NO_SPRAY_WARNING);
+                mistakeMadeEvent?.Invoke(stateName, NO_SPRAY_WARNING);
 
                 wipe.OnEndDrag(null);
                 return;

@@ -2,7 +2,7 @@ using KattenKasteel.FSM;
 using UnityEditor;
 using UnityEngine;
 
-namespace KattenKasteel.FMS.Editor
+namespace KattenKasteel.FSM.Editor
 {
     public static class EditorUtils
     {

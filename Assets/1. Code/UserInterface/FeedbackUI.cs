@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using CleanRoom.StateMachine;
 using CleanRoom.Utils;
-using Newtonsoft.Json.Linq;
+using KattenKasteel.FSM;
+using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,70 +12,43 @@ namespace CleanRoom.UserInterface
     public class FeedbackUI : MonoBehaviour
     {
         private const string STARS = "Stars";
-        
-        public JObject GameStates { get; set; }
-        
-        [SerializeField] private SerializablePair<Button, RoomState>[] roomSelectors;
-        private readonly HashSet<string> completedRoomStates = new();
+        private const int MAX_STARS = 3;
+
+        [SerializeField, ValidateInput("IsValidPairArray")]
+        private SerializablePair<Button, State>[] roomSelectors;
 
         private void OnEnable()
         {
-            GameStates = SaveSystem.LoadGameStates();
-            completedRoomStates.Clear();
-
-            for (int i = 0; i < roomSelectors.Length; ++i)
+            foreach (SerializablePair<Button, State> bsp in roomSelectors)
             {
-                SerializablePair<Button, RoomState> tsp = roomSelectors[i];
-                TextMeshProUGUI text = tsp.First.GetComponentInChildren<TextMeshProUGUI>();
-                Transform starParent = tsp.First.transform.Find(STARS);
+                TextMeshProUGUI text = bsp.First.GetComponentInChildren<TextMeshProUGUI>();
+                Transform starParent = bsp.First.transform.Find(STARS);
 
-                if (ReferenceEquals(null, tsp.Second))
+                if (ReferenceEquals(null, bsp.Second))
                 {
                     text.SetText("Nog niet hier!");
                     starParent.gameObject.SetActive(false);
                     continue;
                 }
 
-                int gameCount = 0;
-                int completedGameCount = 0;
                 int stars = 0;
                 int roomMistakes = 0;
 
-                foreach (string gameStateName in tsp.Second.GetGameStateNames())
+                State[] children = bsp.Second.Children;
+                int gameCount = children.Length;
+                int completedGameCount = children.Count(child => child.IsCompleted);
+
+                foreach (State child in children)
                 {
-                    JToken gameState = GameStates[gameStateName];
-
-                    if (ReferenceEquals(null, gameState))
-                    {
-                        Debug.LogError("could not find record for: " + gameStateName);
-                        continue;
-                    }
-
-                    ++gameCount;
-                    if (gameState["is_completed"]!.ToObject<bool>())
-                    {
-                        ++completedGameCount;
-                    }
-
-                    if (gameState["feedback"] is not JArray array)
-                    {
-                        Debug.LogError("could not find feedback for: " + gameStateName);
-                        continue;
-                    }
-                    
-                    tsp.First.onClick.RemoveAllListeners();
-                    
-                    int mistakes = array.Count;
-                    roomMistakes += mistakes;
-                    stars += 3 - Mathf.Min(mistakes, 3);
+                    string[] feedback = FeedbackLogger.GetFeedback(child.name);
+                    stars += Mathf.Max(0, MAX_STARS - feedback.Length);
+                    roomMistakes += feedback.Length;
                 }
 
                 StringBuilder builder = new();
 
                 if (completedGameCount == gameCount)
                 {
-                    completedRoomStates.Add(tsp.Second.StateName);
-                    
                     builder.AppendLine("Score: ");
                     int averageStars = stars / gameCount;
                     for (int ii = 0; ii < starParent.childCount; ++ii)
@@ -99,6 +72,27 @@ namespace CleanRoom.UserInterface
             }
         }
 
-        public bool IsRoomStateCompleted(string roomStateName) => completedRoomStates.Contains(roomStateName);
+        private bool IsValidPairArray()
+        {
+            foreach (SerializablePair<Button, State> bsp in roomSelectors)
+            {
+                if (ReferenceEquals(null, bsp))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(null, bsp.Second))
+                {
+                    continue;
+                }
+
+                if (!bsp.Second.IsParent)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

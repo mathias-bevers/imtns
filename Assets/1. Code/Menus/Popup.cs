@@ -62,7 +62,7 @@ namespace CleanRoom.Menus
             
             if (showingMessageType == MessageType.Feedback)
             {
-                StateMachine.StateMachine.Instance.GoToNextRoom();
+                //TODO: invoke on goto next room thingy.
             }
 
             showingMessageType = null;

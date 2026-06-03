@@ -1,7 +1,5 @@
-using System;
-using CleanRoom.StateMachine;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using KattenKasteel.FSM;
 
 namespace CleanRoom.MiniGames.CleanMiniGame
 {
@@ -22,7 +20,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         [SerializeField] private GameObject baggedTablet;
         
         public CleanlinessLevel Cleanliness { get; private set; } = CleanlinessLevel.Dirty;
-        private CleanGameState state = null;
+        private CleanGame manager = null;
         private float distance = 0;
 
         private Transform isopropylStain;
@@ -32,7 +30,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         {
             cachedTransform = transform;
             isopropylStain = cachedTransform.GetChild(0);
-            state = FindAnyObjectByType<CleanGameState>();
+            manager = CleanGame.Instance;
         }
 
         private void Update()
@@ -70,10 +68,10 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             }
 
             Cleanliness = CleanlinessLevel.Cleaned;
-            state.Wipe.gameObject.SetActive(false);
+            manager.Wipe.gameObject.SetActive(false);
             isopropylStain.gameObject.SetActive(false);
-            state.WipeBox.PreventInvoke = true;
-            state.BagDispenser.PreventInvoke = false;
+            manager.WipeBox.PreventInvoke = true;
+            manager.BagDispenser.PreventInvoke = false;
         }
 
         private void CheckIsopropyl()
@@ -104,8 +102,8 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             baggedTablet.SetActive(true);
             bag.gameObject.SetActive(false);
             gameObject.SetActive(false);
-            state.BagDispenser.PreventInvoke = true;
-            state.Complete();
+            manager.BagDispenser.PreventInvoke = true;
+            KattenKasteel.FSM.StateMachine.Instance.CompleteActiveState();
         }
 
         private bool InInteractionRadius(Vector2 otherPosition)

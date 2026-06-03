@@ -28,7 +28,7 @@ namespace CleanRoom
         private static void OpenPDP() => Application.OpenURL("file://" + Application.persistentDataPath);
 
         [MenuItem("Tools/CleanRoom/Clear Saves")]
-        private static void ClearSaves() => SaveSystem.DeleteAllSaves();
+        private static void ClearSaves() => FeedbackLogger.Reset();
 
         
     }

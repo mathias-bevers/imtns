@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using CleanRoom.InventorySystem;
 using CleanRoom.Menus;
-using CleanRoom.MiniGames.LockerMiniGame;
+using KattenKasteel.FSM;
 using UnityEngine;
 
-namespace CleanRoom.StateMachine
+namespace CleanRoom.MiniGames.LockerMiniGame
 {
-    public class SortingGameState : GameState
+    public class SortingGame : Singleton<SortingGame>
     {
         private const string FILENAME = "sorting_game.json";
         private const string TABLET_NAME = "Tablet";
@@ -20,6 +20,7 @@ namespace CleanRoom.StateMachine
 
         [SerializeField] private GameObject tabletOnTray;
 
+        private string stateName;
         private DropZone[] dropZones = Array.Empty<DropZone>();
         private int currentItem = -1;
         private Inventory inventory = null;
@@ -28,16 +29,13 @@ namespace CleanRoom.StateMachine
 
         private void OnEnable()
         {
-            EnterEvent.AddListener(StartMiniGame);
-        }
-
-        private void OnDisable()
-        {
-            EnterEvent.RemoveListener(StartMiniGame);
+            StartMiniGame();
         }
 
         private void StartMiniGame()
         {
+            stateName = StateMachine.Instance.ActiveState.Name;
+            
             popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>();
             dropZones = GetComponentsInChildren<DropZone>(true);
             sortingItem = GetComponentInChildren<SortingItem>();
@@ -61,11 +59,10 @@ namespace CleanRoom.StateMachine
 
             if (!isCorrect)
             {
-                OnMistakeMade(item.IncorrectMessage);
+                GameManager.Instance.OnMistakeMade(stateName, item.IncorrectMessage);
                 return;
             }
-
-
+            
             popupMenu.CreatePopup(item.CorrectMessage, Popup.MessageType.Correct);
 
             if (string.Equals(TABLET_NAME, item.name))
@@ -82,7 +79,7 @@ namespace CleanRoom.StateMachine
             if (currentItem == inventory.Size)
             {
                 sortingItem.Image.enabled = false;
-                Complete();
+                StateMachine.Instance.CompleteActiveState();
                 return;
             }
 

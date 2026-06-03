@@ -2,9 +2,9 @@ using CleanRoom.Menus;
 using CleanRoom.MiniGames.CleanMiniGame;
 using UnityEngine;
 
-namespace CleanRoom.StateMachine
+namespace CleanRoom.MiniGames.CleanMiniGame
 {
-    public class CleanGameState : GameState
+    public class CleanGame : Singleton<CleanGame>
     {
         private const string NOT_CLEAN_MESSAGE = "Oeps, de tablet was nog niet helemaal school!";
 
@@ -14,19 +14,15 @@ namespace CleanRoom.StateMachine
         [field: SerializeField] public ConditionalOnClick BagDispenser { get; private set; }
 
         [SerializeField] private GameObject interactables;
-        public override bool CanEnter =>
-            base.CanEnter && Player.Instance.Inventory.HasItem("Tablet");
 
         protected void OnEnable()
         {
-            EnterEvent.AddListener(StartMiniGame);
-            ExitEvent.AddListener(ValidateCleanliness);
+            StartMiniGame();
         }
 
         protected void OnDisable()
         {
-            EnterEvent.RemoveAllListeners();
-            ExitEvent.RemoveAllListeners();
+            ValidateCleanliness();
         }
 
         private void StartMiniGame()
@@ -35,7 +31,7 @@ namespace CleanRoom.StateMachine
             Tablet.SpawnDirt();
             foreach (DirtPiece dirtPiece in Tablet.GetComponentsInChildren<DirtPiece>())
             {
-                dirtPiece.mistakeMadeEvent += OnMistakeMade;
+                dirtPiece.mistakeMadeEvent += GameManager.Instance.OnMistakeMade;
             }
         }
 
