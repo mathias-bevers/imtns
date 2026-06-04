@@ -9,10 +9,10 @@ using UnityEngine.UI;
 public class ItemSlot : MonoBehaviour, IDropHandler
 {
     [Tooltip("List of items that are allowed in this slot. If list is empty, all items are allowed")]
-    [SerializeField] protected List<ItemType> AllowedItems;
+    [SerializeField] public List<ItemType> AllowedItems;
     [SerializeField] protected bool hideOnSlot;
 
-    protected bool isEmpty = true;
+    public bool isEmpty = true;
     protected bool allowAllItems = false;
     protected DragAndDropItem slottedItem = null;
 
@@ -20,7 +20,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     private Color startingColor;
     private Color transparentColor;
 
-    [field: SerializeField] public UnityEvent<ItemType> OnItemSlotted { get; private set; }
+    [field: SerializeField] public UnityEvent<DragAndDropItem> OnItemSlotted { get; private set; }
     [field: SerializeField] public UnityEvent<string> OnWrongItemPlaced { get; private set; }
 
 
@@ -44,11 +44,11 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     {
         if (eventData.pointerDrag != null)
         {
-            SlotItem(eventData);
+            TrySlotItem(eventData);
         }
     }
 
-    protected void SlotItem(PointerEventData eventData)
+    protected void TrySlotItem(PointerEventData eventData)
     {
         if (!isEmpty) { return; }
 
@@ -57,25 +57,49 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
         if (IsItemAllowed(currentItem))
         {
-            currentItem.startPosition = transform.position;
-
-            slottedItem = currentItem;
-            isEmpty = false;
-
-            slotImage.raycastTarget = false;
+            SlotItem(currentItem);
 
             if (hideOnSlot)
             {
                 HideSlot();
             }
-
-            OnItemSlotted.Invoke(currentItem.ItemType); 
         }
         else
         {
-            OnWrongItemPlaced.Invoke("Wrong item placed on slot");
+            OnWrongItemPlaced.Invoke(currentItem.ItemType + " is verkeerd geplaats");
             Debug.Log(currentItem.ItemType + " placed on wrong slot");
         }
+    }
+
+    protected void SlotItem(DragAndDropItem currentItem)
+    {
+        currentItem.startPosition = transform.position;
+
+        slottedItem = currentItem;
+        isEmpty = false;
+
+        slotImage.raycastTarget = false;
+
+        currentItem.OnSlotted.Invoke(this);
+        OnItemSlotted.Invoke(currentItem);
+
+        currentItem.OnSlotted.AddListener(OnRemoveItem);
+    }
+
+    protected void OnRemoveItem(ItemSlot newItemSlot)
+    {
+        if(newItemSlot == this)
+        {
+            return;
+        }
+
+        slottedItem.OnSlotted.RemoveListener(OnRemoveItem);
+        slottedItem = null;
+        isEmpty = true;
+
+        slotImage.raycastTarget = true;
+        ShowSlot();
+
     }
 
     protected bool IsItemAllowed(DragAndDropItem item)

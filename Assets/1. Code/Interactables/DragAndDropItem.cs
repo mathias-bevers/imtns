@@ -1,9 +1,10 @@
-using System;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace CleanRoom.MiniGames.CleanMiniGame
 {
@@ -17,6 +18,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
         private Vector3 offset;
 
+        [field: SerializeField] public UnityEvent<ItemSlot> OnSlotted { get; private set; }
 
         private void Awake()
         {
@@ -36,7 +38,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             canvasGroup.alpha = 0.7f;
             canvasGroup.blocksRaycasts = false;
 
-            offset = transform.position - (Vector3)eventData.position;
+            offset = (transform.position - (Vector3)eventData.position)/2;
         }
 
         public void OnDrag(PointerEventData eventData)
