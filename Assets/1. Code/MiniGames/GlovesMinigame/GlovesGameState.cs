@@ -1,4 +1,5 @@
 using CleanRoom.Menus;
+using CleanRoom.MiniGames.CleanMiniGame;
 using CleanRoom.StateMachine;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,7 @@ public class GlovesGameState : GameState
     }
 
     
-    void HandleItemSlotted(ItemType itemType)
+    void HandleItemSlotted(DragAndDropItem slottedItem)
     {
         UsedGloves++;
         if (UsedGloves == Slots.Count)
