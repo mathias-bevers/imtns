@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4116643880684245025}
-  - component: {fileID: 8211395702315262059}
+  - component: {fileID: 3785656606073834447}
   m_Layer: 0
-  m_Name: StateMachine
+  m_Name: STATEMACHINE
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5586426421348142992, guid: 868ef035baeb3d60db0d9226e8ffe09a, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8211395702315262059
+--- !u!114 &3785656606073834447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2269816887278931633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed2e04e33c8d4d2c9c0fe732ac8cb49a, type: 3}
+  m_Script: {fileID: 11500000, guid: d56566a76168c0240bf9a5e34dce9064, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.ScriptableStateMachine.StateMachine
-  initialState: {fileID: 8806518060260225464, guid: 4faa82d03f9b00853a548490aaeb5013, type: 3}
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.StateMachine
+  initialState: {fileID: 11400000, guid: 5abab153d06c439ecaee4d3d2542af49, type: 2}
