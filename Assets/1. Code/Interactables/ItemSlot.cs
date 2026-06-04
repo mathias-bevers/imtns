@@ -66,8 +66,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         }
         else
         {
-            OnWrongItemPlaced.Invoke(currentItem.ItemType + " is verkeerd geplaats");
-            Debug.Log(currentItem.ItemType + " placed on wrong slot");
+            OnWrongItemPlaced.Invoke(currentItem.ItemType + " is verkeerd geplaatst");
         }
     }
 

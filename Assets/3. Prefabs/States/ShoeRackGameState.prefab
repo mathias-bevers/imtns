@@ -744,6 +744,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7634147877505353449}
   - component: {fileID: 4902887135372998355}
+  - component: {fileID: 1412954046995708979}
   m_Layer: 0
   m_Name: ShoeRackGameState
   m_TagString: Untagged
@@ -779,16 +780,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f35731ca30d9bd4e95a78e4e0c000c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShoeRackGameManager
-  <StateName>k__BackingField: Shoe Rack Minigame
-  <SceneName>k__BackingField: ShoeRackMinigame
-  <EnterEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <ExitEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <ParentState>k__BackingField: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-  <CompletionMessage>k__BackingField: Schoenen zijn in de juiste plaats.
   ShoeSlotPair1:
   - {fileID: 6851021920360787587}
   - {fileID: 4363877874546732015}
@@ -798,6 +789,22 @@ MonoBehaviour:
   ShoeSlotPair3:
   - {fileID: 1294168417458997203}
   - {fileID: 6834122383088751457}
+  onCompletionTransition: {fileID: 1412954046995708979}
+--- !u!114 &1412954046995708979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4178641243026357744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8547a0a435134d9cbbf9dee3c3903418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
+  transition:
+    <Target>k__BackingField: {fileID: 0}
+    conditions: []
 --- !u!1 &5137657741124708657
 GameObject:
   m_ObjectHideFlags: 0
