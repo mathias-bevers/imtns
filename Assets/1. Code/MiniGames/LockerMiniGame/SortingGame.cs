@@ -34,7 +34,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
 
         private void StartMiniGame()
         {
-            stateName = StateMachine.Instance.ActiveState.Name;
+            stateName = StateMachine.Instance.ActiveState.StateName;
             
             popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>();
             dropZones = GetComponentsInChildren<DropZone>(true);

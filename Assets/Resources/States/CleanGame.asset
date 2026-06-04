@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fc11fc2a8ddebecc9bd4fad0ffd4ded, type: 3}
-  m_Name: MainMenu
+  m_Name: CleanGame
   m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.State
-  <StateName>k__BackingField: Hoofd Menu
-  <SceneIndex>k__BackingField: 1
-  <IsParent>k__BackingField: 1
+  <StateName>k__BackingField: Tablet Schoon Maken
+  <SceneIndex>k__BackingField: 3
+  <IsParent>k__BackingField: 0
   <Children>k__BackingField: []

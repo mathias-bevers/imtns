@@ -31,7 +31,7 @@ namespace CleanRoom.UserInterface
 
             System.Text.StringBuilder builder = new();
 
-            foreach (string gameStateName in roomState.Children.Select(child => child.Name))
+            foreach (string gameStateName in roomState.Children.Select(child => child.StateName))
             {
                 string formattedStateName = gameStateName.Replace("State", string.Empty);
                 // PascalCase -> Pascal Case

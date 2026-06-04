@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fc11fc2a8ddebecc9bd4fad0ffd4ded, type: 3}
-  m_Name: MainMenu
+  m_Name: LockerRoom
   m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.State
-  <StateName>k__BackingField: Hoofd Menu
-  <SceneIndex>k__BackingField: 1
+  <StateName>k__BackingField: Kluisjes Kamer
+  <SceneIndex>k__BackingField: 2
   <IsParent>k__BackingField: 1
-  <Children>k__BackingField: []
+  <Children>k__BackingField:
+  - {fileID: 11400000, guid: 96693230c8f1d18a7b68369deae7b2af, type: 2}
+  - {fileID: 11400000, guid: b2b63a970759d0b46bc0d2b2248b000b, type: 2}

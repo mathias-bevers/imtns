@@ -40,7 +40,7 @@ namespace CleanRoom.UserInterface
 
                 foreach (State child in children)
                 {
-                    string[] feedback = FeedbackLogger.GetFeedback(child.name);
+                    string[] feedback = FeedbackLogger.GetFeedback(child.StateName);
                     stars += Mathf.Max(0, MAX_STARS - feedback.Length);
                     roomMistakes += feedback.Length;
                 }
@@ -50,7 +50,7 @@ namespace CleanRoom.UserInterface
                 if (completedGameCount == gameCount)
                 {
                     builder.AppendLine("Score: ");
-                    int averageStars = stars / gameCount;
+                    int averageStars = gameCount == 0 ? 0 : stars / gameCount;
                     for (int ii = 0; ii < starParent.childCount; ++ii)
                     {
                         starParent.GetChild(ii).gameObject.SetActive(ii < averageStars);
@@ -71,8 +71,8 @@ namespace CleanRoom.UserInterface
                 text.SetText(builder.ToString());
             }
         }
-
-        private bool IsValidPairArray()
+        
+        private bool IsValidPairArray() // is used in validator attribute
         {
             foreach (SerializablePair<Button, State> bsp in roomSelectors)
             {

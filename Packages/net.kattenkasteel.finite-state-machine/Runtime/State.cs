@@ -7,7 +7,7 @@ namespace KattenKasteel.FSM
     [CreateAssetMenu(fileName = "State", menuName = "KattenKasteel/FSM/State")]
     public class State : ScriptableObject
     {
-        [field: SerializeField] public string Name { get; private set; }
+        [field: SerializeField] public string StateName { get; private set; }
         [field: SerializeField, Scene] public int SceneIndex { get; private set; }
         [field: SerializeField] public bool IsParent { get; private set; }
         [field: SerializeField, ShowIf("IsParent")] public State[] Children { get; private set; }

@@ -40,7 +40,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             image = GetComponent<Image>();
             
 
-            stateName = KattenKasteel.FSM.StateMachine.Instance.ActiveState.Name;
+            stateName = KattenKasteel.FSM.StateMachine.Instance.ActiveState.StateName;
             wipe = state?.Wipe;
 
             image.sprite = sprites.GetRandomElement();

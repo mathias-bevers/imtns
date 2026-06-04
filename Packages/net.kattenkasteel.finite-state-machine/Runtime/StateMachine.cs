@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,8 +34,28 @@ namespace KattenKasteel.FSM
 
         public void CompleteActiveState()
         {
-            Debug.Log("Completed State: " + ActiveState.Name);
+            Debug.Log("Completed State: " + ActiveState.StateName);
             ActiveState.IsCompleted = true;
+        }
+
+        public State GetState(Func<State, bool> test)
+        {
+            if (ReferenceEquals(null, states) || states.Length == 0)
+            {
+                states = Resources.LoadAll<State>("States");
+            }
+            
+            for (int i = 0; i < states.Length; ++i)
+            {
+                if (!test(states[i]))
+                {
+                    continue;
+                }
+
+                return states[i];
+            }
+
+            throw new NullReferenceException("could not find state with the current conditions");
         }
     }
 }

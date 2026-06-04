@@ -52,7 +52,7 @@ namespace CleanRoom
             IEnumerable<State> states = Resources.LoadAll<State>("States").Where(state => !state.IsParent);
             foreach (State state in states)
             {
-                _jObject.Add(state.Name, new JArray());
+                _jObject.Add(state.StateName, new JArray());
             }
 
             File.WriteAllText(FEEDBACK_LOGS, _jObject.ToString());
