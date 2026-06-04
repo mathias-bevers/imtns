@@ -374,7 +374,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <ParentState>k__BackingField: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-  <CompletionMessage>k__BackingField: 
+  <CompletionMessage>k__BackingField: De kleding is juist aangedaan.
   SlotOrder: 010000000200000003000000040000000500000005000000
   Slots:
   - {fileID: 9222939107671004106}

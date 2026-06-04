@@ -1,68 +1,85 @@
+using CleanRoom.MiniGames.CleanMiniGame;
 using CleanRoom.StateMachine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ShoeProcedureGameManager : GameState
+public class ShoeProcedure : GameState
 {
-    [SerializeField] private ItemSlot RightShoeSlot;
+    [SerializeField] private GameObject LeftShoe;
+    [SerializeField] private GameObject RightShoe;
     [SerializeField] private ItemSlot LeftShoeSlot;
+    [SerializeField] private ItemSlot RightShoeSlot;
     [SerializeField] private Animator animator;
-
-    [field: SerializeField] public UnityEvent<string> OnMistake { get; private set; }
-
 
     private bool isRightShoeSlotted = false;
     private bool isLeftShoeSlotted = false;
-    private bool isAnimationComplete = true;
+
+    private string INCORRECT_ORDER_MESSAGE = "Je hebt de schoen in de verkeerde volgorde geplaatst";
+    private string WRONG_FOOT_MESSAGE = "Je hebt de schoen op de verkeerde foot geplaatst";
+    private string NOT_ON_MESSAGE = "Schoenen zijn niet aangedaan";
 
     protected void OnEnable()
     {
-        StartMiniGame();
+        EnterEvent.AddListener(StartMiniGame);
+        ExitEvent.AddListener(ValidateExit);
     }
 
     protected void OnDisable()
     {
-        ValidateExit();
+        EnterEvent.RemoveAllListeners();
+        ExitEvent.RemoveAllListeners();
     }
 
-    private void Start()
-    {
-        RightShoeSlot.OnItemSlotted.AddListener(OnRightShoeSlotted);
+    private void StartMiniGame(){
         LeftShoeSlot.OnItemSlotted.AddListener(OnLeftShoeSlotted);
-        
-    }
-
-    private void StartMiniGame()
-    {
-        EnterEvent.Invoke();
+        RightShoeSlot.OnItemSlotted.AddListener(OnRightShoeSlotted);
     }
 
     private void ValidateExit()
     {
-        ExitEvent.Invoke();
+        if (IsGameComplete())
+        {
+            return;
+        }
+
+        OnMistakeMade(NOT_ON_MESSAGE);
+        Debug.Log(NOT_ON_MESSAGE);
+
+        LeftShoeSlot.OnItemSlotted.RemoveAllListeners();
+        RightShoeSlot.OnItemSlotted.RemoveAllListeners();
     }
 
-    private void MistakeMade(string mistakeDescription)
-    {
-        OnMistake.Invoke(mistakeDescription);
-        Debug.Log(mistakeDescription);
-    }
 
-
-    void OnRightShoeSlotted(ItemType itemType)
+    void OnRightShoeSlotted(DragAndDropItem slottedShoe)
     {
+        if(RightShoe != slottedShoe.gameObject)
+        {
+            OnMistakeMade(WRONG_FOOT_MESSAGE);
+            Debug.Log(WRONG_FOOT_MESSAGE);
+            return;
+        }
+
         isRightShoeSlotted = true;
 
         PlayOnRightShoeAnimation();
     }
 
-    void OnLeftShoeSlotted(ItemType itemType)
+    void OnLeftShoeSlotted(DragAndDropItem slottedShoe)
     {
+        if (LeftShoe != slottedShoe.gameObject)
+        {
+            OnMistakeMade(WRONG_FOOT_MESSAGE);
+            Debug.Log(WRONG_FOOT_MESSAGE);
+            return;
+        }
+
         if (!isRightShoeSlotted)
         {
-            MistakeMade("You put shoes in the wrong order");
+            OnMistakeMade(INCORRECT_ORDER_MESSAGE);
+            Debug.Log(INCORRECT_ORDER_MESSAGE);
             return;
         }
 
@@ -77,13 +94,13 @@ public class ShoeProcedureGameManager : GameState
         if (IsGameComplete())
         {
             Debug.Log("Shoe procedure completed");
-            ExitEvent.Invoke();
+            Complete();
         }
     }
 
     bool IsGameComplete()
     {
-        return isRightShoeSlotted && isLeftShoeSlotted && isAnimationComplete;
+        return isRightShoeSlotted && isLeftShoeSlotted;
     }
 
     void PlayOnRightShoeAnimation()

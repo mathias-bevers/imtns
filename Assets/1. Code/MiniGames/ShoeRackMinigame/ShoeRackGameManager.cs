@@ -29,8 +29,7 @@ public class ShoeRackGameManager : GameState
         ExitEvent.RemoveAllListeners();
     }
 
-    private void Start()
-    {
+    private void StartMiniGame(){
         shoeSlotPairs.Add(ShoeSlotPair1);
         shoeSlotPairs.Add(ShoeSlotPair2);
         shoeSlotPairs.Add(ShoeSlotPair3);
@@ -44,8 +43,6 @@ public class ShoeRackGameManager : GameState
         }
     }
 
-    private void StartMiniGame(){}
-
     private void ValidateExit()
     {
         if (IsGameComplete())
@@ -54,6 +51,14 @@ public class ShoeRackGameManager : GameState
         }
 
         OnMistakeMade(NOT_PAIRED_MESSAGE);
+
+        foreach (ItemSlot[] curPair in shoeSlotPairs)
+        {
+            foreach (ItemSlot curShoeSlot in curPair)
+            {
+                curShoeSlot.OnItemSlotted.RemoveAllListeners();
+            }
+        }
     }
 
     private void OnShoePlaced(DragAndDropItem currentItem)
