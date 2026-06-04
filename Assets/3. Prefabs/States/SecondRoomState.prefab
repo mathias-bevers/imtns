@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4188902519985419848}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -10.02981, y: -0.09183, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48,19 +48,7 @@ MonoBehaviour:
   <SceneName>k__BackingField: SecondRoom
   <EnterEvent>k__BackingField:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   <ExitEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -69,5 +57,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   gameStates:
-  - {fileID: 4775774331386487115, guid: a9131273cc562ef2aa74daece569b825, type: 3}
-  - {fileID: 4298008395357795535, guid: ef63e694a779ebc819b0d9b0066edbaf, type: 3}
+  - {fileID: 4902887135372998355, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
+  - {fileID: 8315775125527084867, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+  - {fileID: 6115223714597249301, guid: 2c297f745d5262245b39f37d5d84dad0, type: 3}
+  - {fileID: 7697150892402123931, guid: 578564f4669569345af8cd42f31e5d85, type: 3}

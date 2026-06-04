@@ -1504,8 +1504,6 @@ GameObject:
   - component: {fileID: 471033814}
   - component: {fileID: 471033815}
   - component: {fileID: 471033818}
-  - component: {fileID: 471033817}
-  - component: {fileID: 471033816}
   m_Layer: 0
   m_Name: Shoes
   m_TagString: Untagged
@@ -1591,79 +1589,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &471033816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471033813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ea9357767ca4ef98e706aa833e78ca5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Interactables.InteractionZone
-  <OnInteract>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: a92182dabf63b9cc4915e33a1bf8d3e8, type: 2}
-        m_TargetAssemblyTypeName: CleanRoom.StateMachine.StateMachineAPI, Assembly-CSharp
-        m_MethodName: EnterState
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 4902887135372998355, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
-          m_ObjectArgumentAssemblyTypeName: CleanRoom.StateMachine.State, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!68 &471033817
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471033813}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 2.108497, y: -1.4415369}
-  - {x: 3.8187618, y: -1.4669755}
-  - {x: 2.6091633, y: -2.5327556}
-  - {x: 0.48140812, y: -2.4901423}
-  - {x: 2.0889184, y: -1.4669755}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!68 &471033818
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -3297,6 +3222,8 @@ GameObject:
   - component: {fileID: 853339817}
   - component: {fileID: 853339819}
   - component: {fileID: 853339820}
+  - component: {fileID: 853339822}
+  - component: {fileID: 853339821}
   m_Layer: 0
   m_Name: Bench2
   m_TagString: Untagged
@@ -3420,6 +3347,79 @@ EdgeCollider2D:
   - {x: 0.49620724, y: -2.0907695}
   - {x: -2.0789385, y: 1.355021}
   - {x: -1.2577839, y: 1.3397305}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+--- !u!114 &853339821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853339816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea9357767ca4ef98e706aa833e78ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Interactables.InteractionZone
+  <OnInteract>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: a92182dabf63b9cc4915e33a1bf8d3e8, type: 2}
+        m_TargetAssemblyTypeName: CleanRoom.StateMachine.StateMachineAPI, Assembly-CSharp
+        m_MethodName: EnterState
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6115223714597249301, guid: 2c297f745d5262245b39f37d5d84dad0, type: 3}
+          m_ObjectArgumentAssemblyTypeName: CleanRoom.StateMachine.State, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!68 &853339822
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853339816}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -1.9612236, y: 1.0994904}
+  - {x: 0.40053463, y: -2.088662}
+  - {x: -0.7256899, y: -2.060589}
+  - {x: -2.888882, y: 1.3699028}
+  - {x: -2.1933393, y: 1.3594238}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -3761,7 +3761,7 @@ MonoBehaviour:
         m_MethodName: EnterState
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 6115223714597249301, guid: 2c297f745d5262245b39f37d5d84dad0, type: 3}
+          m_ObjectArgument: {fileID: 4902887135372998355, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
           m_ObjectArgumentAssemblyTypeName: CleanRoom.StateMachine.State, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -5010,7 +5010,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 199772098848102150, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.928
+      value: -8.02
       objectReference: {fileID: 0}
     - target: {fileID: 199772098848102150, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5436,34 +5436,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1325542639471474006, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -10.02981
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.09183
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -5478,10 +5450,6 @@ PrefabInstance:
     - target: {fileID: 4188902519985419848, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
       propertyPath: m_Name
       value: SecondRoomState
-      objectReference: {fileID: 0}
-    - target: {fileID: 5009585162894195623, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
-      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.size
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
