@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/2. Scenes/Room2/ShoeRackMinigame.unity
     guid: b0a15c918324da44f957b67d747e9058
+  - enabled: 1
+    path: Assets/2. Scenes/Room2/ShoeProcedureMinigame.unity
+    guid: 5f6400f3257d0664da25e062d2a66fd7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
