@@ -10,8 +10,8 @@ public class GlovesGameState : GameState
     [SerializeField] public List<ItemSlot> Slots = new();
     [SerializeField] private int UsedGloves = 0;
 
-    private const string NO_GLOVES = "Oeps, de tablet was nog niet helemaal school!";
-    private const string ONE_GLOVE = "Oeps, de tablet was nog niet helemaal school!";
+    private const string NO_GLOVES = "Oeps! Je hebt geen handschoenen aan.";
+    private const string ONE_GLOVE = "Oeps! Je hebt maar een handschoen aan.";
 
     protected void OnEnable()
     {
@@ -38,26 +38,21 @@ public class GlovesGameState : GameState
         switch(UsedGloves)
         {
             case 0:
-                MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(NO_GLOVES, Popup.MessageType.Incorrect);
+                OnMistakeMade(NO_GLOVES);
                 break;
             case 1:
-                MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(ONE_GLOVE, Popup.MessageType.Incorrect);
+                OnMistakeMade(ONE_GLOVE);
                 break;
-            case 2:
-                Complete();
-                break;
-
         }
     }
 
-
+    
     void HandleItemSlotted(ItemType itemType)
     {
         UsedGloves++;
-    }
-
-    bool IsGameComplete()
-    {
-        return UsedGloves == 2;
+        if (UsedGloves == Slots.Count)
+        {
+            Complete();
+        }
     }
 }

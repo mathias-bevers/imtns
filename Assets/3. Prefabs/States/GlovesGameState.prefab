@@ -334,8 +334,8 @@ MonoBehaviour:
   <ExitEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  <ParentState>k__BackingField: {fileID: 0}
-  <CompletionMessage>k__BackingField: Gloves minigame completed
+  <ParentState>k__BackingField: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
+  <CompletionMessage>k__BackingField: Goedzo! Je hebt alle handschoenen aan.
   Slots:
   - {fileID: 116422762199578657}
   - {fileID: 4937122681103010467}
