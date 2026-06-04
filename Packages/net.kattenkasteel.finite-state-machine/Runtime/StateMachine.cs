@@ -66,9 +66,8 @@ namespace KattenKasteel.FSM
                 Debug.Log("Not all conditions are met to transition:\n" + conditionMessages);
                 return;
             }
-
-            LoadSceneMode loadMode = transition.Target.IsParent ? LoadSceneMode.Single : LoadSceneMode.Additive;
-            SceneManager.LoadScene(transition.Target.SceneIndex, loadMode);
+            
+            SceneManager.LoadScene(transition.Target.SceneIndex);
             ActiveState = transition.Target;
         }
 

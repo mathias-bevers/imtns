@@ -14,6 +14,8 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
     [SerializeField] public ItemSlot[] ShoeSlotPair2 = new ItemSlot[2];
     [SerializeField] public ItemSlot[] ShoeSlotPair3 = new ItemSlot[2];
 
+    [SerializeField] private Transitioner onCompletionTransition;
+
     private List<ItemSlot[]> shoeSlotPairs = new();
 
     private string stateName = string.Empty;
@@ -31,7 +33,8 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
         ValidateExit();
     }
 
-    private void StartMiniGame(){
+    private void StartMiniGame()
+    {
         shoeSlotPairs.Add(ShoeSlotPair1);
         shoeSlotPairs.Add(ShoeSlotPair2);
         shoeSlotPairs.Add(ShoeSlotPair3);
@@ -69,9 +72,20 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
 
         if (IsGameComplete())
         {
-            Debug.Log("Shoe rack minigame completed");
             StateMachine.Instance.CompleteActiveState();
+            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnPopupClose;
         }
+    }
+
+    private void OnPopupClose(Popup.MessageType messageType)
+    {
+        if (messageType != Popup.MessageType.CompletedMiniGame)
+        {
+            return;
+        }
+
+        MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnPopupClose;
+        onCompletionTransition.Transition();
     }
 
     private bool IsGameComplete()
@@ -91,7 +105,8 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
                 }
             }
 
-            if (pairMatched) {
+            if (pairMatched)
+            {
                 wasPairMatched = true;
                 break;
             }

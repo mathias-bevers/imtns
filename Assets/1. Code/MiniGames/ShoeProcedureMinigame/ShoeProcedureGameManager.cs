@@ -110,8 +110,7 @@ public class ShoeProcedure : Singleton<ShoeProcedure>
         {
             return;
         }
-
-
+        
         MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnCompletePopupClose;
         onCompletionTransition.Transition();
     }

@@ -19,6 +19,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
 
         [SerializeField] private GameObject tabletOnTray;
         [SerializeField] private Transitioner onCompleteTransition;
+        [SerializeField] private InventoryContents contents;
 
         private string stateName;
         private DropZone[] dropZones = Array.Empty<DropZone>();
@@ -29,6 +30,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
 
         private void OnEnable()
         {
+            inventory = new Inventory(contents);
             StartMiniGame();
         }
 
@@ -39,7 +41,6 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>();
             dropZones = GetComponentsInChildren<DropZone>(true);
             sortingItem = GetComponentInChildren<SortingItem>();
-            inventory = Player.Instance.Inventory;
 
             for (int i = 0; i < dropZones.Length; ++i)
             {
@@ -63,7 +64,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
                 return;
             }
             
-            popupMenu.CreatePopup(item.CorrectMessage, Popup.MessageType.Correct);
+            popupMenu?.CreatePopup(item.CorrectMessage, Popup.MessageType.Correct);
 
             if (string.Equals(TABLET_NAME, item.name))
             {

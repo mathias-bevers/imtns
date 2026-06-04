@@ -305,6 +305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5873811190502631049}
   - component: {fileID: 6115223714597249301}
+  - component: {fileID: 5116030332475376809}
   m_Layer: 0
   m_Name: ShoeProcedureGaneState
   m_TagString: Untagged
@@ -340,21 +341,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccecfc7aacddf584e8077a11fab6858b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShoeProcedure
-  <StateName>k__BackingField: Shoe Procedure Minigame
-  <SceneName>k__BackingField: ShoeProcedureMinigame
-  <EnterEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <ExitEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <ParentState>k__BackingField: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-  <CompletionMessage>k__BackingField: De schoenen zijn juist aangedaan.
   LeftShoe: {fileID: 2490434581078672704}
   RightShoe: {fileID: 6235994483467642723}
   LeftShoeSlot: {fileID: 9013205085700042807}
   RightShoeSlot: {fileID: 3247565217705973104}
   animator: {fileID: 0}
+  onCompletionTransition: {fileID: 5116030332475376809}
+--- !u!114 &5116030332475376809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841915430324628867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8547a0a435134d9cbbf9dee3c3903418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
+  transition:
+    <Target>k__BackingField: {fileID: 0}
+    conditions: []
 --- !u!1 &1951908487362942438
 GameObject:
   m_ObjectHideFlags: 0
