@@ -19,6 +19,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
         };
 
         [SerializeField] private GameObject tabletOnTray;
+        [SerializeField] private Transitioner onCompleteTransition;
 
         private string stateName;
         private DropZone[] dropZones = Array.Empty<DropZone>();
@@ -80,10 +81,17 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             {
                 sortingItem.Image.enabled = false;
                 StateMachine.Instance.CompleteActiveState();
+                MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnCompletePopupClose;
                 return;
             }
 
             sortingItem.Setup(inventory.GetItemAtIndex(currentItem));
+        }
+
+        private void OnCompletePopupClose()
+        {
+            onCompleteTransition.Transition();
+            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnCompletePopupClose;
         }
     }
 }

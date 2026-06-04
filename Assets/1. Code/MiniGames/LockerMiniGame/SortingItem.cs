@@ -7,13 +7,16 @@ namespace CleanRoom.MiniGames.LockerMiniGame
 {
     public class SortingItem : DragAndSnap
     {
-        public Image Image { get; private set; }
-        public InventoryItem Data { get; private set; }
-
-        private void Awake()
+        private Image image;
+        public Image Image
         {
-            Image = GetComponent<Image>();
+            get
+            {
+                image ??= GetComponent<Image>();
+                return image;
+            }
         }
+        public InventoryItem Data { get; private set; }
 
         public void Setup(InventoryItem data)
         {

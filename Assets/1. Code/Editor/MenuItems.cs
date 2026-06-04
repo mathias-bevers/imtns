@@ -1,4 +1,5 @@
 using System;
+using KattenKasteel.FSM;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,8 +29,10 @@ namespace CleanRoom
         private static void OpenPDP() => Application.OpenURL("file://" + Application.persistentDataPath);
 
         [MenuItem("Tools/CleanRoom/Clear Saves")]
-        private static void ClearSaves() => FeedbackLogger.Reset();
-
-        
+        private static void ClearSaves()
+        {
+            FeedbackLogger.Reset();
+            StateMachine.ResetStates();   
+        }
     }
 }

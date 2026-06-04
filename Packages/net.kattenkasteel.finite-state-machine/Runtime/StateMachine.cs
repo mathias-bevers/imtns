@@ -28,7 +28,8 @@ namespace KattenKasteel.FSM
                 return;
             }
 
-            SceneManager.LoadScene(transition.Target.SceneIndex);
+            LoadSceneMode loadMode = transition.Target.IsParent ? LoadSceneMode.Single : LoadSceneMode.Additive;
+            SceneManager.LoadScene(transition.Target.SceneIndex, loadMode);
             ActiveState = transition.Target;
         }
 
@@ -56,6 +57,14 @@ namespace KattenKasteel.FSM
             }
 
             throw new NullReferenceException("could not find state with the current conditions");
+        }
+
+        public static void ResetStates()
+        {
+            foreach (State state in Resources.LoadAll<State>("States"))
+            {
+                state.IsCompleted = false;
+            }
         }
     }
 }
