@@ -5,10 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GlovesGameState : GameState
 {
-    [SerializeField] public List<ItemSlot> Slots = new();
+    [SerializeField] public List<DragAndDropItem> Gloves = new();
+    [SerializeField] public ItemSlot LeftGloveSlot;
+    [SerializeField] public ItemSlot RightGloveSlot;
+    [SerializeField] public GameObject GlovedHandLeft;
+    [SerializeField] public GameObject GlovedHandRight;
     [SerializeField] private int UsedGloves = 0;
 
     private const string NO_GLOVES = "Oeps! Je hebt geen handschoenen aan.";
@@ -28,15 +33,26 @@ public class GlovesGameState : GameState
 
     private void StartMiniGame()
     {
-        for (int i = 0; i < Slots.Count; i++)
+        LeftGloveSlot.OnItemSlotted.AddListener(HandleLeftGloveSlotted);
+        RightGloveSlot.OnItemSlotted.AddListener(HandleRightGloveSlotted);
+        
+        for (int i = 0; i < Gloves.Count; i++)
         {
-            Slots[i].OnItemSlotted.AddListener(HandleItemSlotted);
+            Gloves[i].OnPointerDownEvent.AddListener(ShowGlove);
         }
     }
 
     private void ValidateExit()
     {
-        switch(UsedGloves)
+        LeftGloveSlot.OnItemSlotted.RemoveAllListeners();
+        RightGloveSlot.OnItemSlotted.RemoveAllListeners();
+
+        for (int i = 0; i < Gloves.Count; i++)
+        {
+            Gloves[i].OnPointerDownEvent.RemoveAllListeners();
+        }
+
+        switch (UsedGloves)
         {
             case 0:
                 OnMistakeMade(NO_GLOVES);
@@ -47,13 +63,32 @@ public class GlovesGameState : GameState
         }
     }
 
-    
-    void HandleItemSlotted(DragAndDropItem slottedItem)
+    private void HandleLeftGloveSlotted(DragAndDropItem leftGlove)
     {
+        leftGlove.gameObject.SetActive(false);
+        GlovedHandLeft.SetActive(true);
+
         UsedGloves++;
-        if (UsedGloves == Slots.Count)
+        if (UsedGloves == 2)
         {
             Complete();
         }
+    }
+
+    private void HandleRightGloveSlotted(DragAndDropItem rightGlove)
+    {
+        rightGlove.gameObject.SetActive(false);
+        GlovedHandRight.SetActive(true);
+
+        UsedGloves++;
+        if (UsedGloves == 2)
+        {
+            Complete();
+        }
+    }
+
+    private void ShowGlove(DragAndDropItem currentGlove)
+    {
+        currentGlove.gameObject.GetComponent<Image>().color = Color.white;
     }
 }

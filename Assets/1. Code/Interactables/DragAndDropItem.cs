@@ -19,6 +19,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         private Vector3 offset;
 
         [field: SerializeField] public UnityEvent<ItemSlot> OnSlotted { get; private set; }
+        [field: SerializeField] public UnityEvent<DragAndDropItem> OnPointerDownEvent { get; private set; }
 
         private void Awake()
         {
@@ -31,7 +32,9 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             startPosition = transform.position;
         }
 
-        public void OnPointerDown(PointerEventData eventData){   }
+        public void OnPointerDown(PointerEventData eventData){
+            OnPointerDownEvent.Invoke(this);
+        }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
