@@ -19,6 +19,9 @@ namespace CleanRoom.Movement
         private void Awake()
         {
             moveHandler = GetComponent<Movement>().Input;
+            
+            animator.SetFloat(LAST_MOVE_X, -1);
+            animator.SetFloat(LAST_MOVE_Y, 0);
         }
 
         private void Update()

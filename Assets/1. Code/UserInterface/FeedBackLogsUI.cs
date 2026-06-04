@@ -1,7 +1,7 @@
-using System;
+using System.Linq;
 using System.Text.RegularExpressions;
-using CleanRoom.StateMachine;
-using Newtonsoft.Json.Linq;
+using KattenKasteel.FSM;
+using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 
@@ -10,11 +10,11 @@ namespace CleanRoom.UserInterface
     public class FeedBackLogsUI : MonoBehaviour
     {
         private const string ACCENT_HEX = "<color=#A3F2CE>";
-        
+
         [SerializeField] private FeedbackUI controller;
-        [SerializeField] private RoomState roomState;
+        [SerializeField, ValidateInput("IsRoomState")] private State roomState;
         [SerializeField] private TextMeshProUGUI text;
-        
+
         private void OnEnable()
         {
             if (ReferenceEquals(null, roomState))
@@ -23,7 +23,7 @@ namespace CleanRoom.UserInterface
                 return;
             }
 
-            if (!controller.IsRoomStateCompleted(roomState.StateName))
+            if (!roomState.IsCompleted)
             {
                 text.SetText("Je hebt deze kamer nog niet voltooid!");
                 return;
@@ -31,30 +31,25 @@ namespace CleanRoom.UserInterface
 
             System.Text.StringBuilder builder = new();
 
-            foreach (string gameStateName in roomState.GetGameStateNames())
+            foreach (string gameStateName in roomState.Children.Select(child => child.StateName))
             {
                 string formattedStateName = gameStateName.Replace("State", string.Empty);
                 // PascalCase -> Pascal Case
-                formattedStateName = Regex.Replace(formattedStateName, "(\\B[A-Z])", " $1"); 
+                formattedStateName = Regex.Replace(formattedStateName, "(\\B[A-Z])", " $1");
                 builder.Append(ACCENT_HEX).Append(formattedStateName).AppendLine("</color>");
 
-                if (controller.GameStates[gameStateName]["feedback"] is not JArray array)
-                {
-                    Debug.LogError("could not find feedback for: " + gameStateName);
-                }
-                else if (array.Count == 0)
-                {
-                    builder.Append("Je hebt deze mini game perfect gedaan, goed bezig!");
-                }
-                else
-                {
-                    builder.Append(string.Join('\n', array));
-                }
-                
+                string[] feedback = FeedbackLogger.GetFeedback(gameStateName);
+                builder.Append(feedback.Length == 0
+                    ? "Je hebt deze mini game perfect gedaan, goed bezig!"
+                    : string.Join('\n', feedback));
+
                 builder.AppendLine().AppendLine();
             }
-            
+
             text.SetText(builder.ToString());
         }
+
+        // Used as validator
+        private bool IsRoomState() => roomState is { IsParent: true };
     }
 }

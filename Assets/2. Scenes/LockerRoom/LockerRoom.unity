@@ -1148,7 +1148,7 @@ GameObject:
   - component: {fileID: 345645391}
   - component: {fileID: 345645392}
   - component: {fileID: 345645394}
-  - component: {fileID: 345645393}
+  - component: {fileID: 345645395}
   m_Layer: 0
   m_Name: NextRoomDoor
   m_TagString: Untagged
@@ -1164,13 +1164,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345645389}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.5, w: 0.8660254}
-  m_LocalPosition: {x: 10.411, y: -1.4298, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.5, w: 0.8660254}
+  m_LocalPosition: {x: -10.617, y: -1.692, z: 0}
   m_LocalScale: {x: 1.2643499, y: 1.1156, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6533702479745185063}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 60}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -60}
 --- !u!212 &345645391
 SpriteRenderer:
   serializedVersion: 2
@@ -1276,33 +1276,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &345645393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 345645389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 286738975b394114acf6e564b6ce1c95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Interactables.RoomStateSwitcher
-  notReadyEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 45503075}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &345645394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,9 +1291,9 @@ MonoBehaviour:
   <OnInteract>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 345645393}
-        m_TargetAssemblyTypeName: CleanRoom.Interactables.RoomStateSwitcher, Assembly-CSharp
-        m_MethodName: RequestNextRoom
+      - m_Target: {fileID: 345645395}
+        m_TargetAssemblyTypeName: KattenKasteel.FSM.Transitioner, net.kattenkasteel.finite-state-machine.Runtime
+        m_MethodName: Transition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1330,6 +1303,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &345645395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345645389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8547a0a435134d9cbbf9dee3c3903418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
+  transition:
+    <Target>k__BackingField: {fileID: 0}
+    conditions: []
 --- !u!1 &346359619
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,7 +2571,7 @@ Transform:
   m_GameObject: {fileID: 760584571}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.7, y: 0, z: -10}
+  m_LocalPosition: {x: 9.75, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3975,7 +3963,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 199772098848102150, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.646881
+      value: 9.75
       objectReference: {fileID: 0}
     - target: {fileID: 199772098848102150, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6576,6 +6564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7225724384428051915}
   - component: {fileID: 6831646222513945613}
+  - component: {fileID: 7225724384428051916}
   - component: {fileID: 2607865941917155443}
   - component: {fileID: 4285461503316835284}
   m_Layer: 0
@@ -6690,6 +6679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8733939718831739200}
   - component: {fileID: 7706066671114774643}
+  - component: {fileID: 8733939718831739201}
   - component: {fileID: 8450371568546729}
   - component: {fileID: 5861411197688188718}
   - component: {fileID: 5994456407323304841}
@@ -8037,67 +8027,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1001 &6234491008374471337
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1325542639471474006, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1325542639471474006, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4188902519985419848, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: m_Name
-      value: LockerRoomState
-      objectReference: {fileID: 0}
-    - target: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
-      propertyPath: <EnterEvent>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1796561279}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
 --- !u!4 &6251864063976545347
 Transform:
   m_ObjectHideFlags: 0
@@ -8278,13 +8207,13 @@ MonoBehaviour:
   <OnInteract>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: a92182dabf63b9cc4915e33a1bf8d3e8, type: 2}
-        m_TargetAssemblyTypeName: CleanRoom.StateMachine.StateMachineAPI, Assembly-CSharp
-        m_MethodName: EnterState
-        m_Mode: 2
+      - m_Target: {fileID: 7225724384428051916}
+        m_TargetAssemblyTypeName: KattenKasteel.FSM.Transitioner, net.kattenkasteel.finite-state-machine.Runtime
+        m_MethodName: Transition
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 4775774331386487115, guid: a9131273cc562ef2aa74daece569b825, type: 3}
-          m_ObjectArgumentAssemblyTypeName: CleanRoom.StateMachine.State, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8305,6 +8234,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6533702479745185063}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7225724384428051916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88605896607983115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8547a0a435134d9cbbf9dee3c3903418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
+  transition:
+    <Target>k__BackingField: {fileID: 11400000, guid: 96693230c8f1d18a7b68369deae7b2af, type: 2}
+    conditions:
+    - {fileID: 11400000, guid: b6ec36fcd677ef17db1e6a0f8c162540, type: 2}
 --- !u!114 &7706066671114774643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8320,13 +8265,13 @@ MonoBehaviour:
   <OnInteract>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: a92182dabf63b9cc4915e33a1bf8d3e8, type: 2}
-        m_TargetAssemblyTypeName: CleanRoom.StateMachine.StateMachineAPI, Assembly-CSharp
-        m_MethodName: EnterState
-        m_Mode: 2
+      - m_Target: {fileID: 8733939718831739201}
+        m_TargetAssemblyTypeName: KattenKasteel.FSM.Transitioner, net.kattenkasteel.finite-state-machine.Runtime
+        m_MethodName: Transition
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 4298008395357795535, guid: ef63e694a779ebc819b0d9b0066edbaf, type: 3}
-          m_ObjectArgumentAssemblyTypeName: CleanRoom.StateMachine.State, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8452,6 +8397,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6533702479745185063}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8733939718831739201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914082949599510536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8547a0a435134d9cbbf9dee3c3903418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
+  transition:
+    <Target>k__BackingField: {fileID: 11400000, guid: b2b63a970759d0b46bc0d2b2248b000b, type: 2}
+    conditions:
+    - {fileID: 11400000, guid: b6ec36fcd677ef17db1e6a0f8c162540, type: 2}
 --- !u!212 &8774331191705788548
 SpriteRenderer:
   serializedVersion: 2
@@ -8583,7 +8544,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 760584574}
   - {fileID: 599926300}
-  - {fileID: 6234491008374471337}
   - {fileID: 8799526540353988989}
   - {fileID: 1061227682567251085}
   - {fileID: 1357514170}

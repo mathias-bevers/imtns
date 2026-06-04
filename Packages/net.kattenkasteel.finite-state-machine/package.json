@@ -1,0 +1,19 @@
+{
+    "name": "net.kattenkasteel.finite-state-machine",
+    "displayName": "Finite State Machine",
+    "version": "1.0.0",
+    "unity": "6000.3",
+    "description": "A finite state machine based on scriptable objects",
+    "keywords": [
+        "FSM",
+        "StateMachine"
+    ],
+    "dependencies": {
+        "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm"
+    },
+    "author": {
+      "name": "Mathias Bevers",
+      "email": "mathiasbevers@protonmail.com",
+      "url": "www.kattenkasteel.net"
+    }
+}
