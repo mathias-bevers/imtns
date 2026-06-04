@@ -13,8 +13,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         [SerializeField] private Sprite[] sprites;
 
         private string stateName;
-        private CleanGame state;
-        private DragAndSnap wipe;
+        private CleanGame manager;
         private float cleanDistance;
         private float distance;
 
@@ -41,7 +40,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             
 
             stateName = KattenKasteel.FSM.StateMachine.Instance.ActiveState.StateName;
-            wipe = state?.Wipe;
+            manager = CleanGame.Instance;
 
             image.sprite = sprites.GetRandomElement();
 
@@ -52,18 +51,18 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
         private void CheckWipe()
         {
-            distance = Vector2.Distance(cachedTransform.position, wipe.CachedTransform.position);
+            distance = Vector2.Distance(cachedTransform.position, manager.Wipe.CachedTransform.position);
 
             if (distance > cleanDistance)
             {
                 return;
             }
 
-            if (state.Tablet.Cleanliness < Tablet.CleanlinessLevel.Sprayed)
+            if (manager.Tablet.Cleanliness < Tablet.CleanlinessLevel.Sprayed)
             {
                 mistakeMadeEvent?.Invoke(stateName, NO_SPRAY_WARNING);
 
-                wipe.OnEndDrag(null);
+                manager.Wipe.OnEndDrag(null);
                 return;
             }
 

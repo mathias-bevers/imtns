@@ -9,7 +9,6 @@ namespace CleanRoom.MiniGames.LockerMiniGame
 {
     public class SortingGame : Singleton<SortingGame>
     {
-        private const string FILENAME = "sorting_game.json";
         private const string TABLET_NAME = "Tablet";
         private static readonly Dictionary<InventoryItem.DestinationType, string> NAME_MAP = new()
         {
@@ -81,17 +80,23 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             {
                 sortingItem.Image.enabled = false;
                 StateMachine.Instance.CompleteActiveState();
-                MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnCompletePopupClose;
+                popupMenu.CreatePopup("Je hebt deze minigame voltooit", Popup.MessageType.CompletedMiniGame, stateName);
+                popupMenu.Popup.closeEvent += OnCompletePopupClose;
                 return;
             }
 
             sortingItem.Setup(inventory.GetItemAtIndex(currentItem));
         }
 
-        private void OnCompletePopupClose()
+        private void OnCompletePopupClose(Popup.MessageType messageType)
         {
+            if (messageType != Popup.MessageType.CompletedMiniGame)
+            {
+                return;
+            }
+            
             onCompleteTransition.Transition();
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnCompletePopupClose;
+            popupMenu.Popup.closeEvent -= OnCompletePopupClose;
         }
     }
 }

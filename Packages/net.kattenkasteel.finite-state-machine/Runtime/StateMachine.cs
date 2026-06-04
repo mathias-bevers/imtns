@@ -4,27 +4,65 @@ using UnityEngine.SceneManagement;
 
 namespace KattenKasteel.FSM
 {
-    public class StateMachine : Singleton<StateMachine>
+    public class StateMachine : MonoBehaviour
     {
+        private static StateMachine _instance;
+
         [SerializeField] private State initialState;
+
+        public static StateMachine Instance
+        {
+            get
+            {
+                if (!ReferenceEquals(null, _instance))
+                {
+                    return _instance;
+                }
+
+                _instance = FindFirstObjectByType<StateMachine>();
+
+                if (!ReferenceEquals(null, _instance))
+                {
+                    return _instance;
+                }
+
+                GameObject gameObject = new();
+                gameObject.name = "STATE_MACHINE";
+                _instance = gameObject.AddComponent<StateMachine>();
+                return _instance;
+            }
+        }
+
         public State ActiveState { get; private set; }
         private State[] states;
 
-        public override void Awake()
+        public void Awake()
         {
+            if (!ReferenceEquals(null, _instance))
+            {
+                DestroyImmediate(gameObject);
+                return;
+            }
+
+            _instance = this;
             DontDestroyOnLoad(gameObject);
-            base.Awake();
-            ActiveState = initialState;
             states = Resources.LoadAll<State>("States");
 
-            MakeTransition(new Transition { Target = initialState });
+            if (ReferenceEquals(null, initialState))
+            {
+                ActiveState = GetState(state => state.SceneIndex == SceneManager.GetActiveScene().buildIndex);
+            }
+            else
+            {
+                MakeTransition(new Transition { Target = initialState });
+            }
         }
 
         public void MakeTransition(Transition transition)
         {
-            if (!transition.CanTransition())
+            if (!transition.CanTransition(out string conditionMessages))
             {
-                Debug.Log("Not all conditions are met to transition");
+                Debug.Log("Not all conditions are met to transition:\n" + conditionMessages);
                 return;
             }
 
@@ -45,7 +83,7 @@ namespace KattenKasteel.FSM
             {
                 states = Resources.LoadAll<State>("States");
             }
-            
+
             for (int i = 0; i < states.Length; ++i)
             {
                 if (!test(states[i]))

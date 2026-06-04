@@ -1,3 +1,4 @@
+using CleanRoom.Menus;
 using UnityEngine;
 using KattenKasteel.FSM;
 
@@ -23,14 +24,16 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         private CleanGame manager = null;
         private float distance = 0;
 
+        private string stateName;
         private Transform isopropylStain;
         private Transform cachedTransform = null;
 
-        private void Awake()
+        private void Start()
         {
             cachedTransform = transform;
             isopropylStain = cachedTransform.GetChild(0);
             manager = CleanGame.Instance;
+            stateName = StateMachine.Instance.ActiveState.StateName;
         }
 
         private void Update()
@@ -103,7 +106,22 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             bag.gameObject.SetActive(false);
             gameObject.SetActive(false);
             manager.BagDispenser.PreventInvoke = true;
-            KattenKasteel.FSM.StateMachine.Instance.CompleteActiveState();
+            StateMachine.Instance.CompleteActiveState();
+            
+            PopupMenu popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>();
+            popupMenu.CreatePopup("Je hebt deze minigame voltooit", Popup.MessageType.CompletedMiniGame, stateName);
+            popupMenu.Popup.closeEvent += OnCompletePopupClose;
+        }
+
+        private void OnCompletePopupClose(Popup.MessageType messageType)
+        {
+            if (messageType != Popup.MessageType.CompletedMiniGame)
+            {
+                return;
+            }
+            
+            manager.OnCompleteTransition.Transition();
+            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnCompletePopupClose;
         }
 
         private bool InInteractionRadius(Vector2 otherPosition)

@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 namespace CleanRoom.Menus
 {
     public class Popup : MonoBehaviour
     {
-        public enum MessageType { Incorrect, Correct, Feedback }
+        public enum MessageType { Incorrect, Correct, Feedback, CompletedMiniGame }
 
         private static readonly Regex NUMBERS_REGEX = new(@"\d+");
         private static readonly Dictionary<MessageType, Color32> COLOR_MAP = new()
         {
             { MessageType.Feedback, new Color32(162, 242, 206, 255) },
             { MessageType.Correct, new Color32(166, 209, 137, 255) },
+            { MessageType.CompletedMiniGame, new Color32(166, 209, 137, 255) },
             { MessageType.Incorrect, new Color32(231, 130, 132, 255) }
         };
 
@@ -31,7 +33,7 @@ namespace CleanRoom.Menus
             title.color = COLOR_MAP[MessageType.Correct];
         }
 
-        public event Action closeEvent;
+        public event Action<MessageType> closeEvent;
 
         public void Initialize(string text, MessageType messageType, string title)
         {
@@ -59,15 +61,14 @@ namespace CleanRoom.Menus
             starsParent.gameObject.SetActive(false);
             gameObject.SetActive(false);
             backgroundPanel.SetActive(false);
-            
-            if (showingMessageType == MessageType.Feedback)
-            {
-                //TODO: invoke on goto next room thingy.
-            }
 
+            MessageType? shownMessageType = showingMessageType;
             showingMessageType = null;
-            
-            closeEvent?.Invoke();
+
+            if (!ReferenceEquals(null, shownMessageType))
+            {
+                closeEvent?.Invoke(shownMessageType.Value);
+            }
         }
 
         public void SetStars(int count)
