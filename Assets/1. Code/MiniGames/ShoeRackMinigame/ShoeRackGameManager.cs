@@ -1,13 +1,14 @@
 using CleanRoom.Menus;
 using CleanRoom.MiniGames.CleanMiniGame;
-using CleanRoom.StateMachine;
 using System.Collections.Generic;
 using System.Linq;
+using CleanRoom;
+using KattenKasteel.FSM;
 using UnityEngine;
 using UnityEngine.Events;
 using static UnityEngine.Tilemaps.TilemapRenderer;
 
-public class ShoeRackGameManager : GameState
+public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
 {
     [SerializeField] public ItemSlot[] ShoeSlotPair1 = new ItemSlot[2];
     [SerializeField] public ItemSlot[] ShoeSlotPair2 = new ItemSlot[2];
@@ -15,18 +16,19 @@ public class ShoeRackGameManager : GameState
 
     private List<ItemSlot[]> shoeSlotPairs = new();
 
+    private string stateName = string.Empty;
+
     private string NOT_PAIRED_MESSAGE = "Schoenen zijn in de verkeerde plaats";
 
     protected void OnEnable()
     {
-        EnterEvent.AddListener(StartMiniGame);
-        ExitEvent.AddListener(ValidateExit);
+        stateName = StateMachine.Instance.ActiveState.StateName;
+        StartMiniGame();
     }
 
     protected void OnDisable()
     {
-        EnterEvent.RemoveAllListeners();
-        ExitEvent.RemoveAllListeners();
+        ValidateExit();
     }
 
     private void StartMiniGame(){
@@ -50,7 +52,7 @@ public class ShoeRackGameManager : GameState
             return;
         }
 
-        OnMistakeMade(NOT_PAIRED_MESSAGE);
+        GameManager.Instance.OnMistakeMade(stateName, NOT_PAIRED_MESSAGE);
 
         foreach (ItemSlot[] curPair in shoeSlotPairs)
         {
@@ -68,7 +70,7 @@ public class ShoeRackGameManager : GameState
         if (IsGameComplete())
         {
             Debug.Log("Shoe rack minigame completed");
-            Complete();
+            StateMachine.Instance.CompleteActiveState();
         }
     }
 

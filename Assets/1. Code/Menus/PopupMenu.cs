@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using KattenKasteel.FSM;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace CleanRoom.Menus
 {
     public class PopupMenu : Menu
     {
+        private const string STATE_COMPLETED_MESSAGE = "Je hebt deze mini-game voltooid!";
+        
         public Popup Popup { get; private set; } = null;
         private readonly Queue<PopupInfo> queue = new();
 
@@ -13,6 +16,7 @@ namespace CleanRoom.Menus
         private void Awake()
         {
             Popup = GetComponentInChildren<Popup>();
+            StateMachine.Instance.onStateCompleted += OnStateCompleted;
 
             Popup.closeEvent += (_) => OnPopupClose();
             Popup.Close();
@@ -45,16 +49,15 @@ namespace CleanRoom.Menus
             PopupInfo info = queue.Dequeue();
             Popup.Initialize(info.Message, info.Type, info.Title);
         }
-
-        [Button]
-        private void CreateTestPopup()
+        
+        private void OnStateCompleted(State state)
         {
-            if (!Application.isPlaying)
+            if (state.IsParent)
             {
                 return;
             }
-
-            CreatePopup("This is a test", Popup.MessageType.Correct);
+            
+            CreatePopup(STATE_COMPLETED_MESSAGE, Popup.MessageType.CompletedMiniGame, state.StateName);
         }
 
         private readonly struct PopupInfo

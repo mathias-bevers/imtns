@@ -7,9 +7,6 @@ namespace KattenKasteel.FSM
     public class StateMachine : MonoBehaviour
     {
         private static StateMachine _instance;
-
-        [SerializeField] private State initialState;
-
         public static StateMachine Instance
         {
             get
@@ -33,7 +30,11 @@ namespace KattenKasteel.FSM
             }
         }
 
+        [SerializeField] private State initialState;
+        
         public State ActiveState { get; private set; }
+
+        public event Action<State> onStateCompleted;
         private State[] states;
 
         public void Awake()
@@ -74,6 +75,7 @@ namespace KattenKasteel.FSM
         public void CompleteActiveState()
         {
             Debug.Log("Completed State: " + ActiveState.StateName);
+            onStateCompleted?.Invoke(ActiveState);
             ActiveState.IsCompleted = true;
         }
 

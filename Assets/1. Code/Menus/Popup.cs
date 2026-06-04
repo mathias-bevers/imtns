@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
-using Debug = System.Diagnostics.Debug;
 
 namespace CleanRoom.Menus
 {

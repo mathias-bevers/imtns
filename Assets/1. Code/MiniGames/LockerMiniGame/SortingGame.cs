@@ -80,7 +80,6 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             {
                 sortingItem.Image.enabled = false;
                 StateMachine.Instance.CompleteActiveState();
-                popupMenu.CreatePopup("Je hebt deze minigame voltooit", Popup.MessageType.CompletedMiniGame, stateName);
                 popupMenu.Popup.closeEvent += OnCompletePopupClose;
                 return;
             }

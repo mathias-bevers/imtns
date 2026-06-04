@@ -107,10 +107,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             gameObject.SetActive(false);
             manager.BagDispenser.PreventInvoke = true;
             StateMachine.Instance.CompleteActiveState();
-            
-            PopupMenu popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>();
-            popupMenu.CreatePopup("Je hebt deze minigame voltooit", Popup.MessageType.CompletedMiniGame, stateName);
-            popupMenu.Popup.closeEvent += OnCompletePopupClose;
+            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnCompletePopupClose;
         }
 
         private void OnCompletePopupClose(Popup.MessageType messageType)
