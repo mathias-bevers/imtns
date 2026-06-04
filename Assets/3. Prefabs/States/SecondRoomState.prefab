@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1325542639471474006}
   - component: {fileID: 5009585162894195623}
   m_Layer: 0
-  m_Name: LockerRoomState
+  m_Name: SecondRoomState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a2f03cdda4473486c31b5f45316600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.ScriptableStateMachine.RoomState
-  <StateName>k__BackingField: Locker Room
-  <SceneName>k__BackingField: LockerRoom
+  <StateName>k__BackingField: Second Room
+  <SceneName>k__BackingField: SecondRoom
   <EnterEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls:
@@ -64,7 +64,7 @@ MonoBehaviour:
   <ExitEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  <NextRoom>k__BackingField: {fileID: 5009585162894195623, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
+  <NextRoom>k__BackingField: {fileID: 0}
   <UnfocusEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []

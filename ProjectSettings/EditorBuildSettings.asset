@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/2. Scenes/Room2/GlovesMinigame.unity
     guid: 34d77b374327afb4d9d77eb195429256
+  - enabled: 1
+    path: Assets/2. Scenes/Room2/SecondRoom.unity
+    guid: 520ce52b344d3fb4baa0bdf2f0cdf719
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
