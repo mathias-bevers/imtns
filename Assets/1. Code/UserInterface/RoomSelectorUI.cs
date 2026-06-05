@@ -9,8 +9,15 @@ using UnityEngine.UI;
 
 namespace CleanRoom.UserInterface
 {
-    public class FeedbackUI : MonoBehaviour
+    public class RoomSelectorUI : MonoBehaviour
     {
+        private const string NOT_HERE_MESSAGE = "Nog niet hier...";
+        private const string NOT_COMPLETED_MESSAGE = "Nog Niet Voltooid";
+
+        private const string MINI_GAMES_COMPLETED = "Mini Games Voltooid: ";
+        private const string MISTAKES_MADE = "Fouten Gemaakt: ";
+        private const string SCORE = "Score: ";
+        
         private const string STARS = "Stars";
         private const int MAX_STARS = 3;
 
@@ -19,6 +26,11 @@ namespace CleanRoom.UserInterface
 
         private void OnEnable()
         {
+            if (!IsValidPairArray())
+            {
+                Debug.LogError("roomSelectors are not setup correctly...");
+            }
+            
             foreach (SerializablePair<Button, State> bsp in roomSelectors)
             {
                 TextMeshProUGUI text = bsp.First.GetComponentInChildren<TextMeshProUGUI>();
@@ -26,7 +38,7 @@ namespace CleanRoom.UserInterface
 
                 if (ReferenceEquals(null, bsp.Second))
                 {
-                    text.SetText("Nog niet hier!");
+                    text.SetText(NOT_HERE_MESSAGE);
                     starParent.gameObject.SetActive(false);
                     continue;
                 }
@@ -49,7 +61,7 @@ namespace CleanRoom.UserInterface
 
                 if (completedGameCount == gameCount)
                 {
-                    builder.AppendLine("Score: ");
+                    builder.AppendLine(SCORE);
                     int averageStars = gameCount == 0 ? 0 : stars / gameCount;
                     for (int ii = 0; ii < starParent.childCount; ++ii)
                     {
@@ -58,20 +70,20 @@ namespace CleanRoom.UserInterface
                 }
                 else
                 {
-                    builder.AppendLine("Nog Niet Voltooid");
+                    builder.AppendLine(NOT_COMPLETED_MESSAGE);
                     starParent.gameObject.SetActive(false);
                 }
 
 
-                builder.Append("Mini Games Voltooid: ").Append(completedGameCount).Append('/').Append(gameCount)
+                builder.Append(MINI_GAMES_COMPLETED).Append(completedGameCount).Append('/').Append(gameCount)
                     .AppendLine();
 
-                builder.Append("Fouten Gemaakt: ").AppendLine(roomMistakes.ToString());
+                builder.Append(MISTAKES_MADE).AppendLine(roomMistakes.ToString());
 
                 text.SetText(builder.ToString());
             }
         }
-        
+
         private bool IsValidPairArray() // is used in validator attribute
         {
             foreach (SerializablePair<Button, State> bsp in roomSelectors)

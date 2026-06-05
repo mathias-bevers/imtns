@@ -9,7 +9,7 @@ namespace CleanRoom
     public class EditorInit
     {
         private const string BOOTUP = "_BOOTUP";
-        private static readonly bool TESTING_MODE = true;
+        private static readonly bool TESTING_MODE = false;
 
         static EditorInit()
         {
