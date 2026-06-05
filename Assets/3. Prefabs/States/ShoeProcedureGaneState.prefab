@@ -341,6 +341,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccecfc7aacddf584e8077a11fab6858b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShoeProcedure
+  <StateName>k__BackingField: Shoe Procedure Minigame
+  <SceneName>k__BackingField: ShoeProcedureMinigame
+  <EnterEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <ExitEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <ParentState>k__BackingField: {fileID: 5009585162894195623, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
+  <CompletionMessage>k__BackingField: De schoenen zijn juist aangedaan.
   LeftShoe: {fileID: 2490434581078672704}
   RightShoe: {fileID: 6235994483467642723}
   LeftShoeSlot: {fileID: 9013205085700042807}

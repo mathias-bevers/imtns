@@ -1,3 +1,4 @@
+using CleanRoom;
 using CleanRoom.Menus;
 using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
     private string stateName = string.Empty;
 
     private string NOT_PAIRED_MESSAGE = "Schoenen zijn in de verkeerde plaats";
+
+    [SerializeField] Vector3 NewPosition = Vector3.zero;
 
     protected void OnEnable()
     {
