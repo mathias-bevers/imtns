@@ -1199,7 +1199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2034239701, guid: 03f11a2e0d853b98186f82c77be54ba2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e15e258ec4add12e8159afb0942770d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1621,7 +1621,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a93214c760e446498253b3738c4cfce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.CleanMiniGame.Tablet
-  interactionRadius: 78.07
   dirtPrefab: {fileID: 2129522254896853773, guid: 71128dc879d7b82e5bfe8549596ba6f6, type: 3}
   uvLight: {fileID: 1978876015}
   isopropyl: {fileID: 321215916}
@@ -1820,7 +1819,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1625, y: 90}
+  m_AnchoredPosition: {x: 1610, y: 110}
   m_SizeDelta: {x: 350, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5627413663484357179

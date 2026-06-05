@@ -7,23 +7,22 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 {
     public class DirtPiece : MonoBehaviour
     {
-        private const string ALREADY_COMPLETED_MESSAGE = "Je hebt deze stap al voltooid";
-        private const string NOT_READY_YET = "Je bent een of meerdere stappen vergeten";
-
         [SerializeField] private float cleanDistanceBase;
         [SerializeField] private Sprite[] sprites;
 
-        private string stateName;
-        private GameManager gameManager;
-        private CleanGame manager;
-        private float cleanDistance;
-        private float distance;
-
+        private Tablet tablet;
+        private Bounds bounds;
         private Image image;
         private RectTransform cachedTransform;
+        private Transform wipeTransform;
 
         private void Update()
         {
+            if (tablet.Cleanliness != Tablet.CleanlinessLevel.Sprayed)
+            {
+                return;
+            }
+            
             CheckWipe();
         }
 
@@ -38,28 +37,37 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         {
             cachedTransform = (RectTransform)transform;
             image = GetComponent<Image>();
+            wipeTransform = CleanGame.Instance.Wipe.CachedTransform;
+            tablet = CleanGame.Instance.Tablet;
             
-            stateName = KattenKasteel.FSM.StateMachine.Instance.ActiveState.StateName;
-            manager = CleanGame.Instance;
-            gameManager = GameManager.Instance;
-
             image.sprite = sprites.GetRandomElement();
 
             cachedTransform.sizeDelta *= scale;
             cachedTransform.anchoredPosition = position;
-            cleanDistance = cleanDistanceBase * scale;
+            
+            Rect rect = cachedTransform.rect;
+            bounds = new Bounds(cachedTransform.position, new Vector3(rect.width * 0.5f, rect.height * 0.5f, 1));
+            bounds.size *= 0.75f;
         }
 
         private void CheckWipe()
         {
-            distance = Vector2.Distance(cachedTransform.position, manager.Wipe.CachedTransform.position);
-
-            if (distance > cleanDistance)
+            if (!bounds.Contains(wipeTransform.position))
             {
                 return;
             }
-
+            
             Destroy(gameObject);
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (bounds.size.magnitude < 0.01f)
+            {
+                return;
+            }
+            
+            Gizmos.DrawWireCube(bounds.center, bounds.size);
         }
     }
 }
