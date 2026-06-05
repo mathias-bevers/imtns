@@ -20,5 +20,10 @@ namespace KattenKasteel.FSM
         {
             StateMachine.Instance.CompleteActiveState();
         }
+
+        public void ResetStates()
+        {
+            StateMachine.ResetStates();
+        }
     }
 }
