@@ -32,5 +32,19 @@ namespace CleanRoom.Utils
             contents = File.ReadAllText(filepath);
             return true;
         }
+
+        public static void Reset()
+        {
+            DirectoryInfo root = new(SAVE_FOLDER);
+            foreach (FileInfo file in root.GetFiles())
+            {
+                file.Delete();
+            }
+
+            foreach (DirectoryInfo dir in root.GetDirectories())
+            {
+                dir.Delete(true);
+            }
+        }
     }
 }
