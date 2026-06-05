@@ -7,12 +7,14 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 {
     public class DirtPiece : MonoBehaviour
     {
-        private const string NO_SPRAY_WARNING = "Zorg er voor dat je eerst de isopropyl gebruikt";
+        private const string ALREADY_COMPLETED_MESSAGE = "Je hebt deze stap al voltooid";
+        private const string NOT_READY_YET = "Je bent een of meerdere stappen vergeten";
 
         [SerializeField] private float cleanDistanceBase;
         [SerializeField] private Sprite[] sprites;
 
         private string stateName;
+        private GameManager gameManager;
         private CleanGame manager;
         private float cleanDistance;
         private float distance;
@@ -31,16 +33,15 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         }
 
         public event Action destroyedEvent;
-        public event Action<string, string> mistakeMadeEvent;
 
         public void Initialize(float scale, Vector2 position)
         {
             cachedTransform = (RectTransform)transform;
             image = GetComponent<Image>();
             
-
             stateName = KattenKasteel.FSM.StateMachine.Instance.ActiveState.StateName;
             manager = CleanGame.Instance;
+            gameManager = GameManager.Instance;
 
             image.sprite = sprites.GetRandomElement();
 
@@ -55,14 +56,6 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
             if (distance > cleanDistance)
             {
-                return;
-            }
-
-            if (manager.Tablet.Cleanliness < Tablet.CleanlinessLevel.Sprayed)
-            {
-                mistakeMadeEvent?.Invoke(stateName, NO_SPRAY_WARNING);
-
-                manager.Wipe.OnEndDrag(null);
                 return;
             }
 

@@ -1,4 +1,5 @@
 using System;
+using CleanRoom.Utils;
 using KattenKasteel.FSM;
 using UnityEditor;
 using UnityEngine;
@@ -31,6 +32,7 @@ namespace CleanRoom
         [MenuItem("Tools/CleanRoom/Clear Saves")]
         private static void ClearSaves()
         {
+            SaveSystem.Reset();
             FeedbackLogger.Reset();
             StateMachine.ResetStates();   
         }

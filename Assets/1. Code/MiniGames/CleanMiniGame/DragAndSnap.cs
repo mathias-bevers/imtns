@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -33,6 +34,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         {
             if (!draggable)
             {
+                eventData.pointerDrag = null;
                 return;
             }
 
@@ -48,6 +50,19 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         {
             ExecuteEvents.endDragHandler.Invoke(this, new PointerEventData(EventSystem.current));
             draggable = false;
+        }
+
+        public void SnapAndDisableTemporarily()
+        {
+            ExecuteEvents.endDragHandler.Invoke(this, new PointerEventData(EventSystem.current));
+            StartCoroutine(DisableAndEnableAfterDelay());
+        }
+
+        private IEnumerator DisableAndEnableAfterDelay()
+        {
+            draggable = false;
+            yield return new WaitForSecondsRealtime(0.1f);
+            draggable = true;
         }
     }
 }
