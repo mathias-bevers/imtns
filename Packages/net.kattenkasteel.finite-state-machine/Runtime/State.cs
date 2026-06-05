@@ -16,7 +16,7 @@ namespace KattenKasteel.FSM
         public bool IsCompleted
         {
             get => IsParent
-                ? Children.All(c => StateMachine.Instance.GetState(s => string.Equals(s.StateName, c.StateName)))
+                ? Children.All(c => c.IsCompleted)
                 : isCompleted;
             set => isCompleted = value;
         }
