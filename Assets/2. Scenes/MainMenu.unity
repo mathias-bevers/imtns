@@ -6413,7 +6413,7 @@ PrefabInstance:
     - target: {fileID: 4860210659962884255, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: roomState
       value: 
-      objectReference: {fileID: 5009585162894195623, guid: c1570e07ec597ecf4a7baaa7c94ff972, type: 3}
+      objectReference: {fileID: 11400000, guid: 71b84da972f283fefb4d290d0ae397f8, type: 2}
     - target: {fileID: 4860210659962884255, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: controller
       value: 

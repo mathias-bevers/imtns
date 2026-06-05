@@ -7,11 +7,11 @@ using UnityEngine;
 
 namespace CleanRoom.UserInterface
 {
-    public class FeedBackLogsUI : MonoBehaviour
+    public class RoomFeedBackUI : MonoBehaviour
     {
         private const string ACCENT_HEX = "<color=#A3F2CE>";
 
-        [SerializeField] private FeedbackUI controller;
+        [SerializeField] private RoomSelectorUI controller;
         [SerializeField, ValidateInput("IsRoomState")] private State roomState;
         [SerializeField] private TextMeshProUGUI text;
 
@@ -23,6 +23,12 @@ namespace CleanRoom.UserInterface
                 return;
             }
 
+            if (!IsRoomState())
+            {
+                Debug.LogError("The state is not a room state");
+                text.SetText("error...");
+            }
+            
             if (!roomState.IsCompleted)
             {
                 text.SetText("Je hebt deze kamer nog niet voltooid!");
