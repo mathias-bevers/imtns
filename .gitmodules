@@ -1,0 +1,3 @@
+[submodule "Packages/net.kattenkasteel.finite-state-machine"]
+	path = Packages/net.kattenkasteel.finite-state-machine
+	url = ssh://git@codeberg.org/mathias-bevers/FiniteStateMachine.git
