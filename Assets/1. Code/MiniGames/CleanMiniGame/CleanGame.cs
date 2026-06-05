@@ -1,44 +1,62 @@
-using CleanRoom.Menus;
 using KattenKasteel.FSM;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CleanRoom.MiniGames.CleanMiniGame
 {
     public class CleanGame : Singleton<CleanGame>
     {
-        private const string NOT_CLEAN_MESSAGE = "Oeps, de tablet was nog niet helemaal school!";
-
         [field: SerializeField] public DragAndSnap Wipe { get; private set; }
         [field: SerializeField] public Tablet Tablet { get; private set; }
-        [field: SerializeField] public ConditionalOnClick WipeBox { get; private set; }
-        [field: SerializeField] public ConditionalOnClick BagDispenser { get; private set; }
+        [field: SerializeField] public Button WipeBox { get; private set; }
+        [field: SerializeField] public Button BagDispenser { get; private set; }
         [field: SerializeField] public Transitioner OnCompleteTransition { get; private set; }
 
+        [SerializeField] private CleaningErrors[] errors;
+        [SerializeField] private Transform toolContainer; 
         [SerializeField] private GameObject interactables;
 
-        protected void OnDisable()
-        {
-            ValidateCleanliness();
-        }
+        private GameManager gameManager;
+        private string stateName;
 
         public void StartMiniGame()
         {
+            stateName = StateMachine.Instance.ActiveState.StateName;
+            gameManager = GameManager.Instance;
             interactables.SetActive(true);
-            Tablet.SpawnDirt();
-            foreach (DirtPiece dirtPiece in Tablet.GetComponentsInChildren<DirtPiece>())
-            {
-                dirtPiece.mistakeMadeEvent += GameManager.Instance.OnMistakeMade;
-            }
         }
 
-        private void ValidateCleanliness()
+        public void ShowTool(GameObject tool)
         {
-            if (Tablet.GetComponentsInChildren<DirtPiece>().Length == 0)
+            for (int i = 0; i < toolContainer.childCount; ++i)
             {
+                toolContainer.GetChild(i).gameObject.SetActive(false);
+            }
+            
+            tool.gameObject.SetActive(true);
+        }
+        
+        public void ShowError(Tablet.CleanlinessLevel level, bool isTooEarly)
+        {
+            CleaningErrors error = null;
+            for (int i = 0; i < errors.Length; ++i)
+            {
+                if (errors[i].ExpectedLevel != level)
+                {
+                    continue;
+                }
+
+                error = errors[i];
+                break;
+            }
+
+            if (ReferenceEquals(error, null))
+            {
+                Debug.Log("could not find entry for level: " + level);
                 return;
             }
             
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().CreatePopup(NOT_CLEAN_MESSAGE, Popup.MessageType.Incorrect);
+            gameManager.OnMistakeMade(stateName, isTooEarly ? error.NotThereMessage : error.AlreadyCompletedMessage);
         }
     }
 }

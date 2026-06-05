@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b6524aa26144139c4461664f92cba0, type: 3}
+  m_Name: 3_Sprayed
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.MiniGames.CleanMiniGame.CleaningErrors
+  <ExpectedLevel>k__BackingField: 2
+  <AlreadyCompletedMessage>k__BackingField: Je hebt de tablet al schoon geveegd.
+  <NotThereMessage>k__BackingField: Je kan de tablet nog niet afnamen.

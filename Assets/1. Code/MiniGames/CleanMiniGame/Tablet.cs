@@ -1,45 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using CleanRoom.Menus;
-using UnityEngine;
+using CleanRoom.Utils;
 using KattenKasteel.FSM;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CleanRoom.MiniGames.CleanMiniGame
 {
     public class Tablet : MonoBehaviour
     {
+        private readonly static Vector2Int dirtScale = new Vector2Int(50, 111);
+        
         public enum CleanlinessLevel
         {
+            UnExposed,
             Dirty,
             Sprayed,
             Cleaned,
             Bagged
         }
         
-        [SerializeField] private float interactionRadius;
         [SerializeField] private DirtPiece dirtPrefab;
+        [SerializeField] private DragAndSnap uvLight;
         [SerializeField] private DragAndSnap isopropyl;
         [SerializeField] private DragAndSnap bag;
         [SerializeField] private GameObject baggedTablet;
-        
-        public CleanlinessLevel Cleanliness { get; private set; } = CleanlinessLevel.Dirty;
-        private CleanGame manager = null;
-        private float distance = 0;
 
-        private string stateName;
+        public CleanlinessLevel Cleanliness { get; private set; } = CleanlinessLevel.UnExposed;
+        private Dictionary<DragAndSnap, CleanlinessLevel> itemLevelPairs = null;
+        private Bounds bounds;
+
+        private CleanGame manager = null;
+        private RectTransform cachedTransform = null;
         private Transform isopropylStain;
-        private Transform cachedTransform = null;
 
         private void Start()
         {
-            cachedTransform = transform;
+            cachedTransform = (RectTransform)transform;
             isopropylStain = cachedTransform.GetChild(0);
             manager = CleanGame.Instance;
-            stateName = StateMachine.Instance.ActiveState.StateName;
+            itemLevelPairs = new Dictionary<DragAndSnap, CleanlinessLevel>()
+            {
+                { uvLight, CleanlinessLevel.UnExposed },
+                { isopropyl, CleanlinessLevel.Dirty },
+                { manager.Wipe, CleanlinessLevel.Sprayed },
+                { bag, CleanlinessLevel.Cleaned }
+            };
+
+            Rect rect = cachedTransform.rect;
+            bounds = new Bounds(cachedTransform.position, new Vector3(rect.width * 0.5f, rect.height * 0.5f, 1));
+            bounds.size *= 0.75f;
         }
 
         private void Update()
         {
-            CheckIsopropyl();
-            CheckBag();
+            CheckStages();
         }
 
         public void SpawnDirt()
@@ -48,14 +65,14 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             {
                 Destroy(cachedTransform.GetChild(i).gameObject);
             }
-            
+
             int dirtCount = Random.Range(3, 6);
 
             for (int i = 0; i < dirtCount; ++i)
             {
-                float scale = Random.Range(50, 111) * 0.01f;
-                Vector2 position = Random.insideUnitCircle * 150;
-                
+                float scale = Random.Range(dirtScale.x, dirtScale.y) * 0.01f;
+                Vector2 position = bounds.GetRandomPointInBounds();
+
                 DirtPiece dirtPiece = Instantiate(dirtPrefab, transform);
                 dirtPiece.Initialize(scale, position);
                 dirtPiece.destroyedEvent += OnDirtPieceDestroyed;
@@ -70,44 +87,59 @@ namespace CleanRoom.MiniGames.CleanMiniGame
                 return;
             }
 
-            Cleanliness = CleanlinessLevel.Cleaned;
-            manager.Wipe.gameObject.SetActive(false);
-            isopropylStain.gameObject.SetActive(false);
-            manager.WipeBox.PreventInvoke = true;
-            manager.BagDispenser.PreventInvoke = false;
+            NextStage();
         }
 
-        private void CheckIsopropyl()
+        private void CheckStages()
         {
-            if (Cleanliness >= CleanlinessLevel.Sprayed ||
-                !InInteractionRadius(isopropyl.CachedTransform.position))
+            foreach (KeyValuePair<DragAndSnap, CleanlinessLevel> kvp in itemLevelPairs.Where(kvp =>
+                         bounds.Contains(kvp.Key.CachedTransform.position)))
             {
-                return;
+                if (Cleanliness != kvp.Value)
+                {
+                    kvp.Key.SnapAndDisableTemporarily();
+                    manager.ShowError(kvp.Value, Cleanliness < kvp.Value);
+                    break;
+                }
+                
+                if (Cleanliness == CleanlinessLevel.Sprayed)
+                {
+                    continue;
+                }
+
+                kvp.Key.SnapAndDisableTemporarily();
+                NextStage();
             }
-
-            isopropyl.SnapAndDisable();
-            Cleanliness = CleanlinessLevel.Sprayed;
-            distance = -1;
-
-            isopropylStain.gameObject.SetActive(true);
-            isopropylStain.SetAsLastSibling();
         }
 
-        private void CheckBag()
+        private void NextStage()
         {
-            if (Cleanliness != CleanlinessLevel.Cleaned ||
-                !InInteractionRadius(bag.CachedTransform.position))
+            ++Cleanliness;
+
+            switch (Cleanliness)
             {
-                return;
+                case CleanlinessLevel.Dirty:
+                    SpawnDirt();
+                    break;
+                case CleanlinessLevel.Sprayed:
+                    isopropylStain.gameObject.SetActive(true);
+                    isopropylStain.SetAsLastSibling();
+                    break;
+                case CleanlinessLevel.Cleaned:
+                    manager.Wipe.SnapAndDisableTemporarily();
+                    isopropylStain.gameObject.SetActive(false);
+                    break;
+                case CleanlinessLevel.Bagged:
+                    baggedTablet.SetActive(true);
+                    bag.gameObject.SetActive(false);
+                    gameObject.SetActive(false);
+                    StateMachine.Instance.CompleteActiveState();
+                    MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnCompletePopupClose;
+                    break;
+                case CleanlinessLevel.UnExposed:
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            
-            bag.SnapAndDisable();
-            baggedTablet.SetActive(true);
-            bag.gameObject.SetActive(false);
-            gameObject.SetActive(false);
-            manager.BagDispenser.PreventInvoke = true;
-            StateMachine.Instance.CompleteActiveState();
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnCompletePopupClose;
         }
 
         private void OnCompletePopupClose(Popup.MessageType messageType)
@@ -116,15 +148,9 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             {
                 return;
             }
-            
+
             manager.OnCompleteTransition.Transition();
             MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnCompletePopupClose;
-        }
-
-        private bool InInteractionRadius(Vector2 otherPosition)
-        {
-            distance = Vector2.Distance(otherPosition, cachedTransform.position);
-            return distance <= interactionRadius;
         }
     }
 }
