@@ -15,7 +15,7 @@ namespace CleanRoom
             DontDestroyOnLoad(gameObject);
             base.Awake();
 
-            popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>();
+            popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>(true);
         }
 
         public void OnMistakeMade(string stateName, string message)
