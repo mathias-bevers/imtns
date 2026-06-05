@@ -4759,6 +4759,7 @@ GameObject:
   - component: {fileID: 1516336920}
   - component: {fileID: 1516336919}
   - component: {fileID: 1516336918}
+  - component: {fileID: 1516336921}
   m_Layer: 5
   m_Name: Main Menu button
   m_TagString: Untagged
@@ -4829,7 +4830,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1516336919}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1516336921}
+        m_TargetAssemblyTypeName: KattenKasteel.FSM.Transitioner, net.kattenkasteel.finite-state-machine.Runtime
+        m_MethodName: Transition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1516336919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4868,6 +4881,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516336916}
   m_CullTransparentMesh: 1
+--- !u!114 &1516336921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516336916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8547a0a435134d9cbbf9dee3c3903418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
+  transition:
+    <Target>k__BackingField: {fileID: 11400000, guid: 5abab153d06c439ecaee4d3d2542af49, type: 2}
+    conditions:
+    - {fileID: 11400000, guid: 818c8f2a348f38a248ce4e351e0be9aa, type: 2}
 --- !u!1 &1550846860
 GameObject:
   m_ObjectHideFlags: 0
