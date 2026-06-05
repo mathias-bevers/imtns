@@ -34,7 +34,8 @@ namespace KattenKasteel.FSM
         
         public State ActiveState { get; private set; }
 
-        public event Action<State> onStateCompleted;
+        public event Action<State> stateCompletedEvent;
+        public event Action<string> transitionFailedEvent;
         private State[] states;
 
         public void Awake()
@@ -63,6 +64,7 @@ namespace KattenKasteel.FSM
         {
             if (!transition.CanTransition(out string conditionMessages))
             {
+                transitionFailedEvent?.Invoke(conditionMessages);
                 Debug.Log("Not all conditions are met to transition:\n" + conditionMessages);
                 return;
             }
@@ -74,7 +76,7 @@ namespace KattenKasteel.FSM
         public void CompleteActiveState()
         {
             Debug.Log("Completed State: " + ActiveState.StateName);
-            onStateCompleted?.Invoke(ActiveState);
+            stateCompletedEvent?.Invoke(ActiveState);
             ActiveState.IsCompleted = true;
         }
 
