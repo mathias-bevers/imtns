@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2caf550720104a6f90064df601aa6d85, type: 3}
   m_Name: ActiveStateIsCompleted
   m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Conditions.StateCompletionCondition
-  <ErrorMessage>k__BackingField: This state has not been completed yet
+  <ErrorMessage>k__BackingField: Je hebt dit onderdeel nog niet voltooid
   checkingType: 0
   isCompleted: 1

@@ -8,6 +8,7 @@ namespace CleanRoom.Menus
     public class PopupMenu : Menu
     {
         private const string STATE_COMPLETED_MESSAGE = "Je hebt deze mini-game voltooid!";
+        private const string CANNOT_GO_HERE_MESSAGE = "Je kan hier niet heen!";
         
         public Popup Popup { get; private set; } = null;
         private readonly Queue<PopupInfo> queue = new();
@@ -16,7 +17,8 @@ namespace CleanRoom.Menus
         private void Awake()
         {
             Popup = GetComponentInChildren<Popup>();
-            StateMachine.Instance.onStateCompleted += OnStateCompleted;
+            StateMachine.Instance.stateCompletedEvent += OnStateCompleted;
+            StateMachine.Instance.transitionFailedEvent += OnStateTransitionFailed;
 
             Popup.closeEvent += (_) => OnPopupClose();
             Popup.Close();
@@ -58,6 +60,11 @@ namespace CleanRoom.Menus
             }
             
             CreatePopup(STATE_COMPLETED_MESSAGE, Popup.MessageType.CompletedMiniGame, state.StateName);
+        }
+        
+        private void OnStateTransitionFailed(string message)
+        {
+            CreatePopup(message, Popup.MessageType.Incorrect, CANNOT_GO_HERE_MESSAGE);
         }
 
         private readonly struct PopupInfo

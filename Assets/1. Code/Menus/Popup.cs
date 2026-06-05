@@ -29,7 +29,6 @@ namespace CleanRoom.Menus
         private void Awake()
         {
             title.overrideColorTags = true;
-            title.color = COLOR_MAP[MessageType.Correct];
         }
 
         public event Action<MessageType> closeEvent;
