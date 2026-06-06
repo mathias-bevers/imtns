@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DressingProcedure
   m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.State
   <StateName>k__BackingField: Aankleed Procedure
-  <SceneIndex>k__BackingField: 5
+  <SceneIndex>k__BackingField: 6
   <IsParent>k__BackingField: 0
   <Children>k__BackingField: []
