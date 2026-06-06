@@ -1,0 +1,14 @@
+-----------------------------------------------------------------------06/jun/26
+- removed signeton class since it is unused
+- added has visited bool to state, this gets toggled on leaving the room
+- fixed a bug in the state completed condition where it checked the reference not the completion state
+
+-----------------------------------------------------------------------05/jun/26
+- added base conditions
+- fixed wrong namespace fms -> fsm
+- renamed state.name -> state.state-name to prevent confusion
+- made state machine into standalone singleton to prevent errors with existing singletons
+- added way to load states when they are started outside of the default order
+- added a get states method to load a state based on a predicate from resources
+- added the reset states method to the statemachine api
+- updated can transition method to accurately report back the error messages provided by the conditions
