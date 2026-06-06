@@ -35,7 +35,7 @@ namespace CleanRoom.Menus
 
         public void Initialize(string text, MessageType messageType, string title)
         {
-            if (messageType == MessageType.Feedback)
+            if (messageType >= MessageType.Feedback)
             {
                 Match match = NUMBERS_REGEX.Match(text);
                 int stars = int.Parse(match.Value);

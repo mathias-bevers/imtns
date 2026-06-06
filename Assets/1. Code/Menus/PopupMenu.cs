@@ -58,8 +58,9 @@ namespace CleanRoom.Menus
             {
                 return;
             }
-            
-            CreatePopup(STATE_COMPLETED_MESSAGE, Popup.MessageType.CompletedMiniGame, state.StateName);
+
+            int stars = Mathf.Max(0, 3 - FeedbackLogger.GetFeedback(state.StateName).Length);
+            CreatePopup(stars + STATE_COMPLETED_MESSAGE, Popup.MessageType.CompletedMiniGame, state.StateName);
         }
         
         private void OnStateTransitionFailed(string message)
