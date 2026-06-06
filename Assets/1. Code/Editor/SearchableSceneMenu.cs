@@ -33,16 +33,7 @@ namespace CleanRoom.Editor
                 string scenePath = scenePaths[i];
                 AddEntryForPath(ref tree, scenePath);
             }
-
-            string log = "TREE:\n";
-
-            foreach (SearchTreeEntry searchTreeEntry in tree)
-            {
-                log = string.Concat(log, '\n', searchTreeEntry.name, " at level: \t", searchTreeEntry.level);
-            }
-
-            Debug.Log(log);
-
+            
             return tree;
         }
 

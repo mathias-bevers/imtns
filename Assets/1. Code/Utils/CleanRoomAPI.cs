@@ -1,9 +1,11 @@
+using System;
+using CleanRoom.Menus;
 using UnityEngine;
 
 namespace CleanRoom.Utils
 {
-    [CreateAssetMenu(fileName = "Save System API", menuName = "CleanRoom/Save System API")]
-    public class SaveSystemAPI : ScriptableObject
+    [CreateAssetMenu(fileName = "Clean Room API", menuName = "CleanRoom/API")]
+    public class CleanRoomAPI : ScriptableObject
     {
         public void ResetSaves()
         {

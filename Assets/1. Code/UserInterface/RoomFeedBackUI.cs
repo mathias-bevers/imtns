@@ -9,7 +9,9 @@ namespace CleanRoom.UserInterface
 {
     public class RoomFeedBackUI : MonoBehaviour
     {
+        private const string PERFECT_SCORE = "Je hebt deze minigame perfect gedaan, goed bezig!";
         private const string ACCENT_HEX = "<color=#A3F2CE>";
+        private const string CLOSE_COLOR = "</color>";
 
         [SerializeField] private RoomSelectorUI controller;
         [SerializeField, ValidateInput("IsRoomState")] private State roomState;
@@ -28,7 +30,7 @@ namespace CleanRoom.UserInterface
                 Debug.LogError("The state is not a room state");
                 text.SetText("error...");
             }
-            
+
             if (!roomState.IsCompleted)
             {
                 text.SetText("Je hebt deze kamer nog niet voltooid!");
@@ -42,12 +44,10 @@ namespace CleanRoom.UserInterface
                 string formattedStateName = gameStateName.Replace("State", string.Empty);
                 // PascalCase -> Pascal Case
                 formattedStateName = Regex.Replace(formattedStateName, "(\\B[A-Z])", " $1");
-                builder.Append(ACCENT_HEX).Append(formattedStateName).AppendLine("</color>");
+                builder.Append(ACCENT_HEX).Append(formattedStateName).AppendLine(CLOSE_COLOR);
 
                 string[] feedback = FeedbackLogger.GetFeedback(gameStateName);
-                builder.Append(feedback.Length == 0
-                    ? "Je hebt deze mini game perfect gedaan, goed bezig!"
-                    : string.Join('\n', feedback));
+                builder.Append(feedback.Length == 0 ? PERFECT_SCORE : string.Join('\n', feedback));
 
                 builder.AppendLine().AppendLine();
             }
