@@ -4761,7 +4761,7 @@ MonoBehaviour:
   - <First>k__BackingField: {fileID: 1800765541}
     <Second>k__BackingField: {fileID: 11400000, guid: 71b84da972f283fefb4d290d0ae397f8, type: 2}
   - <First>k__BackingField: {fileID: 1318821548}
-    <Second>k__BackingField: {fileID: 0}
+    <Second>k__BackingField: {fileID: 11400000, guid: ba736fc22cdb4299aabe5b4c247c1e22, type: 2}
   - <First>k__BackingField: {fileID: 1628137272}
     <Second>k__BackingField: {fileID: 0}
 --- !u!1 &1676610066
@@ -5591,7 +5591,7 @@ PrefabInstance:
     - target: {fileID: 4860210659962884255, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: roomState
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: ba736fc22cdb4299aabe5b4c247c1e22, type: 2}
     - target: {fileID: 4860210659962884255, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: controller
       value: 
