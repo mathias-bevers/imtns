@@ -4,22 +4,30 @@ using UnityEngine;
 
 namespace CleanRoom.Utils
 {
-    [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteReorderer : MonoBehaviour
     {
         private const int GIZMO_X = 100;
 
-        [SerializeField] private float gizmoOffset = 0;
         [SerializeField] private Vector2 range;
         [SerializeField] private int layers;
-
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        
         private float rangeDifference;
-        private new SpriteRenderer renderer;
         private Transform cachedTransform;
 
         private void Awake()
         {
-            renderer = GetComponent<SpriteRenderer>();
+            try
+            {
+                spriteRenderer.GetComponentIndex();
+            }
+            catch (MissingComponentException e)
+            {
+                Debug.LogError(e.Message + " Disabling component...");
+                enabled = false;
+                return;
+            }
+
             cachedTransform = transform;
             rangeDifference = range.y - range.x;
         }
@@ -28,12 +36,12 @@ namespace CleanRoom.Utils
         {
             int layer = CalculateLayer();
             
-            if (layer == renderer.sortingOrder)
+            if (layer == spriteRenderer.sortingOrder)
             {
                 return;
             }
 
-            renderer.sortingOrder = layer;
+            spriteRenderer.sortingOrder = layer;
         }
 
         private int CalculateLayer()
@@ -52,14 +60,14 @@ namespace CleanRoom.Utils
             float stepSize = diff / layers;
 
             Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(new Vector3(-GIZMO_X, range.x + gizmoOffset), new Vector3(GIZMO_X, range.x + gizmoOffset));
+            Gizmos.DrawLine(new Vector3(-GIZMO_X, range.x), new Vector3(GIZMO_X, range.x));
             Gizmos.color = Color.limeGreen;
-            Gizmos.DrawLine(new Vector3(-GIZMO_X, range.y + gizmoOffset), new Vector3(GIZMO_X, range.y + gizmoOffset));
+            Gizmos.DrawLine(new Vector3(-GIZMO_X, range.y), new Vector3(GIZMO_X, range.y));
 
             Gizmos.color = Color.cyan;
             for (int i = 1; i < layers; ++i)
             {
-                float y = range.x + (stepSize * i) + gizmoOffset;
+                float y = range.x + (stepSize * i);
                 Gizmos.DrawLine(new Vector3(-GIZMO_X, y, 0), new Vector3(GIZMO_X, y, 0));
             }
         }
