@@ -607,6 +607,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 96105932256214239, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
+      propertyPath: yRange.x
+      value: -5.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 96105932256214239, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
+      propertyPath: yRange.y
+      value: -1.4
+      objectReference: {fileID: 0}
     - target: {fileID: 199772098848102150, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.444864
@@ -621,7 +629,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 199772098848102150, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -1.92
       objectReference: {fileID: 0}
     - target: {fileID: 199772098848102150, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -654,6 +662,18 @@ PrefabInstance:
     - target: {fileID: 199772098848102150, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1002395275755416004, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
+      propertyPath: layers
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1002395275755416004, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
+      propertyPath: range.x
+      value: -5.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1002395275755416004, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
+      propertyPath: range.y
+      value: -1.4
       objectReference: {fileID: 0}
     - target: {fileID: 7410812635499205634, guid: 345e26b9a4068328caea42c231803aaa, type: 3}
       propertyPath: m_Name
@@ -1896,9 +1916,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 1757125415
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 5b853f60bc619fb239755f49489588ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
