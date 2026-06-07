@@ -12,14 +12,17 @@ EditorBuildSettings:
     path: Assets/2. Scenes/MainMenu.unity
     guid: 77d306cfa896eb9889ec2ab57c924be7
   - enabled: 1
-    path: Assets/2. Scenes/LockerRoom/LockerRoom.unity
+    path: Assets/2. Scenes/Room1/LockerRoom.unity
     guid: 1960af631b345e8f09802ebab5c11d45
   - enabled: 1
-    path: Assets/2. Scenes/LockerRoom/CleanMiniGame.unity
+    path: Assets/2. Scenes/Room1/CleanMiniGame.unity
     guid: 40da537e20e95aed399fede8598b2ce2
   - enabled: 1
-    path: Assets/2. Scenes/LockerRoom/SortingGame.unity
+    path: Assets/2. Scenes/Room1/SortingGame.unity
     guid: 7f9f004078c604d29a5efa3eafb97291
+  - enabled: 1
+    path: Assets/2. Scenes/Room2/DressingRoom.unity
+    guid: 4f390b244d0fd06f09f6ce1b7adae2fd
   - enabled: 1
     path: Assets/2. Scenes/Room2/DressUpMinigame.unity
     guid: d544049594159c149afb1d3d1bd1d6e9

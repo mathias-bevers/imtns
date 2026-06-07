@@ -5,6 +5,7 @@ namespace CleanRoom.Interactables
     public class InteractionButton : Button
     {
         private InteractionZone interactionZone;
+        private bool isPendingDestroy;
 
         protected override void Awake()
         {
@@ -21,6 +22,11 @@ namespace CleanRoom.Interactables
 
         public void OnInteractionZoneExit(InteractionZone interactionZone)
         {
+            if (isPendingDestroy)
+            {
+                return;
+            }
+
             onClick.RemoveListener(interactionZone.OnInteract.Invoke);
 
             if (!ReferenceEquals(interactionZone, this.interactionZone))
@@ -30,6 +36,12 @@ namespace CleanRoom.Interactables
 
             interactable = false;
             this.interactionZone = null;
+        }
+
+        protected override void OnDestroy()
+        {
+            isPendingDestroy = true;
+            base.OnDestroy();
         }
     }
 }

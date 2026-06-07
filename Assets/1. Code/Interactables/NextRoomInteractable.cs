@@ -15,6 +15,7 @@ namespace CleanRoom.Interactables
 
         private const string NOT_READY_TITLE = "Je bent nog niet klaar!";
         [SerializeField] private Condition condition;
+        [SerializeField] private Transitioner transitioner;
         [SerializeField, TextArea] private string notReadyBody;
 
         public void Interact()
@@ -47,6 +48,17 @@ namespace CleanRoom.Interactables
             
             popupMenu.CreatePopup(stars.ToString() + builder, Popup.MessageType.Feedback,
                 string.Concat(activeState.StateName, FEEDBACK));
+            popupMenu.Popup.closeEvent += OnPopupClose;
+        }
+
+        private void OnPopupClose(Popup.MessageType messageType)
+        {
+            if (messageType != Popup.MessageType.Feedback)
+            {
+                return;
+            }
+            
+            transitioner.Transition();
         }
     }
 }

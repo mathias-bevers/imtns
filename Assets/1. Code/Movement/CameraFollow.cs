@@ -9,12 +9,11 @@ namespace CleanRoom.Movement
         [Tooltip("ldur"), SerializeField] private Vector4 boundingBox;
 
         private Transform cachedTransform = null;
-        private Vector3 offset = Vector3.zero;
+        private readonly Vector3 offset = new (0, 0, -10);
 
         private void Awake()
         {
             cachedTransform = transform;
-            offset = cachedTransform.position - playerTransform.position;
         }
 
         private void LateUpdate()

@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fc11fc2a8ddebecc9bd4fad0ffd4ded, type: 3}
-  m_Name: DressingProcedure
+  m_Name: DressingRoom
   m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.State
-  <StateName>k__BackingField: Aankleed Procedure
-  <SceneIndex>k__BackingField: 6
-  <IsParent>k__BackingField: 0
-  <Children>k__BackingField: []
+  <StateName>k__BackingField: Kleed Kamer
+  <SceneIndex>k__BackingField: 5
+  <IsParent>k__BackingField: 1
+  <Children>k__BackingField:
+  - {fileID: 11400000, guid: 0b56836836ea4d97790c710d2b9871c0, type: 2}
+  - {fileID: 11400000, guid: a922634f6da0ac526bed362950230eae, type: 2}
+  - {fileID: 11400000, guid: 0b2631b50751edbf2981f24701606e46, type: 2}
