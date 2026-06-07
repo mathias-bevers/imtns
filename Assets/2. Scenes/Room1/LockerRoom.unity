@@ -2255,8 +2255,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -221005197
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: abd8dc272cb44724f9524c858f39f725, type: 3}
@@ -2477,6 +2477,22 @@ PrefabInstance:
     - target: {fileID: 1395441043795766150, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_Name
       value: UserInterfaceCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4653866467773365550, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4653866467773365550, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4653866467773365550, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 2340
+      objectReference: {fileID: 0}
+    - target: {fileID: 4653866467773365550, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 4656537975332713203, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_Pivot.x
