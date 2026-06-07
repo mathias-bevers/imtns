@@ -1133,6 +1133,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1222952443656431012, guid: be3def5e83cd7072aaddbc77ab3cd341, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 550
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222952443656431012, guid: be3def5e83cd7072aaddbc77ab3cd341, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 550
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222952443656431012, guid: be3def5e83cd7072aaddbc77ab3cd341, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 169
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222952443656431012, guid: be3def5e83cd7072aaddbc77ab3cd341, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 173
+      objectReference: {fileID: 0}
     - target: {fileID: 6012409247450263740, guid: be3def5e83cd7072aaddbc77ab3cd341, type: 3}
       propertyPath: m_Name
       value: OnScreenControllerCanvas
@@ -2478,6 +2494,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: UserInterfaceCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1395441043795766150, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453623206833642192, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453623206833642192, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453623206833642192, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -146
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453623206833642192, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1987444139501342990, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4653866467773365550, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
@@ -2573,6 +2613,22 @@ PrefabInstance:
     - target: {fileID: 4656537975332713203, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929622850485375284, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 850
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929622850485375284, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 850
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929622850485375284, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7929622850485375284, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
