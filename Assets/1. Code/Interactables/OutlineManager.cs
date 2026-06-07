@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CleanRoom.Interactables;
+using KattenKasteel.FSM;
 using UnityEngine;
 
 public class OutlineManager : MonoBehaviour
@@ -20,9 +21,18 @@ public class OutlineManager : MonoBehaviour
 
         foreach (var interactable in foundInteractables)
         {
-            activeInteractables.Add(interactable);
+            if (!interactable.TryGetComponent(out Transitioner transitioner))
+            {
+                Debug.Log("Make sure there is a transitioner attached to the interactable");
+                continue;
+            }
 
-            interactable.OnInteract.AddListener(() => DisableOutline(interactable));
+            if (!transitioner.CanTransition())
+            {
+                continue;
+            }
+            
+            activeInteractables.Add(interactable);
 
             if (interactable.TryGetComponent<SpriteRenderer>(out var spriteRenderer))
             {
@@ -40,21 +50,5 @@ public class OutlineManager : MonoBehaviour
         float currentThickness = Mathf.Lerp(minThickness, maxThickness, normalizedValue);
 
         OutlineMaterial.SetFloat("_OutlineThickness", currentThickness);
-    }
-
-    void DisableOutline(InteractionZone interactable)
-    {
-        if (interactable == null) return;
-
-        if (interactable.TryGetComponent<SpriteRenderer>(out var spriteRenderer))
-        {
-            spriteRenderer.material = DefaultMaterial;
-        }
-        if (activeInteractables.Contains(interactable))
-        {
-            activeInteractables.Remove(interactable);
-        }
-
-        interactable.OnInteract.RemoveListener(() => DisableOutline(interactable));
     }
 }
