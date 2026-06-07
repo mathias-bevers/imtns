@@ -1,3 +1,0 @@
-[submodule "Finite State Machine"]
-	path = Packages/net.kattenkasteel.finite-state-machine
-	url = https://codeberg.org/mathias-bevers/FiniteStateMachine.git
