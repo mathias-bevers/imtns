@@ -1,11 +1,11 @@
 using CleanRoom;
-using CleanRoom.Menus;
 using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
+using CleanRoom.MiniGames;
 using KattenKasteel.FSM;
 using UnityEngine;
 
-public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
+public class ShoeRackGameManager : MiniGameManager<ShoeRackGameManager>
 {
     [SerializeField] public ItemSlot[] ShoeSlotPair1 = new ItemSlot[2];
     [SerializeField] public ItemSlot[] ShoeSlotPair2 = new ItemSlot[2];
@@ -32,7 +32,7 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
         ValidateExit();
     }
 
-    private void StartMiniGame()
+    protected override void StartMiniGame()
     {
         shoeSlotPairs.Add(ShoeSlotPair1);
         shoeSlotPairs.Add(ShoeSlotPair2);
@@ -71,20 +71,8 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
 
         if (IsGameComplete())
         {
-            StateMachine.Instance.CompleteActiveState();
-            PopupManager.Instance.Popup.closeEvent += OnPopupClose;
+            CompleteMiniGame();
         }
-    }
-
-    private void OnPopupClose(Popup.MessageType messageType)
-    {
-        if (messageType != Popup.MessageType.CompletedMiniGame)
-        {
-            return;
-        }
-
-        PopupManager.Instance.Popup.closeEvent -= OnPopupClose;
-        onCompletionTransition.Transition();
     }
 
     private bool IsGameComplete()
