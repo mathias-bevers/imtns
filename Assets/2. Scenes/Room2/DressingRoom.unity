@@ -2208,6 +2208,10 @@ GameObject:
   m_Component:
   - component: {fileID: 660594069}
   - component: {fileID: 660594068}
+  - component: {fileID: 660594073}
+  - component: {fileID: 660594071}
+  - component: {fileID: 660594070}
+  - component: {fileID: 660594072}
   m_Layer: 0
   m_Name: Door Room 2
   m_TagString: Untagged
@@ -2289,6 +2293,110 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1253103745}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &660594070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660594067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8547a0a435134d9cbbf9dee3c3903418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
+  transition:
+    <Target>k__BackingField: {fileID: 11400000, guid: 5abab153d06c439ecaee4d3d2542af49, type: 2}
+    conditions:
+    - {fileID: 11400000, guid: 818c8f2a348f38a248ce4e351e0be9aa, type: 2}
+--- !u!114 &660594071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660594067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29bbf5101f64eb09ff05bda58954768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Interactables.NextRoomInteractable
+  condition: {fileID: 11400000, guid: 5028f64c0eb97ff43826a2cdfb8a4121, type: 2}
+  transitioner: {fileID: 660594070}
+  notReadyBody: Er zijn nog onderdelen in deze kamer die je nog moet voltooien
+--- !u!61 &660594072
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660594067}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.2918173, y: -1.6049951}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.6, y: 4.59}
+    newSize: {x: 1.6, y: 4.59}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.1836345, y: 1.3800099}
+  m_EdgeRadius: 0
+--- !u!114 &660594073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660594067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea9357767ca4ef98e706aa833e78ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Interactables.InteractionZone
+  <OnInteract>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 660594071}
+        m_TargetAssemblyTypeName: CleanRoom.Interactables.NextRoomInteractable, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &691726143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2952,7 +3060,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 1.1496725, y: -3.4570596}
+  m_Offset: {x: 1.1861491, y: -3.7063203}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2962,7 +3070,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.2444916, y: 2.2351108}
+  m_Size: {x: 2.3174448, y: 1.7365894}
   m_EdgeRadius: 0
 --- !u!1 &1160069300
 GameObject:
