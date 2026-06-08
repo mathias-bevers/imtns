@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329ab8160ebf42cf95d7fd66189f202d, type: 3}
+  m_Name: Room3
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::CleanRoom.Utils.PrerequisiteCondition
+  <ErrorMessage>k__BackingField: Je moet eerst nog een of meerdere kamers voltooien
+  statesToComplete:
+  - {fileID: 11400000, guid: 71b84da972f283fefb4d290d0ae397f8, type: 2}
+  - {fileID: 11400000, guid: ba736fc22cdb4299aabe5b4c247c1e22, type: 2}
