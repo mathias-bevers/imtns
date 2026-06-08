@@ -11,6 +11,8 @@ namespace CleanRoom.MiniGames
         public GameManager GameManager { get; private set; }
         public string StateName { get; private set; }
 
+        private bool isCompleted;
+
         public override void Awake()
         {
             base.Awake();
@@ -18,6 +20,7 @@ namespace CleanRoom.MiniGames
             OnCompletionTransition = GetComponent<Transitioner>();
             GameManager = GameManager.Instance;
             StateName = StateMachine.Instance.ActiveState.StateName;
+            isCompleted = false;
             StartMiniGame();
         }
 
@@ -25,6 +28,12 @@ namespace CleanRoom.MiniGames
 
         public void CompleteMiniGame()
         {
+            if (isCompleted)
+            {
+                return;
+            }
+
+            isCompleted = true;
             PopupManager.Instance.Popup.closeEvent += OnPopupClose;
             StateMachine.Instance.CompleteActiveState();
         }
