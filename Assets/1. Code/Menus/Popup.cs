@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using CleanRoom.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CleanRoom.Menus
 {
@@ -21,14 +23,17 @@ namespace CleanRoom.Menus
 
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private TextMeshProUGUI text;
-        [SerializeField] private Transform starsParent;
+        [SerializeField] private GameObject starsParent;
         [SerializeField] private GameObject backgroundPanel;
         
         private MessageType? showingMessageType = null;
+        private Button[] stars;
 
         private void Awake()
         {
             title.overrideColorTags = true;
+            stars = starsParent.GetComponentsInChildren<Button>(true);
+            Array.Sort(stars, (a, b) => a.transform.GetSiblingIndex().CompareTo(b.transform.GetSiblingIndex()));
         }
 
         public event Action<MessageType> closeEvent;
@@ -38,11 +43,11 @@ namespace CleanRoom.Menus
             if (messageType >= MessageType.Feedback)
             {
                 Match match = NUMBERS_REGEX.Match(text);
-                int stars = int.Parse(match.Value);
+                int starCount = int.Parse(match.Value);
 
                 text = text[match.Value.Length..];
                 
-                SetStars(stars);
+                SetStars(starCount);
             }
 
             showingMessageType = messageType;
@@ -71,10 +76,15 @@ namespace CleanRoom.Menus
 
         public void SetStars(int count)
         {
-            starsParent.gameObject.SetActive(true);
-            for (int i = 0; i < starsParent.childCount; ++i)
+            if (stars.IsNullOrEmpty())
             {
-                starsParent.GetChild(i).gameObject.SetActive(i < count);
+                throw new Exception("stars array is null or empty");
+            }
+            
+            starsParent.gameObject.SetActive(true);
+            for (int i = 0; i < stars.Length; ++i)
+            {
+                stars[i].interactable = i < count;
             }
         }
     }
