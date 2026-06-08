@@ -1,27 +1,74 @@
+using System;
 using System.Collections.Generic;
 using KattenKasteel.FSM;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace CleanRoom.Menus
 {
-    public class PopupMenu : Menu
+    public class PopupManager : MonoBehaviour
     {
         private const string STATE_COMPLETED_MESSAGE = "Je hebt deze mini-game voltooid!";
         private const string CANNOT_GO_HERE_MESSAGE = "Je kan hier niet heen!";
-        
+
+        private static PopupManager _instance;
+        public static PopupManager Instance
+        {
+            get
+            {
+                if (!ReferenceEquals(null, _instance))
+                {
+                    return _instance;
+                }
+                
+                _instance = FindAnyObjectByType<PopupManager>();
+
+                if (!ReferenceEquals(null, _instance))
+                {
+                    return _instance;
+                }
+                
+                _instance = Instantiate(Resources.Load<PopupManager>("PopupManager"));
+                _instance.gameObject.name = "RESOURCES_PopupManager";
+                _instance.Initialize();
+                return _instance;
+            }
+        }
+
         public Popup Popup { get; private set; } = null;
         private readonly Queue<PopupInfo> queue = new();
-
+        private static bool _isInitialized = false;
 
         private void Awake()
         {
-            Popup = GetComponentInChildren<Popup>();
+            if (ReferenceEquals(null, _instance))
+            {
+                _instance = this;
+                Initialize();
+            }
+            else if (!ReferenceEquals(_instance, this))
+            {
+                DestroyImmediate(gameObject);
+            }
+        }
+
+        private void Initialize()
+        {
+            if (_isInitialized)
+            {
+                return;
+            }
+            
+            Popup = GetComponentInChildren<Popup>(true);
+
             StateMachine.Instance.stateCompletedEvent += OnStateCompleted;
             StateMachine.Instance.transitionFailedEvent += OnStateTransitionFailed;
 
-            Popup.closeEvent += (_) => OnPopupClose();
+            Popup.closeEvent += _ => OnPopupClose();
             Popup.Close();
+            
+            DontDestroyOnLoad(gameObject);
+
+            _isInitialized = true;
         }
 
         private void OnPopupClose()
@@ -51,7 +98,7 @@ namespace CleanRoom.Menus
             PopupInfo info = queue.Dequeue();
             Popup.Initialize(info.Message, info.Type, info.Title);
         }
-        
+
         private void OnStateCompleted(State state)
         {
             if (state.IsParent)
@@ -62,7 +109,7 @@ namespace CleanRoom.Menus
             int stars = Mathf.Max(0, 3 - FeedbackLogger.GetFeedback(state.StateName).Length);
             CreatePopup(stars + STATE_COMPLETED_MESSAGE, Popup.MessageType.CompletedMiniGame, state.StateName);
         }
-        
+
         private void OnStateTransitionFailed(string message)
         {
             CreatePopup(message, Popup.MessageType.Incorrect, CANNOT_GO_HERE_MESSAGE);

@@ -20,11 +20,11 @@ namespace CleanRoom.Interactables
 
         public void Interact()
         {
-            PopupMenu popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>(true);
+            PopupManager popupManager = PopupManager.Instance;
             
             if (!condition.IsSatisfied(null))
             {
-                popupMenu.CreatePopup(notReadyBody, Popup.MessageType.Incorrect, NOT_READY_TITLE);
+                popupManager.CreatePopup(notReadyBody, Popup.MessageType.Incorrect, NOT_READY_TITLE);
                 return;
             }
 
@@ -46,9 +46,9 @@ namespace CleanRoom.Interactables
 
             int stars = totalEarnedStars / activeStateChildren.Length;
             
-            popupMenu.CreatePopup(stars.ToString() + builder, Popup.MessageType.Feedback,
+            popupManager.CreatePopup(stars.ToString() + builder, Popup.MessageType.Feedback,
                 string.Concat(activeState.StateName, FEEDBACK));
-            popupMenu.Popup.closeEvent += OnPopupClose;
+            popupManager.Popup.closeEvent += OnPopupClose;
         }
 
         private void OnPopupClose(Popup.MessageType messageType)

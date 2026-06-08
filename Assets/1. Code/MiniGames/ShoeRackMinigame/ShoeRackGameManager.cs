@@ -72,7 +72,7 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
         if (IsGameComplete())
         {
             StateMachine.Instance.CompleteActiveState();
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnPopupClose;
+            PopupManager.Instance.Popup.closeEvent += OnPopupClose;
         }
     }
 
@@ -83,7 +83,7 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
             return;
         }
 
-        MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnPopupClose;
+        PopupManager.Instance.Popup.closeEvent -= OnPopupClose;
         onCompletionTransition.Transition();
     }
 

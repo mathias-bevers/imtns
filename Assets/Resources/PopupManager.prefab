@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 5800861406264193950}
   - component: {fileID: 791231817236059654}
   m_Layer: 0
-  m_Name: PopupMenu
+  m_Name: PopupManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -414,7 +414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288903f134264fde977841ab4f5d7b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Menus.PopupMenu
-  <IsHUD>k__BackingField: 1
 --- !u!1 &2295770176887850306
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,21 +479,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus
-    ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis
-    convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla
-    lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer
-    nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora
-    torquent per conubia nostra inceptos himenaeos.
-
-
-    Lorem ipsum dolor sit amet
-    consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem
-    placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean
-    sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.
-    Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper
-    vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-    himenaeos.'
+  m_text: Je hebt niet alle kleding aangedaan
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d4f952284dd19c94aa4fa21300cd97f5, type: 2}
   m_sharedMaterial: {fileID: -2337548173803026068, guid: d4f952284dd19c94aa4fa21300cd97f5, type: 2}
@@ -620,7 +605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &888223041596449734
 RectTransform:
   m_ObjectHideFlags: 0
@@ -696,7 +681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1389759341615008055
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1035,7 +1020,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{TITLE}'
+  m_text: Incorrect
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d4f952284dd19c94aa4fa21300cd97f5, type: 2}
   m_sharedMaterial: {fileID: -2337548173803026068, guid: d4f952284dd19c94aa4fa21300cd97f5, type: 2}
@@ -1045,7 +1030,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.90588236, g: 0.50980395, b: 0.5176471, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1330,7 +1315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1356735394458755564
 RectTransform:
   m_ObjectHideFlags: 0

@@ -134,7 +134,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
                     bag.gameObject.SetActive(false);
                     gameObject.SetActive(false);
                     StateMachine.Instance.CompleteActiveState();
-                    MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnCompletePopupClose;
+                    PopupManager.Instance.Popup.closeEvent += OnCompletePopupClose;
                     break;
                 case CleanlinessLevel.UnExposed:
                 default:
@@ -150,7 +150,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             }
 
             manager.OnCompleteTransition.Transition();
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnCompletePopupClose;
+            PopupManager.Instance.Popup.closeEvent -= OnCompletePopupClose;
         }
     }
 }

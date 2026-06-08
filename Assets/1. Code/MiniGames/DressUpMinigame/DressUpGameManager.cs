@@ -64,7 +64,7 @@ public class DressUpGameManager : Singleton<DressUpGameManager>
             return;
         }
 
-        GameManager.Instance.OnMistakeMade(stateName, NOT_CLOTHED_MESSAGE);
+        //GameManager.Instance.OnMistakeMade(stateName, NOT_CLOTHED_MESSAGE);
     }
 
     private void HandleItemSlotted(DragAndDropItem slottedItem)
@@ -81,7 +81,7 @@ public class DressUpGameManager : Singleton<DressUpGameManager>
         {
             Debug.Log("Dress-up minigame completed");
             StateMachine.Instance.CompleteActiveState();
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnCompletePopupClose;
+            PopupManager.Instance.Popup.closeEvent += OnCompletePopupClose;
         }
     }
 
@@ -92,7 +92,7 @@ public class DressUpGameManager : Singleton<DressUpGameManager>
             return;
         }
         
-        MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnCompletePopupClose;
+        PopupManager.Instance.Popup.closeEvent -= OnCompletePopupClose;
         onCompletionTransition.Transition();
     }
 

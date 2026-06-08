@@ -99,7 +99,7 @@ public class ShoeProcedure : Singleton<ShoeProcedure>
         {
             Debug.Log("Shoe procedure completed");
             StateMachine.Instance.CompleteActiveState();
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnCompletePopupClose;
+            PopupManager.Instance.Popup.closeEvent += OnCompletePopupClose;
         }
     }
 
@@ -110,7 +110,7 @@ public class ShoeProcedure : Singleton<ShoeProcedure>
             return;
         }
         
-        MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnCompletePopupClose;
+        PopupManager.Instance.Popup.closeEvent -= OnCompletePopupClose;
         onCompletionTransition.Transition();
     }
 
