@@ -11,7 +11,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 {
     public class Tablet : MonoBehaviour
     {
-        private readonly static Vector2Int dirtScale = new Vector2Int(50, 111);
+        private static readonly Vector2Int DIRT_SCALE = new (50, 111);
         
         public enum CleanlinessLevel
         {
@@ -70,7 +70,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 
             for (int i = 0; i < dirtCount; ++i)
             {
-                float scale = Random.Range(dirtScale.x, dirtScale.y) * 0.01f;
+                float scale = Random.Range(DIRT_SCALE.x, DIRT_SCALE.y) * 0.01f;
                 Vector2 position = bounds.GetRandomPointInBounds();
 
                 DirtPiece dirtPiece = Instantiate(dirtPrefab, transform);
@@ -134,24 +134,12 @@ namespace CleanRoom.MiniGames.CleanMiniGame
                     baggedTablet.SetActive(true);
                     bag.gameObject.SetActive(false);
                     gameObject.SetActive(false);
-                    StateMachine.Instance.CompleteActiveState();
-                    PopupManager.Instance.Popup.closeEvent += OnCompletePopupClose;
+                    manager.CompleteMiniGame();
                     break;
                 case CleanlinessLevel.UnExposed:
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        private void OnCompletePopupClose(Popup.MessageType messageType)
-        {
-            if (messageType != Popup.MessageType.CompletedMiniGame)
-            {
-                return;
-            }
-
-            manager.OnCompleteTransition.Transition();
-            PopupManager.Instance.Popup.closeEvent -= OnCompletePopupClose;
         }
     }
 }
