@@ -3,35 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using CleanRoom;
 using CleanRoom.Menus;
+using CleanRoom.MiniGames;
 using KattenKasteel.FSM;
 using UnityEngine;
 
-public class DressUpGameManager : Singleton<DressUpGameManager>
+public class DressUpGameManager : MiniGameManager<DressUpGameManager>
 {
     [SerializeField] public List<ItemType> SlotOrder = new();
     [SerializeField] public List<ItemSlot> Slots = new();
-    [SerializeField] private Transitioner onCompletionTransition;
 
     private GameObject GoggleItemSlot;
     private GameObject FacemaskItemSlot;
 
-    private string stateName = string.Empty; 
 
     private string NOT_CLOTHED_MESSAGE = "Je hebt niet alle kleding aangedaan";
     private string INCORRECT_ORDER_MESSAGE = "Kleding is in de verkeerde volgorde geplaatst: ";
-
-    protected void OnEnable()
-    {
-        stateName = StateMachine.Instance.ActiveState.StateName;
-        StartMiniGame();
-    }
 
     protected void OnDisable()
     {
         ValidateExit();
     }
 
-    private void StartMiniGame(){
+    protected override void StartMiniGame(){
         for (int i = 0; i < SlotOrder.Count; i++)
         {
             ItemSlot currentSlot = Slots[i];
@@ -64,7 +57,7 @@ public class DressUpGameManager : Singleton<DressUpGameManager>
             return;
         }
 
-        //GameManager.Instance.OnMistakeMade(stateName, NOT_CLOTHED_MESSAGE);
+        //GameManager.OnMistakeMade(StateName, NOT_CLOTHED_MESSAGE);
     }
 
     private void HandleItemSlotted(DragAndDropItem slottedItem)
@@ -79,21 +72,8 @@ public class DressUpGameManager : Singleton<DressUpGameManager>
 
         if (IsGameComplete())
         {
-            Debug.Log("Dress-up minigame completed");
-            StateMachine.Instance.CompleteActiveState();
-            PopupManager.Instance.Popup.closeEvent += OnCompletePopupClose;
+            CompleteMiniGame();
         }
-    }
-
-    private void OnCompletePopupClose(Popup.MessageType messageType)
-    {
-        if (messageType != Popup.MessageType.CompletedMiniGame)
-        {
-            return;
-        }
-        
-        PopupManager.Instance.Popup.closeEvent -= OnCompletePopupClose;
-        onCompletionTransition.Transition();
     }
 
     private void CheckItemOrder(ItemType itemType)
@@ -104,7 +84,7 @@ public class DressUpGameManager : Singleton<DressUpGameManager>
         else
         {
             SlotOrder.Remove(itemType);
-            GameManager.Instance.OnMistakeMade(stateName, INCORRECT_ORDER_MESSAGE + itemType);
+            GameManager.OnMistakeMade(StateName, INCORRECT_ORDER_MESSAGE + itemType);
             Debug.Log(INCORRECT_ORDER_MESSAGE + itemType);
         }
     }
@@ -121,6 +101,6 @@ public class DressUpGameManager : Singleton<DressUpGameManager>
 
     private void ItemPlacedInWrongSlot(string message)
     {
-        GameManager.Instance.OnMistakeMade(stateName, message);
+        GameManager.OnMistakeMade(StateName, message);
     }
 }

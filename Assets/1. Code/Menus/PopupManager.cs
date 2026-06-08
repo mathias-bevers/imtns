@@ -59,6 +59,7 @@ namespace CleanRoom.Menus
             }
             
             Popup = GetComponentInChildren<Popup>(true);
+            Popup.Initialize();
 
             StateMachine.Instance.stateCompletedEvent += OnStateCompleted;
             StateMachine.Instance.transitionFailedEvent += OnStateTransitionFailed;
@@ -96,7 +97,7 @@ namespace CleanRoom.Menus
         private void ShowPopup()
         {
             PopupInfo info = queue.Dequeue();
-            Popup.Initialize(info.Message, info.Type, info.Title);
+            Popup.Show(info.Message, info.Type, info.Title);
         }
 
         private void OnStateCompleted(State state)
