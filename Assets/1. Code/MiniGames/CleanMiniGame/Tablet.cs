@@ -115,6 +115,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         private void NextStage()
         {
             ++Cleanliness;
+            FlashOverlay.Instance.PlayAnimation(true);
 
             switch (Cleanliness)
             {
