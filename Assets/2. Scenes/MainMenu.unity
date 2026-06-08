@@ -490,6 +490,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158734058}
   m_CullTransparentMesh: 1
+--- !u!1001 &163487373
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3108054834022669027, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713431364236024216, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713431364236024216, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713431364236024216, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713431364236024216, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713431364236024216, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713431364236024216, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713431364236024216, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713431364236024216, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713431364236024216, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713431364236024216, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e88d135cc00404f0c8c86af08ab8489d, type: 3}
 --- !u!1 &172656267
 GameObject:
   m_ObjectHideFlags: 0
@@ -2951,16 +3008,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1109799273}
+      objectReference: {fileID: 1564636315}
     - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Transition
+      value: Play
       objectReference: {fileID: 0}
     - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: KattenKasteel.FSM.Transitioner, net.kattenkasteel.finite-state-machine.Runtime
+      value: CleanRoom.UserInterface.RoomFeedBackUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3252259437393945386, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_Sprite
@@ -3010,7 +3079,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
   transition:
     <Target>k__BackingField: {fileID: 0}
-    conditions: []
+    conditions:
+    - {fileID: 11400000, guid: b6ec36fcd677ef17db1e6a0f8c162540, type: 2}
+    - {fileID: 11400000, guid: de895f631690c76baa721a06625624e9, type: 2}
 --- !u!1 &1114572682
 GameObject:
   m_ObjectHideFlags: 0
@@ -4146,6 +4217,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534049928}
   m_CullTransparentMesh: 1
+--- !u!114 &1564636315 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4860210659962884255, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+  m_PrefabInstance: {fileID: 1109799270}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1082ca7f394f60baf4a359016cc23e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.UserInterface.FeedBackLogsUI
 --- !u!1 &1570933090
 GameObject:
   m_ObjectHideFlags: 0
@@ -5611,9 +5693,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1916283153}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Transition
@@ -5621,6 +5715,14 @@ PrefabInstance:
     - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: KattenKasteel.FSM.Transitioner, net.kattenkasteel.finite-state-machine.Runtime
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3252259437393945386, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_Sprite
@@ -5669,8 +5771,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
   transition:
-    <Target>k__BackingField: {fileID: 0}
-    conditions: []
+    <Target>k__BackingField: {fileID: 11400000, guid: ba736fc22cdb4299aabe5b4c247c1e22, type: 2}
+    conditions:
+    - {fileID: 11400000, guid: b6ec36fcd677ef17db1e6a0f8c162540, type: 2}
+    - {fileID: 11400000, guid: 5fc23f4412328307995b2358ed7f0b06, type: 2}
 --- !u!1 &1937734019
 GameObject:
   m_ObjectHideFlags: 0
@@ -6305,9 +6409,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2579465140445845628}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Transition
@@ -6315,6 +6431,14 @@ PrefabInstance:
     - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: KattenKasteel.FSM.Transitioner, net.kattenkasteel.finite-state-machine.Runtime
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117723972400615734, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4860210659962884255, guid: f728a17d72f400026bedde6a67f550e6, type: 3}
       propertyPath: roomState
@@ -6526,3 +6650,4 @@ SceneRoots:
   - {fileID: 900952886}
   - {fileID: 1651641270}
   - {fileID: 1103161105}
+  - {fileID: 163487373}
