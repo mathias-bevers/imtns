@@ -1,3 +1,8 @@
+-----------------------------------------------------------------------07/jun/26
+- added prerequisite condition, it checks if an array of states has be completed
+- added can transition method to the transitioner, so it can be checked externally
+
+
 -----------------------------------------------------------------------06/jun/26
 - removed signeton class since it is unused
 - added has visited bool to state, this gets toggled on leaving the room
