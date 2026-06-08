@@ -28,6 +28,11 @@ namespace CleanRoom.Menus
                 return;
             }
 
+            if (animationDurationInSeconds <= 0)
+            {
+                LoadBaseValues();
+            }
+
             Canvas canvas = gameObject.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = 1;
@@ -46,15 +51,23 @@ namespace CleanRoom.Menus
             _isInitialized = true;
         }
 
-        public void Animate(bool isGood)
+        private void LoadBaseValues()
+        {
+            animationDurationInSeconds = 0.5f;
+            goodColor = new Color32(166, 218, 149, 100);
+            badColor = new Color32(237, 135, 150, 100);
+        }
+
+        public void PlayAnimation(bool isGood)
         {
             Color targetColor = isGood ? goodColor : badColor;
+            float partDuration = animationDurationInSeconds / 2.0f;
             
             overlay.gameObject.SetActive(true);
             
             Sequence.Create(cycles: 1)
-                .Chain(Tween.Color(overlay, targetColor, animationDurationInSeconds))
-                .Chain(Tween.Color(overlay, Color.clear, animationDurationInSeconds))
+                .Chain(Tween.Color(overlay, targetColor, partDuration))
+                .Chain(Tween.Color(overlay, Color.clear, partDuration))
                 .OnComplete(() => overlay.gameObject.SetActive(false));
         }
     }

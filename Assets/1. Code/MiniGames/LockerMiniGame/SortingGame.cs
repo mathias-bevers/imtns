@@ -23,7 +23,6 @@ namespace CleanRoom.MiniGames.LockerMiniGame
         private DropZone[] dropZones = Array.Empty<DropZone>();
         private int currentItem = -1;
         private Inventory inventory = null;
-        private PopupManager popupManager = null;
         private SortingItem sortingItem = null;
 
         private string stateName;
@@ -38,7 +37,6 @@ namespace CleanRoom.MiniGames.LockerMiniGame
         {
             stateName = StateMachine.Instance.ActiveState.StateName;
 
-            popupManager = PopupManager.Instance;
             dropZones = GetComponentsInChildren<DropZone>(true);
             sortingItem = GetComponentInChildren<SortingItem>();
 
@@ -63,8 +61,8 @@ namespace CleanRoom.MiniGames.LockerMiniGame
                 GameManager.Instance.OnMistakeMade(stateName, item.IncorrectMessage);
                 return;
             }
-
-            popupManager?.CreatePopup(item.CorrectMessage, Popup.MessageType.Correct);
+            
+            FlashOverlay.Instance.PlayAnimation(true);
 
             if (string.Equals(TABLET_NAME, item.name))
             {
@@ -86,7 +84,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
 
             sortingItem.SetActive(false);
             StateMachine.Instance.CompleteActiveState();
-            popupManager.Popup.closeEvent += OnCompletePopupClose;
+            PopupManager.Instance.Popup.closeEvent += OnCompletePopupClose;
         }
 
         private void OnCompletePopupClose(Popup.MessageType messageType)
@@ -97,7 +95,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             }
 
             onCompleteTransition.Transition();
-            popupManager.Popup.closeEvent -= OnCompletePopupClose;
+            PopupManager.Instance.Popup.closeEvent -= OnCompletePopupClose;
         }
     }
 }
