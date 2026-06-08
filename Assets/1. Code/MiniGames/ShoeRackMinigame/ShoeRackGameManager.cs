@@ -1,12 +1,9 @@
+using CleanRoom;
 using CleanRoom.Menus;
 using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
-using System.Linq;
-using CleanRoom;
 using KattenKasteel.FSM;
 using UnityEngine;
-using UnityEngine.Events;
-using static UnityEngine.Tilemaps.TilemapRenderer;
 
 public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
 {
@@ -21,6 +18,8 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
     private string stateName = string.Empty;
 
     private string NOT_PAIRED_MESSAGE = "Schoenen zijn in de verkeerde plaats";
+
+    [SerializeField] Vector3 NewPosition = Vector3.zero;
 
     protected void OnEnable()
     {

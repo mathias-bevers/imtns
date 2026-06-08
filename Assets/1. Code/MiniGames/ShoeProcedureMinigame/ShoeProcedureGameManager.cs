@@ -1,12 +1,8 @@
-using CleanRoom.MiniGames.CleanMiniGame;
-using System.Collections.Generic;
-using System.Linq;
 using CleanRoom;
+using CleanRoom.MiniGames.CleanMiniGame;
 using CleanRoom.Menus;
 using KattenKasteel.FSM;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ShoeProcedure : Singleton<ShoeProcedure>
 {
@@ -25,6 +21,9 @@ public class ShoeProcedure : Singleton<ShoeProcedure>
     private string INCORRECT_ORDER_MESSAGE = "Je hebt de schoen in de verkeerde volgorde geplaatst";
     private string WRONG_FOOT_MESSAGE = "Je hebt de schoen op de verkeerde foot geplaatst";
     private string NOT_ON_MESSAGE = "Schoenen zijn niet aangedaan";
+
+    [SerializeField] Vector3 NewPosition = Vector3.zero;
+
 
     protected void OnEnable()
     {

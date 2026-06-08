@@ -362,6 +362,9 @@ MonoBehaviour:
   <OnSlotted>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+  <OnPointerDownEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3352202480230516976
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,6 +603,9 @@ MonoBehaviour:
   <OnSlotted>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+  <OnPointerDownEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3691233618673879034
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +786,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f35731ca30d9bd4e95a78e4e0c000c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShoeRackGameManager
+  <StateName>k__BackingField: Shoe Rack Minigame
+  <SceneName>k__BackingField: ShoeRackMinigame
+  <EnterEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <ExitEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <ParentState>k__BackingField: {fileID: 5009585162894195623, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
+  <CompletionMessage>k__BackingField: Schoenen zijn in de juiste plaats.
   ShoeSlotPair1:
   - {fileID: 6851021920360787587}
   - {fileID: 4363877874546732015}
