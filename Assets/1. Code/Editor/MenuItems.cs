@@ -1,7 +1,8 @@
 using System;
+using CleanRoom.Utils;
+using KattenKasteel.FSM;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace CleanRoom
 {
@@ -11,7 +12,7 @@ namespace CleanRoom
         private static void CreateMenuCanvas(MenuCommand command)
         {
             // set up canvas
-            if (Object.Instantiate(Resources.Load("MenuCanvas")) is not GameObject menu)
+            if (UnityEngine.Object.Instantiate(Resources.Load("MenuCanvas")) is not GameObject menu)
             {
                 throw new TypeLoadException("Could not load Prefab \"MenuCanvas\"");
             }
@@ -29,6 +30,11 @@ namespace CleanRoom
         private static void OpenPDP() => Application.OpenURL("file://" + Application.persistentDataPath);
 
         [MenuItem("Tools/CleanRoom/Clear Saves")]
-        private static void ClearSaves() => SaveSystem.DeleteAllSaves();
+        private static void ClearSaves()
+        {
+            SaveSystem.Reset();
+            FeedbackLogger.Reset();
+            StateMachine.ResetStates();   
+        }
     }
 }

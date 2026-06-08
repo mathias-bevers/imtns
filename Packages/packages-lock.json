@@ -312,6 +312,14 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "net.kattenkasteel.finite-state-machine": {
+      "version": "file:net.kattenkasteel.finite-state-machine",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm"
+      }
+    },
     "unity-missing-scripts-finder": {
       "version": "https://github.com/RimuruDev/Unity-MissingScriptsFinder.git",
       "depth": 0,

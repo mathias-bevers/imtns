@@ -1,5 +1,4 @@
 using System;
-using CleanRoom.StateMachine;
 using CleanRoom.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,21 +7,22 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 {
     public class DirtPiece : MonoBehaviour
     {
-        private const string NO_SPRAY_WARNING = "Zorg er voor dat je eerst de isopropyl gebruikt";
-
         [SerializeField] private float cleanDistanceBase;
         [SerializeField] private Sprite[] sprites;
 
-        private CleanGameState state;
-        private DragAndSnap wipe;
-        private float cleanDistance;
-        private float distance;
-
+        private Tablet tablet;
+        private Bounds bounds;
         private Image image;
         private RectTransform cachedTransform;
+        private Transform wipeTransform;
 
         private void Update()
         {
+            if (tablet.Cleanliness != Tablet.CleanlinessLevel.Sprayed)
+            {
+                return;
+            }
+            
             CheckWipe();
         }
 
@@ -32,41 +32,42 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         }
 
         public event Action destroyedEvent;
-        public event Action<string> mistakeMadeEvent;
 
         public void Initialize(float scale, Vector2 position)
         {
             cachedTransform = (RectTransform)transform;
             image = GetComponent<Image>();
-
-            state = StateMachine.StateMachine.Instance.ActiveState as CleanGameState;
-            wipe = state?.Wipe;
-
+            wipeTransform = CleanGame.Instance.Wipe.CachedTransform;
+            tablet = CleanGame.Instance.Tablet;
+            
             image.sprite = sprites.GetRandomElement();
 
             cachedTransform.sizeDelta *= scale;
             cachedTransform.anchoredPosition = position;
-            cleanDistance = cleanDistanceBase * scale;
+            
+            Rect rect = cachedTransform.rect;
+            bounds = new Bounds(cachedTransform.position, new Vector3(rect.width * 0.5f, rect.height * 0.5f, 1));
+            bounds.size *= 0.75f;
         }
 
         private void CheckWipe()
         {
-            distance = Vector2.Distance(cachedTransform.position, wipe.CachedTransform.position);
-
-            if (distance > cleanDistance)
+            if (!bounds.Contains(wipeTransform.position))
             {
                 return;
             }
-
-            if (state.Tablet.Cleanliness < Tablet.CleanlinessLevel.Sprayed)
-            {
-                mistakeMadeEvent?.Invoke(NO_SPRAY_WARNING);
-
-                wipe.OnEndDrag(null);
-                return;
-            }
-
+            
             Destroy(gameObject);
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (bounds.size.magnitude < 0.01f)
+            {
+                return;
+            }
+            
+            Gizmos.DrawWireCube(bounds.center, bounds.size);
         }
     }
 }

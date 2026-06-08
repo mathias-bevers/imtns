@@ -1,5 +1,8 @@
+using System.Globalization;
 using CleanRoom.InventorySystem;
 using CleanRoom.MiniGames.CleanMiniGame;
+using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -7,29 +10,35 @@ namespace CleanRoom.MiniGames.LockerMiniGame
 {
     public class SortingItem : DragAndSnap
     {
-        public Image Image { get; private set; }
+        [SerializeField] private Image image;
+        [SerializeField] private TextMeshProUGUI text;
+        
         public InventoryItem Data { get; private set; }
 
-        private void Awake()
+        public void SetActive(bool isActive)
         {
-            Image = GetComponent<Image>();
+            image.gameObject.SetActive(isActive);
+            text.gameObject.SetActive(isActive);
         }
+        
 
-        public void Setup(InventoryItem data)
+        public void DisplayData(InventoryItem data)
         {
             Data = data;
-            Image.sprite = Data.Sprite;
+            image.sprite = Data.Sprite;
+            string capitalizedName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(data.Name);
+            text.SetText(capitalizedName);
         }
 
         public override void OnBeginDrag(PointerEventData eventData)
         {
-            Image.raycastTarget = false;
+            image.raycastTarget = false;
         }
 
         public override void OnEndDrag(PointerEventData eventData)
         {
             base.OnEndDrag(eventData);
-            Image.raycastTarget = true;
+            image.raycastTarget = true;
         }
     }
 }

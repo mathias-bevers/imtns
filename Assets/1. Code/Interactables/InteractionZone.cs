@@ -7,9 +7,9 @@ namespace CleanRoom.Interactables
     public class InteractionZone : MonoBehaviour
     {
         private const string PLAYER_TAG = "Player";
-        
+
         [field: SerializeField] public UnityEvent OnInteract { get; private set; }
-        private OnScreenControllerMenu _hud;
+        private OnScreenControllerMenu hud;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -18,8 +18,8 @@ namespace CleanRoom.Interactables
                  return;  
             }
 
-            _hud ??= MenuManager.Instance.GetMenuOfType<OnScreenControllerMenu>();
-            _hud.InteractionButton.OnInteractionZoneEnter(this);
+            hud ??= MenuManager.Instance.GetMenuOfType<OnScreenControllerMenu>();
+            hud.InteractionButton.OnInteractionZoneEnter(this);
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -28,9 +28,9 @@ namespace CleanRoom.Interactables
             {
                 return;
             }
-
-            _hud ??= MenuManager.Instance.GetMenuOfType<OnScreenControllerMenu>();
-            _hud.InteractionButton.OnInteractionZoneExit(this);
+            
+            hud ??= MenuManager.Instance.GetMenuOfType<OnScreenControllerMenu>();
+            hud.InteractionButton.OnInteractionZoneExit(this);
         }
     }
 }

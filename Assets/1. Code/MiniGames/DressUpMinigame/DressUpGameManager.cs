@@ -1,19 +1,28 @@
+using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
 using System.Linq;
+using CleanRoom;
+using CleanRoom.Menus;
+using KattenKasteel.FSM;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class DressUpGameManager : MonoBehaviour
+public class DressUpGameManager : Singleton<DressUpGameManager>
 {
     [SerializeField] public List<ItemType> SlotOrder = new();
     [SerializeField] public List<ItemSlot> Slots = new();
+    [SerializeField] private Transitioner onCompletionTransition;
 
-    [field: SerializeField] public UnityEvent EnterEvent { get; private set; }
-    [field: SerializeField] public UnityEvent ExitEvent { get; private set; }
-    [field: SerializeField] public UnityEvent<string> OnMistake { get; private set; }
+    private GameObject GoggleItemSlot;
+    private GameObject FacemaskItemSlot;
+
+    private string stateName = string.Empty; 
+
+    private string NOT_CLOTHED_MESSAGE = "Je hebt niet alle kleding aangedaan";
+    private string INCORRECT_ORDER_MESSAGE = "Kleding is in de verkeerde volgorde geplaatst: ";
 
     protected void OnEnable()
     {
+        stateName = StateMachine.Instance.ActiveState.StateName;
         StartMiniGame();
     }
 
@@ -22,42 +31,72 @@ public class DressUpGameManager : MonoBehaviour
         ValidateExit();
     }
 
-    private void Start()
-    {
-        for(int i = 0; i < SlotOrder.Count; i++)
+    private void StartMiniGame(){
+        for (int i = 0; i < SlotOrder.Count; i++)
         {
-            Slots[i].OnItemSlotted.AddListener(HandleItemSlotted);
-        }
-    }
+            ItemSlot currentSlot = Slots[i];
 
-    private void StartMiniGame()
-    {
-        EnterEvent.Invoke();
+            currentSlot.OnItemSlotted.AddListener(HandleItemSlotted);
+            currentSlot.OnWrongItemPlaced.AddListener(ItemPlacedInWrongSlot);
+
+            if (currentSlot.AllowedItems[0] == ItemType.Veiligheidsbril)
+            {
+                GoggleItemSlot = currentSlot.gameObject;
+            }
+
+            if (currentSlot.AllowedItems[0] == ItemType.Mondkapje)
+            {
+                FacemaskItemSlot = currentSlot.gameObject;
+            }
+        }
+
+        if(GoggleItemSlot && FacemaskItemSlot)
+        {
+            GoggleItemSlot.SetActive(false);
+            FacemaskItemSlot.SetActive(false);
+        }
     }
 
     private void ValidateExit()
     {
-        ExitEvent.Invoke();
+        if (IsGameComplete())
+        {
+            return;
+        }
+
+        GameManager.Instance.OnMistakeMade(stateName, NOT_CLOTHED_MESSAGE);
     }
 
-    private void MistakeMade(string mistakeDescription)
+    private void HandleItemSlotted(DragAndDropItem slottedItem)
     {
-        OnMistake.Invoke(mistakeDescription);
-    }
+        if(slottedItem.ItemType == ItemType.Kap)
+        {
+            GoggleItemSlot.SetActive(true);
+            FacemaskItemSlot.SetActive(true);
+        }
 
-    void HandleItemSlotted(ItemType itemType)
-    {
-        CheckItemOrder(itemType);
+        CheckItemOrder(slottedItem.ItemType);
 
         if (IsGameComplete())
         {
             Debug.Log("Dress-up minigame completed");
-            ExitEvent.Invoke();
-
+            StateMachine.Instance.CompleteActiveState();
+            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnCompletePopupClose;
         }
     }
 
-    void CheckItemOrder(ItemType itemType)
+    private void OnCompletePopupClose(Popup.MessageType messageType)
+    {
+        if (messageType != Popup.MessageType.CompletedMiniGame)
+        {
+            return;
+        }
+        
+        MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnCompletePopupClose;
+        onCompletionTransition.Transition();
+    }
+
+    private void CheckItemOrder(ItemType itemType)
     {
         if (IsItemInOrder(itemType)){
             SlotOrder.RemoveAt(0);
@@ -65,18 +104,23 @@ public class DressUpGameManager : MonoBehaviour
         else
         {
             SlotOrder.Remove(itemType);
-            MistakeMade("Clothing placed in incorrect order: " + itemType.ToString());
-            Debug.Log("Clothing placed in incorrect order: " + itemType.ToString());
+            GameManager.Instance.OnMistakeMade(stateName, INCORRECT_ORDER_MESSAGE + itemType);
+            Debug.Log(INCORRECT_ORDER_MESSAGE + itemType);
         }
     }
 
-    bool IsGameComplete()
+    private bool IsGameComplete()
     {
         return SlotOrder.Count == 0;
     }
 
-    bool IsItemInOrder(ItemType itemType)
+    private bool IsItemInOrder(ItemType itemType)
     {
         return SlotOrder.ElementAt(0) == itemType;
+    }
+
+    private void ItemPlacedInWrongSlot(string message)
+    {
+        GameManager.Instance.OnMistakeMade(stateName, message);
     }
 }

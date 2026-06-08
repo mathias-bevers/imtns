@@ -5,17 +5,43 @@ namespace CleanRoom.Interactables
     public class InteractionButton : Button
     {
         private InteractionZone interactionZone;
+        private bool isPendingDestroy;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            interactable = false;
+        }
 
         public void OnInteractionZoneEnter(InteractionZone interactionZone)
         {
             this.interactionZone = interactionZone;
             onClick.AddListener(this.interactionZone.OnInteract.Invoke);
+            interactable = true;
         }
 
         public void OnInteractionZoneExit(InteractionZone interactionZone)
         {
-            this.interactionZone = interactionZone;
-            onClick.RemoveListener(this.interactionZone.OnInteract.Invoke);
+            if (isPendingDestroy)
+            {
+                return;
+            }
+
+            onClick.RemoveListener(interactionZone.OnInteract.Invoke);
+
+            if (!ReferenceEquals(interactionZone, this.interactionZone))
+            {
+                return;
+            }
+
+            interactable = false;
+            this.interactionZone = null;
+        }
+
+        protected override void OnDestroy()
+        {
+            isPendingDestroy = true;
+            base.OnDestroy();
         }
     }
 }
