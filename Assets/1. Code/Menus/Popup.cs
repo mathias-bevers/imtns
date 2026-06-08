@@ -28,18 +28,31 @@ namespace CleanRoom.Menus
         
         private MessageType? showingMessageType = null;
         private Button[] stars;
-
-        private void Awake()
-        {
-            title.overrideColorTags = true;
-            stars = starsParent.GetComponentsInChildren<Button>(true);
-            Array.Sort(stars, (a, b) => a.transform.GetSiblingIndex().CompareTo(b.transform.GetSiblingIndex()));
-        }
+        private bool isInitialized;
 
         public event Action<MessageType> closeEvent;
 
-        public void Initialize(string text, MessageType messageType, string title)
+        public void Initialize()
         {
+            if (isInitialized)
+            {
+                return;
+            }
+            
+            title.overrideColorTags = true;
+            stars = starsParent.GetComponentsInChildren<Button>(true);
+            Array.Sort(stars, (a, b) => a.transform.GetSiblingIndex().CompareTo(b.transform.GetSiblingIndex()));
+
+            isInitialized = true;
+        }
+
+        public void Show(string text, MessageType messageType, string title)
+        {
+            if (!isInitialized)
+            {
+                throw new NotSupportedException("cannot show popup without being initialized");
+            }
+            
             if (messageType >= MessageType.Feedback)
             {
                 Match match = NUMBERS_REGEX.Match(text);
