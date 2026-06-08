@@ -1,11 +1,11 @@
 using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
-using CleanRoom;
+using CleanRoom.MiniGames;
 using KattenKasteel.FSM;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GlovesGameState : Singleton<GlovesGameState>
+public class GloveMiniGame : MiniGameManager<GloveMiniGame>
 {
     [SerializeField] public List<DragAndDropItem> Gloves = new();
     [SerializeField] public ItemSlot LeftGloveSlot;
@@ -13,13 +13,9 @@ public class GlovesGameState : Singleton<GlovesGameState>
     [SerializeField] public GameObject GlovedHandLeft;
     [SerializeField] public GameObject GlovedHandRight;
     [SerializeField] private int UsedGloves = 0;
+    
 
-    protected void OnEnable()
-    {
-        StartMiniGame();
-    }
-
-    private void StartMiniGame()
+    protected override void StartMiniGame()
     {
         LeftGloveSlot.OnItemSlotted.AddListener(HandleLeftGloveSlotted);
         RightGloveSlot.OnItemSlotted.AddListener(HandleRightGloveSlotted);
@@ -38,7 +34,7 @@ public class GlovesGameState : Singleton<GlovesGameState>
         UsedGloves++;
         if (UsedGloves == 2)
         {
-            StateMachine.Instance.CompleteActiveState();
+            CompleteMiniGame();
         }
     }
 
@@ -50,7 +46,7 @@ public class GlovesGameState : Singleton<GlovesGameState>
         UsedGloves++;
         if (UsedGloves == 2)
         {
-            StateMachine.Instance.CompleteActiveState();
+            CompleteMiniGame();
         }
     }
 
