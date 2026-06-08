@@ -23,8 +23,8 @@ namespace CleanRoom.UserInterface
 
         [SerializeField, ValidateInput("IsValidPairArray")]
         private SerializablePair<Button, State>[] roomSelectors;
-
-        private void OnEnable()
+        
+        public void UpdateUI()
         {
             if (!IsValidPairArray())
             {
@@ -33,13 +33,16 @@ namespace CleanRoom.UserInterface
             
             foreach (SerializablePair<Button, State> bsp in roomSelectors)
             {
-                TextMeshProUGUI text = bsp.First.GetComponentInChildren<TextMeshProUGUI>();
+                TextMeshProUGUI text = bsp.First.GetComponentInChildren<TextMeshProUGUI>(true);
                 Transform starParent = bsp.First.transform.Find(STARS);
-
+                
                 if (ReferenceEquals(null, bsp.Second))
                 {
-                    text.SetText(NOT_HERE_MESSAGE);
-                    starParent.gameObject.SetActive(false);
+                    foreach (Transform child in bsp.First.transform)
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+
                     continue;
                 }
 
