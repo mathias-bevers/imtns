@@ -2,12 +2,8 @@ using CleanRoom;
 using CleanRoom.Menus;
 using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
-using System.Linq;
-using CleanRoom;
 using KattenKasteel.FSM;
 using UnityEngine;
-using UnityEngine.Events;
-using static UnityEngine.Tilemaps.TilemapRenderer;
 
 public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
 {

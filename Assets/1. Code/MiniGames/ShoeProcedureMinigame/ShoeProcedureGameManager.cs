@@ -1,13 +1,8 @@
 using CleanRoom;
 using CleanRoom.MiniGames.CleanMiniGame;
-using System.Collections.Generic;
-using System.Linq;
-using CleanRoom;
 using CleanRoom.Menus;
 using KattenKasteel.FSM;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ShoeProcedure : Singleton<ShoeProcedure>
 {

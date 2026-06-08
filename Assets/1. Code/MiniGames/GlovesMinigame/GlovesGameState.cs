@@ -1,13 +1,11 @@
-using CleanRoom.Menus;
 using CleanRoom.MiniGames.CleanMiniGame;
-using CleanRoom.StateMachine;
 using System.Collections.Generic;
-using System.Linq;
+using CleanRoom;
+using KattenKasteel.FSM;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class GlovesGameState : GameState
+public class GlovesGameState : Singleton<GlovesGameState>
 {
     [SerializeField] public List<DragAndDropItem> Gloves = new();
     [SerializeField] public ItemSlot LeftGloveSlot;
@@ -16,19 +14,9 @@ public class GlovesGameState : GameState
     [SerializeField] public GameObject GlovedHandRight;
     [SerializeField] private int UsedGloves = 0;
 
-    private const string NO_GLOVES = "Oeps! Je hebt geen handschoenen aan.";
-    private const string ONE_GLOVE = "Oeps! Je hebt maar een handschoen aan.";
-
     protected void OnEnable()
     {
-        EnterEvent.AddListener(StartMiniGame);
-        ExitEvent.AddListener(ValidateExit);
-    }
-
-    protected void OnDisable()
-    {
-        ExitEvent.RemoveListener(ValidateExit);
-        EnterEvent.RemoveListener(StartMiniGame);
+        StartMiniGame();
     }
 
     private void StartMiniGame()
@@ -42,27 +30,6 @@ public class GlovesGameState : GameState
         }
     }
 
-    private void ValidateExit()
-    {
-        LeftGloveSlot.OnItemSlotted.RemoveAllListeners();
-        RightGloveSlot.OnItemSlotted.RemoveAllListeners();
-
-        for (int i = 0; i < Gloves.Count; i++)
-        {
-            Gloves[i].OnPointerDownEvent.RemoveAllListeners();
-        }
-
-        switch (UsedGloves)
-        {
-            case 0:
-                OnMistakeMade(NO_GLOVES);
-                break;
-            case 1:
-                OnMistakeMade(ONE_GLOVE);
-                break;
-        }
-    }
-
     private void HandleLeftGloveSlotted(DragAndDropItem leftGlove)
     {
         leftGlove.gameObject.SetActive(false);
@@ -71,7 +38,7 @@ public class GlovesGameState : GameState
         UsedGloves++;
         if (UsedGloves == 2)
         {
-            Complete();
+            StateMachine.Instance.CompleteActiveState();
         }
     }
 
@@ -83,7 +50,7 @@ public class GlovesGameState : GameState
         UsedGloves++;
         if (UsedGloves == 2)
         {
-            Complete();
+            StateMachine.Instance.CompleteActiveState();
         }
     }
 
