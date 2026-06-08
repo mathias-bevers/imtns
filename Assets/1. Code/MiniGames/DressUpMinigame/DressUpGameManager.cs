@@ -11,7 +11,6 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
 {
     [SerializeField] public List<ItemType> SlotOrder = new();
     [SerializeField] public List<ItemSlot> Slots = new();
-    [SerializeField] private Transitioner onCompletionTransition;
 
     private GameObject GoggleItemSlot;
     private GameObject FacemaskItemSlot;

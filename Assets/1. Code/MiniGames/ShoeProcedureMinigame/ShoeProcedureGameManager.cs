@@ -1,42 +1,33 @@
 using CleanRoom;
 using CleanRoom.MiniGames.CleanMiniGame;
 using CleanRoom.Menus;
+using CleanRoom.MiniGames;
 using KattenKasteel.FSM;
 using UnityEngine;
 
-public class ShoeProcedure : Singleton<ShoeProcedure>
+public class ShoeProcedure : MiniGameManager<ShoeProcedure>
 {
     [SerializeField] private GameObject LeftShoe;
     [SerializeField] private GameObject RightShoe;
     [SerializeField] private ItemSlot LeftShoeSlot;
     [SerializeField] private ItemSlot RightShoeSlot;
     [SerializeField] private Animator animator;
-    [SerializeField] private Transitioner onCompletionTransition;
 
     private bool isRightShoeSlotted = false;
     private bool isLeftShoeSlotted = false;
-
-    private string stateName = string.Empty;
 
     private string INCORRECT_ORDER_MESSAGE = "Je hebt de schoen in de verkeerde volgorde geplaatst";
     private string WRONG_FOOT_MESSAGE = "Je hebt de schoen op de verkeerde foot geplaatst";
     private string NOT_ON_MESSAGE = "Schoenen zijn niet aangedaan";
 
     [SerializeField] Vector3 NewPosition = Vector3.zero;
-
-
-    protected void OnEnable()
-    {
-        stateName = StateMachine.Instance.ActiveState.StateName;
-        StartMiniGame();
-    }
-
+    
     protected void OnDisable()
     {
         ValidateExit();
     }
 
-    private void StartMiniGame()
+    protected override void StartMiniGame()
     {
         LeftShoeSlot.OnItemSlotted.AddListener(OnLeftShoeSlotted);
         RightShoeSlot.OnItemSlotted.AddListener(OnRightShoeSlotted);
@@ -49,7 +40,7 @@ public class ShoeProcedure : Singleton<ShoeProcedure>
             return;
         }
 
-        GameManager.Instance.OnMistakeMade(stateName, NOT_ON_MESSAGE);
+        GameManager.OnMistakeMade(StateName, NOT_ON_MESSAGE);
         Debug.Log(NOT_ON_MESSAGE);
 
         LeftShoeSlot.OnItemSlotted.RemoveAllListeners();
@@ -61,7 +52,7 @@ public class ShoeProcedure : Singleton<ShoeProcedure>
     {
         if (RightShoe != slottedShoe.gameObject)
         {
-            GameManager.Instance.OnMistakeMade(stateName, WRONG_FOOT_MESSAGE);
+            GameManager.OnMistakeMade(StateName, WRONG_FOOT_MESSAGE);
             Debug.Log(WRONG_FOOT_MESSAGE);
             return;
         }
@@ -75,14 +66,14 @@ public class ShoeProcedure : Singleton<ShoeProcedure>
     {
         if (LeftShoe != slottedShoe.gameObject)
         {
-            GameManager.Instance.OnMistakeMade(stateName, WRONG_FOOT_MESSAGE);
+            GameManager.OnMistakeMade(StateName, WRONG_FOOT_MESSAGE);
             Debug.Log(WRONG_FOOT_MESSAGE);
             return;
         }
 
         if (!isRightShoeSlotted)
         {
-            GameManager.Instance.OnMistakeMade(stateName, INCORRECT_ORDER_MESSAGE);
+            GameManager.OnMistakeMade(StateName, INCORRECT_ORDER_MESSAGE);
             Debug.Log(INCORRECT_ORDER_MESSAGE);
             return;
         }
@@ -98,20 +89,8 @@ public class ShoeProcedure : Singleton<ShoeProcedure>
         if (IsGameComplete())
         {
             Debug.Log("Shoe procedure completed");
-            StateMachine.Instance.CompleteActiveState();
-            PopupManager.Instance.Popup.closeEvent += OnCompletePopupClose;
+            CompleteMiniGame();
         }
-    }
-
-    private void OnCompletePopupClose(Popup.MessageType messageType)
-    {
-        if (messageType != Popup.MessageType.CompletedMiniGame)
-        {
-            return;
-        }
-        
-        PopupManager.Instance.Popup.closeEvent -= OnCompletePopupClose;
-        onCompletionTransition.Transition();
     }
 
     bool IsGameComplete()
