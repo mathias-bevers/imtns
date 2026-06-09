@@ -359,6 +359,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlovesGameState
       objectReference: {fileID: 0}
+    - target: {fileID: 7697150892402123931, guid: 578564f4669569345af8cd42f31e5d85, type: 3}
+      propertyPath: endMessage
+      value: 'Zet je handschoenen aan. Je bent nu helemaal klaar om de cleanroom
+        binnen te gaan. Let op: als je handschoenen iets vuils aanraken, moet je
+        ze verwisselen.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697150892402123931, guid: 578564f4669569345af8cd42f31e5d85, type: 3}
+      propertyPath: startMessage
+      value: "Er is nog \xE9\xE9n stap: trek je handschoenen aan. Handschoenen trek
+        je als laatste aan, vlak voordat je naar binnen gaat. Trek ze op de juiste
+        manier aan, zodat je handen schoon blijven voor de cleanroom."
+      objectReference: {fileID: 0}
     - target: {fileID: 8491426398955825544, guid: 578564f4669569345af8cd42f31e5d85, type: 3}
       propertyPath: m_LocalPosition.x
       value: 636.2293
