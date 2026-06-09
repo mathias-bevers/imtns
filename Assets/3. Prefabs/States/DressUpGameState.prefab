@@ -366,17 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd3c21014998b14dac3280d0b116fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DressUpGameState
-  <StateName>k__BackingField: DressUp Minigame
-  <SceneName>k__BackingField: DressUpMinigame
-  <EnterEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <ExitEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <ParentState>k__BackingField: {fileID: 5009585162894195623, guid: 42d46461b13ccf241bce4aaa027c2434, type: 3}
-  <CompletionMessage>k__BackingField: De kleding is juist aangedaan.
-  SlotOrder: 010000000200000003000000040000000500000005000000
+  SlotOrder: 01000000020000000300000004000000
   Slots:
   - {fileID: 9222939107671004106}
   - {fileID: 6907764515121573761}
@@ -384,7 +374,6 @@ MonoBehaviour:
   - {fileID: 7999712758245577102}
   - {fileID: 3571429208687357020}
   - {fileID: 9092670112212817990}
-  onCompletionTransition: {fileID: 3863838089979384010}
 --- !u!114 &3863838089979384010
 MonoBehaviour:
   m_ObjectHideFlags: 0

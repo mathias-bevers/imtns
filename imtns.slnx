@@ -1,5 +1,7 @@
 ﻿<Solution>
+  <Project Path="net.kattenkasteel.finite-state-machine.Runtime.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
-  <Project Path="PrimeTween.Installer.csproj" />
+  <Project Path="net.kattenkasteel.finite-state-machine.Editor.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="PrimeTween.Installer.csproj" />
 </Solution>
