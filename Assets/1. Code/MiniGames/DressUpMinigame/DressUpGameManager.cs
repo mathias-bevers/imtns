@@ -11,6 +11,7 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
 {
     [SerializeField] public List<ItemType> SlotOrder = new();
     [SerializeField] public List<ItemSlot> Slots = new();
+    [SerializeField] private GameObject hair;
 
     private GameObject GoggleItemSlot;
     private GameObject FacemaskItemSlot;
@@ -66,6 +67,7 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
         {
             GoggleItemSlot.SetActive(true);
             FacemaskItemSlot.SetActive(true);
+            hair.SetActive(false);
         }
 
         CheckItemOrder(slottedItem.ItemType);
