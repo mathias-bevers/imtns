@@ -15,5 +15,7 @@ MonoBehaviour:
   <Name>k__BackingField: sleutel bos
   <Sprite>k__BackingField: {fileID: 21300000, guid: 9c83ffa2b52091aa39f6985263cca253, type: 3}
   <Destination>k__BackingField: 0
-  <CorrectMessage>k__BackingField: Personal items should stay outside the cleanroom.
-  <IncorrectMessage>k__BackingField: Keys are personal items and should be stored.
+  <CorrectMessage>k__BackingField: Persoonlijke spullen moeten buiten de cleanroom
+    blijven.
+  <IncorrectMessage>k__BackingField: Sleutels zijn persoonlijke bezittingen en moeten
+    worden opgeborgen.
