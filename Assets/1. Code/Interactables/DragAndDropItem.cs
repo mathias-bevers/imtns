@@ -62,5 +62,11 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         {
             ExecuteEvents.endDragHandler.Invoke(this, new PointerEventData(EventSystem.current));
         }
+
+        public void SetPosition(Vector3 newPosition)
+        {
+            startPosition = newPosition;
+            transform.position = startPosition;
+        }
     }
 }

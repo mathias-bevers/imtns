@@ -8,5 +8,6 @@ public enum ItemType
     Mondkapje,
     Veiligheidsbril,
     Handschoen,
-    Shoen
+    Shoen,
+    Sok
 }

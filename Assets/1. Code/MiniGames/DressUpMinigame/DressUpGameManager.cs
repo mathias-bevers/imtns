@@ -30,7 +30,7 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
             ItemSlot currentSlot = Slots[i];
 
             currentSlot.OnItemSlotted.AddListener(HandleItemSlotted);
-            currentSlot.OnWrongItemPlaced.AddListener(ItemPlacedInWrongSlot);
+            currentSlot.OnWrongItemSlotted.AddListener(ItemPlacedInWrongSlot);
 
             if (currentSlot.AllowedItems[0] == ItemType.Veiligheidsbril)
             {
