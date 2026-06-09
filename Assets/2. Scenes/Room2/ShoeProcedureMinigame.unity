@@ -435,6 +435,18 @@ PrefabInstance:
       propertyPath: footSlot2
       value: 
       objectReference: {fileID: 688905885}
+    - target: {fileID: 2166163698403488243, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
+      propertyPath: endMessage
+      value: Cleanroomschoenen aan. Je bent netjes overgestapt en hebt de verontreinigde
+        kant achter je gelaten. Je bent bijna klaar om binnen te gaan
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166163698403488243, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
+      propertyPath: startMessage
+      value: Stap over de werkbank heen en trek je cleanroomschoenen aan. Trek de
+        sokken en schoenen op de juiste manier aan en houd je aan de procedure. Door
+        netjes over de werkbank heen te stappen, zorg je ervoor dat de cleanroomzijde
+        niet verontreinigd raakt.
+      objectReference: {fileID: 0}
     - target: {fileID: 2349544123455182380, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
       propertyPath: m_Name
       value: ShoeProcedure
