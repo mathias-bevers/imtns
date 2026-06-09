@@ -10,12 +10,13 @@ namespace CleanRoom.Menus
 {
     public class Popup : MonoBehaviour
     {
-        public enum MessageType { Incorrect, Correct, Feedback, CompletedMiniGame }
+        public enum MessageType { Incorrect, Correct, StartMiniGame, Feedback, CompletedMiniGame }
 
         private static readonly Regex NUMBERS_REGEX = new(@"\d+");
         private static readonly Dictionary<MessageType, Color32> COLOR_MAP = new()
         {
             { MessageType.Feedback, new Color32(162, 242, 206, 255) },
+            { MessageType.StartMiniGame, new Color32(162, 242, 206, 255) },
             { MessageType.Correct, new Color32(166, 209, 137, 255) },
             { MessageType.CompletedMiniGame, new Color32(166, 209, 137, 255) },
             { MessageType.Incorrect, new Color32(231, 130, 132, 255) }

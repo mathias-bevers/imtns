@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CleanRoom.MiniGames;
 using KattenKasteel.FSM;
 using UnityEngine;
 
@@ -61,7 +62,6 @@ namespace CleanRoom.Menus
             Popup = GetComponentInChildren<Popup>(true);
             Popup.Initialize();
 
-            StateMachine.Instance.stateCompletedEvent += OnStateCompleted;
             StateMachine.Instance.transitionFailedEvent += OnStateTransitionFailed;
 
             Popup.closeEvent += _ => OnPopupClose();
@@ -98,17 +98,6 @@ namespace CleanRoom.Menus
         {
             PopupInfo info = queue.Dequeue();
             Popup.Show(info.Message, info.Type, info.Title);
-        }
-
-        private void OnStateCompleted(State state)
-        {
-            if (state.IsParent)
-            {
-                return;
-            }
-
-            int stars = Mathf.Max(0, 3 - FeedbackLogger.GetFeedback(state.StateName).Length);
-            CreatePopup(stars + STATE_COMPLETED_MESSAGE, Popup.MessageType.CompletedMiniGame, state.StateName);
         }
 
         private void OnStateTransitionFailed(string message)
