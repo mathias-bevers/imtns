@@ -405,6 +405,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c8330a4b958b8d048ab6828c8101e549, type: 3}
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2640085078734420674, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
       propertyPath: m_IsActive
       value: 1
