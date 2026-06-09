@@ -456,6 +456,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8315775125527084867, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: endMessage
+      value: Je beschermende kleding is aangetrokken. Je pak zit nu goed en beschermt
+        de cleanroom tegen stof en deeltjes. Je bent nu klaar voor de volgende stap.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315775125527084867, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: startMessage
+      value: Trek nu je cleanroomkleding aan. Elk kledingstuk biedt bescherming tegen
+        een andere bron van verontreiniging, dus denk goed na over de volgorde. Als
+        je de kledingstukken in de verkeerde volgorde aantrekt, kan dit de bescherming
+        in gevaar brengen.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315775125527084867, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: 'Slots.Array.data[4]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315775125527084867, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: 'Slots.Array.data[5]'
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5283720006423575975, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
