@@ -11,6 +11,7 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
     [SerializeField] private List<DragAndDropItem> socks = new();
     [SerializeField] private List<DragAndDropItem> slippers = new();
     [SerializeField] private ItemSlot footSlot;
+    [SerializeField] private ItemSlot footSlot2;
 
     [Header("Buttons")]
     [SerializeField] private Button benchButton;
@@ -43,6 +44,9 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
         footSlot.OnItemSlotted.AddListener(OnFootItemSlotted);
         footSlot.OnWrongItemSlotted.AddListener(OnWrongItemSlotted);
 
+        footSlot2.OnItemSlotted.AddListener(OnFootItemSlotted);
+        footSlot2.OnWrongItemSlotted.AddListener(OnWrongItemSlotted);
+
         foreach (DragAndDropItem sock in socks)
         {
             sock.gameObject.SetActive(false);
@@ -54,9 +58,8 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
         }
 
         footSlot.gameObject.SetActive(false);
+        footSlot2.gameObject.SetActive(false);
         groundButton.gameObject.SetActive(false);
-
-        Debug.Log(footSlot.transform.position);
     }
 
     private void ValidateExit()
@@ -117,8 +120,7 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
             socks[1].gameObject.SetActive(true);
             slippers[1].gameObject.SetActive(true);
 
-            footSlot.transform.position = new Vector3(745, 407, 0);
-            DisplayFootSlot();
+            DisplayFootSlot2();
 
             AdvanceFrames();
             return;
@@ -189,9 +191,9 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
             socks[1].gameObject.SetActive(false);
 
             //Allow the shoe to be placed
-            footSlot.SetAllowedItem(ItemType.Shoen);
+            footSlot2.SetAllowedItem(ItemType.Shoen);
 
-            DisplayFootSlot();
+            DisplayFootSlot2();
 
             AdvanceFrames();
             return;
@@ -243,5 +245,11 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
     {
         footSlot.EmptySlot();
         footSlot.gameObject.SetActive(true);
+    }
+
+    void DisplayFootSlot2()
+    {
+        footSlot2.EmptySlot();
+        footSlot2.gameObject.SetActive(true);
     }
 }
