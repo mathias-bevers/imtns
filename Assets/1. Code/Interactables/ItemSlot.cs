@@ -121,8 +121,10 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     {
         isEmpty = true;
         slottedItem = null;
-
-        slotImage.raycastTarget = true;
+        if (slotImage)
+        {
+            slotImage.raycastTarget = true;
+        }
     }
 
     public void SetAllowedItems(List<ItemType> newAllowedItems)
