@@ -412,12 +412,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 269557852230595273, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1084.4154
+      objectReference: {fileID: 0}
+    - target: {fileID: 269557852230595273, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 745.3367
+      objectReference: {fileID: 0}
+    - target: {fileID: 269557852230595273, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -758
+      value: -778.8974
       objectReference: {fileID: 0}
     - target: {fileID: 269557852230595273, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -92
+      value: 49.0576
       objectReference: {fileID: 0}
     - target: {fileID: 492427421351224111, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -426,7 +434,7 @@ PrefabInstance:
     - target: {fileID: 1363789386665083667, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4c40db9234f1adc4fa6e67f8d1c14f9d, type: 3}
+      objectReference: {fileID: 21300000, guid: 2729cedc377483947909a8ba63def90e, type: 3}
     - target: {fileID: 1900688338822020768, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -715
@@ -447,6 +455,26 @@ PrefabInstance:
         netjes over de werkbank heen te stappen, zorg je ervoor dat de cleanroomzijde
         niet verontreinigd raakt.
       objectReference: {fileID: 0}
+    - target: {fileID: 2166163698403488243, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
+      propertyPath: 'framesList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 2729cedc377483947909a8ba63def90e, type: 3}
+    - target: {fileID: 2166163698403488243, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
+      propertyPath: 'framesList.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 5710e29f133d92d4484d5783e5c10302, type: 3}
+    - target: {fileID: 2166163698403488243, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
+      propertyPath: 'framesList.Array.data[4]'
+      value: 
+      objectReference: {fileID: 21300000, guid: e2ff675d9b675c54cbac5ca660bc8305, type: 3}
+    - target: {fileID: 2166163698403488243, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
+      propertyPath: 'framesList.Array.data[7]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 7444e9521147ff2469914da046365bfe, type: 3}
+    - target: {fileID: 2166163698403488243, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
+      propertyPath: 'framesList.Array.data[8]'
+      value: 
+      objectReference: {fileID: 21300000, guid: a6b856e50fd6bdf4998a33c6a7ec0d56, type: 3}
     - target: {fileID: 2349544123455182380, guid: 77cb4fcc010137242bfd6d47f20e4ec8, type: 3}
       propertyPath: m_Name
       value: ShoeProcedure
