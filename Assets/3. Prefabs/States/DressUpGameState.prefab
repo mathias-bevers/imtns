@@ -242,6 +242,7 @@ MonoBehaviour:
   - {fileID: 6907764515121573761}
   - {fileID: 2872811742905021010}
   - {fileID: 7999712758245577102}
+  hair: {fileID: 0}
 --- !u!114 &3863838089979384010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,17 +1175,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
-    - target: {fileID: 3914052839033280224, guid: 4af3e8b84792ba23a893cc79c2bb10c4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 904.7497
-      objectReference: {fileID: 0}
     - target: {fileID: 5496629608307934251, guid: 4af3e8b84792ba23a893cc79c2bb10c4, type: 3}
       propertyPath: m_SizeDelta.x
       value: 337.5934
-      objectReference: {fileID: 0}
-    - target: {fileID: 5496629608307934251, guid: 4af3e8b84792ba23a893cc79c2bb10c4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -4.671112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
