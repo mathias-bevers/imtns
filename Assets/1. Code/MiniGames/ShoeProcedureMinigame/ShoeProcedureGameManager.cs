@@ -1,46 +1,65 @@
-using CleanRoom.MiniGames.CleanMiniGame;
-using System.Collections.Generic;
-using System.Linq;
 using CleanRoom;
-using CleanRoom.Menus;
-using KattenKasteel.FSM;
-using UnityEditor;
+using CleanRoom.MiniGames.CleanMiniGame;
+using CleanRoom.MiniGames;
 using UnityEngine;
-using UnityEngine.Events;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
-public class ShoeProcedure : Singleton<ShoeProcedure>
+public class ShoeProcedure : MiniGameManager<ShoeProcedure>
 {
-    [SerializeField] private GameObject LeftShoe;
-    [SerializeField] private GameObject RightShoe;
-    [SerializeField] private ItemSlot LeftShoeSlot;
-    [SerializeField] private ItemSlot RightShoeSlot;
-    [SerializeField] private Animator animator;
-    [SerializeField] private Transitioner onCompletionTransition;
+    [SerializeField] private List<DragAndDropItem> socks = new();
+    [SerializeField] private List<DragAndDropItem> slippers = new();
+    [SerializeField] private ItemSlot footSlot;
+    [SerializeField] private ItemSlot footSlot2;
 
-    private bool isRightShoeSlotted = false;
-    private bool isLeftShoeSlotted = false;
+    [Header("Buttons")]
+    [SerializeField] private Button benchButton;
+    [SerializeField] private Button groundButton;
 
-    private string stateName = string.Empty;
+    [Header("Frames")]
+    [SerializeField] private Image background;
+    [SerializeField] private List<Sprite> framesList = new();
 
-    private string INCORRECT_ORDER_MESSAGE = "Je hebt de schoen in de verkeerde volgorde geplaatst";
-    private string WRONG_FOOT_MESSAGE = "Je hebt de schoen op de verkeerde foot geplaatst";
-    private string NOT_ON_MESSAGE = "Schoenen zijn niet aangedaan";
+    private int currentFrame = 0;
 
-    protected void OnEnable()
-    {
-        stateName = StateMachine.Instance.ActiveState.StateName;
-        StartMiniGame();
-    }
+    private bool isSock1Slotted = false;
+    private bool isSlipper1Slotted = false;
+    private bool isFirstFootOnGround = false;
+    private bool isSecondFootOnBench = false;
+    private bool isSock2Slotted = false;
+    private bool isSlipper2Slotted = false;
+    private bool areBothFeetOnTheGround = false;
 
+    private string INCORRECT_ORDER_MESSAGE = "Je hebt de sok of schoen in de verkeerde volgorde geplaatst";
+    private string NOT_COMPLETED_MESSAGE = "Schoenen zijn niet aangedaan";
+    
     protected void OnDisable()
     {
         ValidateExit();
     }
 
-    private void StartMiniGame()
+    protected override void StartMiniGame()
     {
-        LeftShoeSlot.OnItemSlotted.AddListener(OnLeftShoeSlotted);
-        RightShoeSlot.OnItemSlotted.AddListener(OnRightShoeSlotted);
+        footSlot.OnItemSlotted.AddListener(OnFootItemSlotted);
+        footSlot.OnWrongItemSlotted.AddListener(OnWrongItemSlotted);
+
+        footSlot2.OnItemSlotted.AddListener(OnFootItemSlotted);
+        footSlot2.OnWrongItemSlotted.AddListener(OnWrongItemSlotted);
+
+        foreach (DragAndDropItem sock in socks)
+        {
+            sock.gameObject.SetActive(false);
+        }
+
+        foreach (DragAndDropItem slipper in slippers)
+        {
+            slipper.gameObject.SetActive(false);
+        }
+
+        footSlot.gameObject.SetActive(false);
+        footSlot2.gameObject.SetActive(false);
+        groundButton.gameObject.SetActive(false);
     }
 
     private void ValidateExit()
@@ -50,48 +69,162 @@ public class ShoeProcedure : Singleton<ShoeProcedure>
             return;
         }
 
-        GameManager.Instance.OnMistakeMade(stateName, NOT_ON_MESSAGE);
-        Debug.Log(NOT_ON_MESSAGE);
+        GameManager.OnMistakeMade(StateName, NOT_COMPLETED_MESSAGE);
+        Debug.Log(NOT_COMPLETED_MESSAGE);
 
-        LeftShoeSlot.OnItemSlotted.RemoveAllListeners();
-        RightShoeSlot.OnItemSlotted.RemoveAllListeners();
+        footSlot.OnItemSlotted.RemoveAllListeners();
     }
 
 
-    void OnRightShoeSlotted(DragAndDropItem slottedShoe)
+    protected void AdvanceFrames()
     {
-        if (RightShoe != slottedShoe.gameObject)
-        {
-            GameManager.Instance.OnMistakeMade(stateName, WRONG_FOOT_MESSAGE);
-            Debug.Log(WRONG_FOOT_MESSAGE);
-            return;
-        }
+        currentFrame++;
+        currentFrame = currentFrame.Clamp(0, framesList.Count - 1);
 
-        isRightShoeSlotted = true;
-
-        PlayOnRightShoeAnimation();
+        background.sprite = framesList[currentFrame];
     }
 
-    void OnLeftShoeSlotted(DragAndDropItem slottedShoe)
+    public void OnButtonPress()
     {
-        if (LeftShoe != slottedShoe.gameObject)
+        //Disable buttons
+        benchButton.gameObject.SetActive(false);
+        groundButton.gameObject.SetActive(false);
+
+        if (!isSock1Slotted)
         {
-            GameManager.Instance.OnMistakeMade(stateName, WRONG_FOOT_MESSAGE);
-            Debug.Log(WRONG_FOOT_MESSAGE);
+            //Enable sock 1 and slipper 1
+            socks[0].gameObject.SetActive(true);
+            slippers[0].gameObject.SetActive(true);
+
+            DisplayFootSlot();
+            AdvanceFrames();
             return;
         }
 
-        if (!isRightShoeSlotted)
+        if (!isSlipper1Slotted){ return; }
+
+        if (!isFirstFootOnGround) {
+            isFirstFootOnGround = true;
+
+            benchButton.gameObject.SetActive(true);
+
+            AdvanceFrames();
+            return; 
+        }
+
+        if (!isSecondFootOnBench)
         {
-            GameManager.Instance.OnMistakeMade(stateName, INCORRECT_ORDER_MESSAGE);
-            Debug.Log(INCORRECT_ORDER_MESSAGE);
+            isSecondFootOnBench = true;
+
+            //Enable sock 2 and slipper 2
+            socks[1].gameObject.SetActive(true);
+            slippers[1].gameObject.SetActive(true);
+
+            DisplayFootSlot2();
+
+            AdvanceFrames();
             return;
         }
 
-        isLeftShoeSlotted = true;
-        PlayOnRightShoeAnimation();
+        if (!areBothFeetOnTheGround)
+        {
+            areBothFeetOnTheGround = true;
 
-        CheckGameCompletion();
+            groundButton.gameObject.SetActive(true);
+
+            AdvanceFrames();
+            return;
+        }
+
+        if (areBothFeetOnTheGround)
+        {
+            AdvanceFrames();
+            CheckGameCompletion();
+        }
+    }
+
+    void OnFootItemSlotted(DragAndDropItem slottedShoe)
+    {
+        if (!isSock1Slotted){
+            isSock1Slotted = true;
+
+            //Hide the first sock
+            socks[0].gameObject.SetActive(false);
+
+            //Allow the shoe to be placed
+            footSlot.SetAllowedItem(ItemType.Shoen);
+
+            DisplayFootSlot();
+
+            AdvanceFrames();
+            return;
+        }
+
+        if (!isSlipper1Slotted)
+        {
+            isSlipper1Slotted = true;
+
+            //Hide the first slipper
+            slippers[0].gameObject.SetActive(false);
+
+            //Disable the foot slot
+            footSlot.gameObject.SetActive(false);
+
+            //Disable the bench button
+            benchButton.gameObject.SetActive(false);
+
+            //Enable the ground button
+            groundButton.gameObject.SetActive(true);
+
+            //Allow the sock to be placed for the next foot
+            footSlot.SetAllowedItem(ItemType.Sok);
+
+            AdvanceFrames();
+            return;
+        }
+
+        if (!isSock2Slotted)
+        {
+            isSock2Slotted = true;
+
+            //Hide the first sock
+            socks[1].gameObject.SetActive(false);
+
+            //Allow the shoe to be placed
+            footSlot2.SetAllowedItem(ItemType.Shoen);
+
+            DisplayFootSlot2();
+
+            AdvanceFrames();
+            return;
+        }
+
+        if (!isSlipper2Slotted)
+        {
+            isSlipper2Slotted = true;
+
+            //Hide the first slipper
+            slippers[1].gameObject.SetActive(false);
+
+            //Disable the foot slot
+            footSlot.gameObject.SetActive(false);
+
+            //Disable the bench button
+            benchButton.gameObject.SetActive(false);
+
+            //Enable the ground button
+            groundButton.gameObject.SetActive(true);
+
+            AdvanceFrames();
+            return;
+        }
+    }
+
+
+    void OnWrongItemSlotted(string wrongItemMessage)
+    {
+        GameManager.OnMistakeMade(StateName, INCORRECT_ORDER_MESSAGE);
+        Debug.Log(INCORRECT_ORDER_MESSAGE);
     }
 
     void CheckGameCompletion()
@@ -99,39 +232,24 @@ public class ShoeProcedure : Singleton<ShoeProcedure>
         if (IsGameComplete())
         {
             Debug.Log("Shoe procedure completed");
-            StateMachine.Instance.CompleteActiveState();
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnCompletePopupClose;
+            CompleteMiniGame();
         }
-    }
-
-    private void OnCompletePopupClose(Popup.MessageType messageType)
-    {
-        if (messageType != Popup.MessageType.CompletedMiniGame)
-        {
-            return;
-        }
-        
-        MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnCompletePopupClose;
-        onCompletionTransition.Transition();
     }
 
     bool IsGameComplete()
     {
-        return isRightShoeSlotted && isLeftShoeSlotted;
+        return currentFrame >= framesList.Count - 1;
     }
 
-    void PlayOnRightShoeAnimation()
+    void DisplayFootSlot()
     {
-        //Play the animation of the right foot moving to the other side
-
-        //animator.Play();
+        footSlot.EmptySlot();
+        footSlot.gameObject.SetActive(true);
     }
 
-
-    void PlayOnLeftShoeAnimation()
+    void DisplayFootSlot2()
     {
-        //Play the animation of the left foot moving to the other side
-
-        //animator.Play();
+        footSlot2.EmptySlot();
+        footSlot2.gameObject.SetActive(true);
     }
 }

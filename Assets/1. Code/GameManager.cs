@@ -8,14 +8,11 @@ namespace CleanRoom
     {
         private static readonly TimeSpan MISTAKE_TIME_OUT = new(0, 0, 2); // two second delay
         private DateTime lastMistakeTime;
-        private PopupMenu popupMenu = null;
         
         public override void Awake()
         {
             DontDestroyOnLoad(gameObject);
             base.Awake();
-
-            popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>(true);
         }
 
         public void OnMistakeMade(string stateName, string message)
@@ -27,13 +24,7 @@ namespace CleanRoom
 
             lastMistakeTime = DateTime.Now;
             
-            if (ReferenceEquals(null, popupMenu))
-            {
-                Debug.LogError("popup menu is null\nmessage:" + message);
-                return;
-            }
-            
-            popupMenu.CreatePopup(message, Popup.MessageType.Incorrect);
+            PopupManager.Instance.CreatePopup(message, Popup.MessageType.Incorrect);
             FeedbackLogger.AddFeedback(stateName, message);
         }
     }

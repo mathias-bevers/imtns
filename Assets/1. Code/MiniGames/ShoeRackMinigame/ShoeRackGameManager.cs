@@ -1,26 +1,23 @@
-using CleanRoom.Menus;
+using CleanRoom;
 using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
-using System.Linq;
-using CleanRoom;
+using CleanRoom.MiniGames;
 using KattenKasteel.FSM;
 using UnityEngine;
-using UnityEngine.Events;
-using static UnityEngine.Tilemaps.TilemapRenderer;
 
-public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
+public class ShoeRackGameManager : MiniGameManager<ShoeRackGameManager>
 {
     [SerializeField] public ItemSlot[] ShoeSlotPair1 = new ItemSlot[2];
     [SerializeField] public ItemSlot[] ShoeSlotPair2 = new ItemSlot[2];
     [SerializeField] public ItemSlot[] ShoeSlotPair3 = new ItemSlot[2];
-
-    [SerializeField] private Transitioner onCompletionTransition;
-
+    
     private List<ItemSlot[]> shoeSlotPairs = new();
 
     private string stateName = string.Empty;
 
     private string NOT_PAIRED_MESSAGE = "Schoenen zijn in de verkeerde plaats";
+
+    [SerializeField] Vector3 NewPosition = Vector3.zero;
 
     protected void OnEnable()
     {
@@ -33,7 +30,7 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
         ValidateExit();
     }
 
-    private void StartMiniGame()
+    protected override void StartMiniGame()
     {
         shoeSlotPairs.Add(ShoeSlotPair1);
         shoeSlotPairs.Add(ShoeSlotPair2);
@@ -72,20 +69,8 @@ public class ShoeRackGameManager : Singleton<ShoeRackGameManager>
 
         if (IsGameComplete())
         {
-            StateMachine.Instance.CompleteActiveState();
-            MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent += OnPopupClose;
+            CompleteMiniGame();
         }
-    }
-
-    private void OnPopupClose(Popup.MessageType messageType)
-    {
-        if (messageType != Popup.MessageType.CompletedMiniGame)
-        {
-            return;
-        }
-
-        MenuManager.Instance.GetMenuOfType<PopupMenu>().Popup.closeEvent -= OnPopupClose;
-        onCompletionTransition.Transition();
     }
 
     private bool IsGameComplete()

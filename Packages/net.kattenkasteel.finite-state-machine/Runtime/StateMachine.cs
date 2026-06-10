@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -84,6 +86,27 @@ namespace KattenKasteel.FSM
             Debug.Log("Completed State: " + ActiveState.StateName);
             stateCompletedEvent?.Invoke(ActiveState);
             ActiveState.IsCompleted = true;
+        }
+
+        public State[] GetStates(Func<State, bool> predicate)
+        {
+            if (ReferenceEquals(null, states) || states.Length == 0)
+            {
+                states = Resources.LoadAll<State>("States");
+            }
+
+            HashSet<State> validStates = new(states.Length);
+            for (int i = 0; i < states.Length; ++i)
+            {
+                if (!predicate(states[i]))
+                {
+                    continue;
+                }
+
+                validStates.Add(states[i]);
+            }
+            
+            return validStates.ToArray();
         }
 
         public State GetState(Func<State, bool> predicate)

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text;
 using CleanRoom.Utils;
@@ -17,25 +18,25 @@ namespace CleanRoom.UserInterface
         private const string MINI_GAMES_COMPLETED = "Mini Games Voltooid: ";
         private const string MISTAKES_MADE = "Fouten Gemaakt: ";
         private const string SCORE = "Score: ";
-        
+
         private const string STARS = "Stars";
         private const int MAX_STARS = 3;
 
         [SerializeField, ValidateInput("IsValidPairArray")]
         private SerializablePair<Button, State>[] roomSelectors;
-        
+
         public void UpdateUI()
         {
             if (!IsValidPairArray())
             {
                 Debug.LogError("roomSelectors are not setup correctly...");
             }
-            
+
             foreach (SerializablePair<Button, State> bsp in roomSelectors)
             {
                 TextMeshProUGUI text = bsp.First.GetComponentInChildren<TextMeshProUGUI>(true);
                 Transform starParent = bsp.First.transform.Find(STARS);
-                
+
                 if (ReferenceEquals(null, bsp.Second))
                 {
                     foreach (Transform child in bsp.First.transform)
@@ -46,7 +47,7 @@ namespace CleanRoom.UserInterface
                     continue;
                 }
 
-                int stars = 0;
+                int starCount = 0;
                 int roomMistakes = 0;
 
                 State[] children = bsp.Second.Children;
@@ -56,7 +57,7 @@ namespace CleanRoom.UserInterface
                 foreach (State child in children)
                 {
                     string[] feedback = FeedbackLogger.GetFeedback(child.StateName);
-                    stars += Mathf.Max(0, MAX_STARS - feedback.Length);
+                    starCount += Mathf.Max(0, MAX_STARS - feedback.Length);
                     roomMistakes += feedback.Length;
                 }
 
@@ -65,10 +66,13 @@ namespace CleanRoom.UserInterface
                 if (completedGameCount == gameCount)
                 {
                     builder.AppendLine(SCORE);
-                    int averageStars = gameCount == 0 ? 0 : stars / gameCount;
-                    for (int ii = 0; ii < starParent.childCount; ++ii)
+                    int averageStars = gameCount == 0 ? 0 : starCount / gameCount;
+                    Button[] stars = starParent.GetComponentsInChildren<Button>(true);
+                    Array.Sort(stars, (a, b) => a.transform.GetSiblingIndex().CompareTo(b.transform.GetSiblingIndex()));
+
+                    for (int i = 0; i < stars.Length; ++i)
                     {
-                        starParent.GetChild(ii).gameObject.SetActive(ii < averageStars);
+                        stars[i].interactable = i < averageStars;
                     }
                 }
                 else
@@ -78,7 +82,10 @@ namespace CleanRoom.UserInterface
                 }
 
 
-                builder.Append(MINI_GAMES_COMPLETED).Append(completedGameCount).Append('/').Append(gameCount)
+                builder.Append(MINI_GAMES_COMPLETED)
+                    .Append(completedGameCount)
+                    .Append('/')
+                    .Append(gameCount)
                     .AppendLine();
 
                 builder.Append(MISTAKES_MADE).AppendLine(roomMistakes.ToString());

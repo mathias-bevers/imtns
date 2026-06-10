@@ -78,33 +78,5 @@ namespace CleanRoom.Menus
 
         private T[] GetMenusOfType<T>() where T : Menu => menus.OfType<T>().ToArray();
         public T GetMenuOfType<T>() where T : Menu => menus.FirstOrDefault(menu => menu is T) as T;
-
-        public T GetMenuOfType<T>(bool loadFromResources) where T : Menu
-        {
-            T menu = menus.FirstOrDefault(menu => menu is T) as T;
-            if (!ReferenceEquals(null, menu))
-            {
-                return menu;
-            }
-
-            if (!loadFromResources)
-            {
-                return null;
-            }
-
-            foreach (Menu resource in Resources.LoadAll<Menu>(""))
-            {
-                if (resource is not T t)
-                {
-                    continue;
-                }
-
-                T loadedMenu = Instantiate(t, transform, true);
-                loadedMenu.gameObject.name = "FORCED_" + t.GetType().Name;
-                return loadedMenu;
-            }
-
-            return null;
-        }
     }
 }

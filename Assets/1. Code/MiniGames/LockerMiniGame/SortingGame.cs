@@ -7,38 +7,24 @@ using UnityEngine;
 
 namespace CleanRoom.MiniGames.LockerMiniGame
 {
-    public class SortingGame : Singleton<SortingGame>
+    public class SortingGame : MiniGameManager<SortingGame>
     {
         private const string TABLET_NAME = "Tablet";
-        private static readonly Dictionary<InventoryItem.DestinationType, string> NAME_MAP = new()
-        {
-            { InventoryItem.DestinationType.Locker, "kluis" },
-            { InventoryItem.DestinationType.CleanRoom, "clean room" },
-            { InventoryItem.DestinationType.Trash, "prullen bak" }
-        };
-
+        
         [SerializeField] private GameObject tabletOnTray;
-        [SerializeField] private Transitioner onCompleteTransition;
         [SerializeField] private InventoryContents contents;
+        
+        
         private DropZone[] dropZones = Array.Empty<DropZone>();
         private int currentItem = -1;
         private Inventory inventory = null;
-        private PopupMenu popupMenu = null;
         private SortingItem sortingItem = null;
 
-        private string stateName;
 
-        private void OnEnable()
+        protected override void StartMiniGame()
         {
             inventory = new Inventory(contents);
-            StartMiniGame();
-        }
 
-        private void StartMiniGame()
-        {
-            stateName = StateMachine.Instance.ActiveState.StateName;
-
-            popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>(true);
             dropZones = GetComponentsInChildren<DropZone>(true);
             sortingItem = GetComponentInChildren<SortingItem>();
 
@@ -60,11 +46,11 @@ namespace CleanRoom.MiniGames.LockerMiniGame
 
             if (!isCorrect)
             {
-                GameManager.Instance.OnMistakeMade(stateName, item.IncorrectMessage);
+                GameManager.OnMistakeMade(StateName, item.IncorrectMessage);
                 return;
             }
-
-            popupMenu?.CreatePopup(item.CorrectMessage, Popup.MessageType.Correct);
+            
+            FlashOverlay.Instance.PlayAnimation(true);
 
             if (string.Equals(TABLET_NAME, item.name))
             {
@@ -85,19 +71,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             }
 
             sortingItem.SetActive(false);
-            StateMachine.Instance.CompleteActiveState();
-            popupMenu.Popup.closeEvent += OnCompletePopupClose;
-        }
-
-        private void OnCompletePopupClose(Popup.MessageType messageType)
-        {
-            if (messageType != Popup.MessageType.CompletedMiniGame)
-            {
-                return;
-            }
-
-            onCompleteTransition.Transition();
-            popupMenu.Popup.closeEvent -= OnCompletePopupClose;
+            CompleteMiniGame();
         }
     }
 }

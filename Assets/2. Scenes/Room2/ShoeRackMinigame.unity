@@ -416,6 +416,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShoeRackMinigame
       objectReference: {fileID: 0}
+    - target: {fileID: 4902887135372998355, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
+      propertyPath: endMessage
+      value: Schoenen opgeborgen. Nu uw buitenschoenen achter zijn gelaten, bent
+        u klaar om uw cleanroomkleding aan te trekken.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4902887135372998355, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
+      propertyPath: startMessage
+      value: Trek, voordat je de beschermende kleding aantrekt, eerst je gewone schoenen
+        uit. Zet ze op de plank op de daarvoor bestemde plek. Buitenschoenen brengen
+        verontreiniging mee en mogen niet verder worden meegenomen.
+      objectReference: {fileID: 0}
     - target: {fileID: 7634147877505353449, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
       propertyPath: m_LocalPosition.x
       value: 636.2293
@@ -457,7 +468,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3352202480230516976, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}

@@ -255,6 +255,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1234313514 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2212003253254350498, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+  m_PrefabInstance: {fileID: 6110233458063123012}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1466987379
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,18 +405,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3863838089979384010, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
-      propertyPath: transition.conditions.Array.size
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c8330a4b958b8d048ab6828c8101e549, type: 3}
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3863838089979384010, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
-      propertyPath: transition.<Target>k__BackingField
-      value: 
-      objectReference: {fileID: 11400000, guid: ba736fc22cdb4299aabe5b4c247c1e22, type: 2}
-    - target: {fileID: 3863838089979384010, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
-      propertyPath: 'transition.conditions.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 5028f64c0eb97ff43826a2cdfb8a4121, type: 2}
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 53936960912286597, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640085078734420674, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6118385823792493446, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
       propertyPath: m_Name
       value: DressUpGame
@@ -456,9 +477,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8315775125527084867, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+      propertyPath: hair
+      value: 
+      objectReference: {fileID: 1234313514}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5283720006423575975, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2586c18756c3c0449aaa318107d6a54b, type: 3}

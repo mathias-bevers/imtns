@@ -1,4 +1,5 @@
 using CleanRoom.MiniGames.CleanMiniGame;
+using NUnit.Framework.Constraints;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     private Color transparentColor;
 
     [field: SerializeField] public UnityEvent<DragAndDropItem> OnItemSlotted { get; private set; }
-    [field: SerializeField] public UnityEvent<string> OnWrongItemPlaced { get; private set; }
+    [field: SerializeField] public UnityEvent<string> OnWrongItemSlotted { get; private set; }
 
 
     private void Awake()
@@ -66,7 +67,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         }
         else
         {
-            OnWrongItemPlaced.Invoke(currentItem.ItemType + " is verkeerd geplaatst");
+            OnWrongItemSlotted.Invoke(currentItem.ItemType + " is verkeerd geplaatst");
         }
     }
 
@@ -114,5 +115,26 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     public void HideSlot()
     {
         slotImage.color = transparentColor;
+    }
+
+    public void EmptySlot()
+    {
+        isEmpty = true;
+        slottedItem = null;
+        if (slotImage)
+        {
+            slotImage.raycastTarget = true;
+        }
+    }
+
+    public void SetAllowedItems(List<ItemType> newAllowedItems)
+    {
+        AllowedItems = newAllowedItems;
+    }
+
+    public void SetAllowedItem(ItemType item)
+    {
+        AllowedItems.Clear();
+        AllowedItems.Add(item);
     }
 }

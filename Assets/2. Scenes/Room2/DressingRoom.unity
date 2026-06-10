@@ -587,7 +587,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 32b82923893c88c4d936d2a6d7403855, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 712e2a4e59cf0304da443b4492d691f1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Current Attempts: '
+  m_text: 'Huidige Pogingen:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d4f952284dd19c94aa4fa21300cd97f5, type: 2}
   m_sharedMaterial: {fileID: -2337548173803026068, guid: d4f952284dd19c94aa4fa21300cd97f5, type: 2}
@@ -1653,7 +1653,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Rooms Unlocked: '
+  m_text: 'Kamers Ontgrendeld:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d4f952284dd19c94aa4fa21300cd97f5, type: 2}
   m_sharedMaterial: {fileID: -2337548173803026068, guid: d4f952284dd19c94aa4fa21300cd97f5, type: 2}
@@ -2208,6 +2208,10 @@ GameObject:
   m_Component:
   - component: {fileID: 660594069}
   - component: {fileID: 660594068}
+  - component: {fileID: 660594073}
+  - component: {fileID: 660594071}
+  - component: {fileID: 660594070}
+  - component: {fileID: 660594072}
   m_Layer: 0
   m_Name: Door Room 2
   m_TagString: Untagged
@@ -2289,6 +2293,110 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1253103745}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &660594070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660594067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8547a0a435134d9cbbf9dee3c3903418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
+  transition:
+    <Target>k__BackingField: {fileID: 11400000, guid: 5abab153d06c439ecaee4d3d2542af49, type: 2}
+    conditions:
+    - {fileID: 11400000, guid: 5028f64c0eb97ff43826a2cdfb8a4121, type: 2}
+--- !u!114 &660594071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660594067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29bbf5101f64eb09ff05bda58954768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Interactables.NextRoomInteractable
+  condition: {fileID: 11400000, guid: 5028f64c0eb97ff43826a2cdfb8a4121, type: 2}
+  transitioner: {fileID: 660594070}
+  notReadyBody: Er zijn nog onderdelen in deze kamer die je nog moet voltooien
+--- !u!61 &660594072
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660594067}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.73560476, y: -1.5290841}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.6, y: 4.59}
+    newSize: {x: 1.6, y: 4.59}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.2960596, y: 1.2281878}
+  m_EdgeRadius: 0
+--- !u!114 &660594073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660594067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea9357767ca4ef98e706aa833e78ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Interactables.InteractionZone
+  <OnInteract>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 660594071}
+        m_TargetAssemblyTypeName: CleanRoom.Interactables.NextRoomInteractable, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &691726143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2791,6 +2899,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1042967343}
   - component: {fileID: 1042967342}
+  - component: {fileID: 1042967345}
+  - component: {fileID: 1042967344}
+  - component: {fileID: 1042967346}
   m_Layer: 0
   m_Name: Gloves
   m_TagString: Untagged
@@ -2872,6 +2983,95 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1253103745}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1042967344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042967341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8547a0a435134d9cbbf9dee3c3903418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: net.kattenkasteel.finite-state-machine.Runtime::KattenKasteel.FSM.Transitioner
+  transition:
+    <Target>k__BackingField: {fileID: 11400000, guid: 14134f9e31d8e5f5eb5dc4a746f915ae, type: 2}
+    conditions:
+    - {fileID: 11400000, guid: b6ec36fcd677ef17db1e6a0f8c162540, type: 2}
+--- !u!114 &1042967345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042967341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea9357767ca4ef98e706aa833e78ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Interactables.InteractionZone
+  <OnInteract>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1042967344}
+        m_TargetAssemblyTypeName: KattenKasteel.FSM.Transitioner, net.kattenkasteel.finite-state-machine.Runtime
+        m_MethodName: Transition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!61 &1042967346
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042967341}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 1.1861491, y: -3.7063203}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.55, y: 2.01}
+    newSize: {x: 2.55, y: 2.01}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.3174448, y: 1.7365894}
+  m_EdgeRadius: 0
 --- !u!1 &1160069300
 GameObject:
   m_ObjectHideFlags: 0
@@ -3154,7 +3354,7 @@ MonoBehaviour:
   DefaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   maxThickness: 10
   minThickness: 0.2
-  blinkSpeed: 8
+  blinkSpeed: 3.5
 --- !u!1 &1377232154
 GameObject:
   m_ObjectHideFlags: 0
@@ -3287,7 +3487,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Best Score: '
+  m_text: 'Beste Score:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d4f952284dd19c94aa4fa21300cd97f5, type: 2}
   m_sharedMaterial: {fileID: -2337548173803026068, guid: d4f952284dd19c94aa4fa21300cd97f5, type: 2}
@@ -4042,6 +4242,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5472166460234135, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e2ed9cd2efcfe0a40ab01487198f6e7b, type: 3}
     - target: {fileID: 212524202687624851, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_SizeDelta.x
       value: 2081.1
@@ -4077,6 +4281,10 @@ PrefabInstance:
     - target: {fileID: 860013727240341019, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1315921589887138156, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_text
+      value: Hoofdmenu
       objectReference: {fileID: 0}
     - target: {fileID: 1315921589887138156, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_fontSize
@@ -4188,10 +4396,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4072058993200189830, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_text
-      value: Welcome to the gowning room. Here you'll prepare your shoes, equipment,
-        cleanroom shoes, and gloves before entering the cleanroom. Complete each
-        step in the correct order. Don't forget, getting the sequence right is part
-        of staying contamination-free.
+      value: 'Welkom in de omkleedruimte. Hier bereid je je schoenen, uitrusting,
+        cleanroomschoenen en handschoenen voor voordat je de schone ruimte betreedt.
+        Voltooi elke stap in de juiste volgorde. Vergeet niet: de juiste volgorde
+        aanhouden is onderdeel van het verontreinigingsvrij blijven.'
       objectReference: {fileID: 0}
     - target: {fileID: 4264044582390660844, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_Sprite
@@ -4342,6 +4550,10 @@ PrefabInstance:
       value: -616.602
       objectReference: {fileID: 0}
     - target: {fileID: 6982317092046635135, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_text
+      value: Hervatten
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982317092046635135, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_fontSize
       value: 200
       objectReference: {fileID: 0}
@@ -4376,6 +4588,10 @@ PrefabInstance:
     - target: {fileID: 7929622850485375284, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701132813005236726, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
+      propertyPath: m_text
+      value: Instellingen
       objectReference: {fileID: 0}
     - target: {fileID: 8701132813005236726, guid: 43cef607767624ac291a1e9187f6ef91, type: 3}
       propertyPath: m_fontSize
@@ -4548,7 +4764,8 @@ EdgeCollider2D:
   - {x: -2.444853, y: 0.9967597}
   - {x: -2.2653923, y: -1.9282875}
   - {x: 0.22894573, y: -1.968204}
-  - {x: 2.206078, y: -0.76788473}
+  - {x: 0.15008736, y: -0.31124878}
+  - {x: 2.206078, y: 0.68549466}
   - {x: 2.2060776, y: 1.9368706}
   - {x: 0.4300909, y: 1.939642}
   - {x: -2.4448528, y: 0.99675965}
@@ -4644,6 +4861,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1682671090682239417, guid: be3def5e83cd7072aaddbc77ab3cd341, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 19bedc798cc5fbe41b4781d130ef3e19, type: 3}
     - target: {fileID: 6012409247450263740, guid: be3def5e83cd7072aaddbc77ab3cd341, type: 3}
       propertyPath: m_Name
       value: OnScreenControllerCanvas

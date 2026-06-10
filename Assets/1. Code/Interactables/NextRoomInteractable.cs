@@ -14,17 +14,23 @@ namespace CleanRoom.Interactables
         private const int MAX_STARS = 3;
 
         private const string NOT_READY_TITLE = "Je bent nog niet klaar!";
+        private const string THANKS_FOR_PLAYING = "Bedankt voor het spelen";
+        private const string END_OF_GAME = "Deze game is nog in development, voor nu is dit het einde!" +
+                                           " Je gaat nu terug naar het hoofd menu.";
+
         [SerializeField] private Condition condition;
         [SerializeField] private Transitioner transitioner;
         [SerializeField, TextArea] private string notReadyBody;
 
+        private bool isEndPopup;
+
         public void Interact()
         {
-            PopupMenu popupMenu = MenuManager.Instance.GetMenuOfType<PopupMenu>(true);
-            
+            PopupManager popupManager = PopupManager.Instance;
+
             if (!condition.IsSatisfied(null))
             {
-                popupMenu.CreatePopup(notReadyBody, Popup.MessageType.Incorrect, NOT_READY_TITLE);
+                popupManager.CreatePopup(notReadyBody, Popup.MessageType.Incorrect, NOT_READY_TITLE);
                 return;
             }
 
@@ -36,28 +42,38 @@ namespace CleanRoom.Interactables
             foreach (State child in activeStateChildren)
             {
                 string[] feedback = FeedbackLogger.GetFeedback(child.StateName);
-                
+
                 builder.Append(ACCENT_HEX).Append(child.StateName).AppendLine(CLOSE_COLOR);
                 builder.Append(feedback.IsNullOrEmpty() ? PERFECT_SCORE : string.Join('\n', feedback));
                 builder.Append("\n\n");
-                
+
                 totalEarnedStars += Mathf.Max(0, MAX_STARS - feedback.Length);
             }
 
             int stars = totalEarnedStars / activeStateChildren.Length;
-            
-            popupMenu.CreatePopup(stars.ToString() + builder, Popup.MessageType.Feedback,
+
+            popupManager.CreatePopup(stars.ToString() + builder, Popup.MessageType.Feedback,
                 string.Concat(activeState.StateName, FEEDBACK));
-            popupMenu.Popup.closeEvent += OnPopupClose;
+            popupManager.Popup.closeEvent += OnPopupClose;
         }
 
         private void OnPopupClose(Popup.MessageType messageType)
         {
-            if (messageType != Popup.MessageType.Feedback)
+            if (messageType != Popup.MessageType.Feedback && isEndPopup)
             {
+                transitioner.Transition();
                 return;
             }
-            
+
+            int availableRooms = StateMachine.Instance.GetStates(s => s.IsParent && !s.IsCompleted).Length;
+            if (availableRooms == 0)
+            {
+                isEndPopup = true;
+                PopupManager.Instance.CreatePopup(END_OF_GAME, Popup.MessageType.Correct, THANKS_FOR_PLAYING);
+                return;
+            }
+
+            PopupManager.Instance.Popup.closeEvent -= OnPopupClose;
             transitioner.Transition();
         }
     }
