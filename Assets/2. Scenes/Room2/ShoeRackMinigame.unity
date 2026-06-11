@@ -412,6 +412,10 @@ PrefabInstance:
       propertyPath: 'transition.conditions.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 5028f64c0eb97ff43826a2cdfb8a4121, type: 2}
+    - target: {fileID: 3203809387164124981, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.01
+      objectReference: {fileID: 0}
     - target: {fileID: 4178641243026357744, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
       propertyPath: m_Name
       value: ShoeRackMinigame
