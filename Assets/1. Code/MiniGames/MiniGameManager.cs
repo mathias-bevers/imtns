@@ -37,7 +37,7 @@ namespace CleanRoom.MiniGames
             {
                 return;
             }
-
+            SoundManager.Instance.PlaySFX("minigamecomplete");
             isCompleted = true;
             
             
