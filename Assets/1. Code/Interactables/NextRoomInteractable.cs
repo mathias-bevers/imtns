@@ -18,11 +18,14 @@ namespace CleanRoom.Interactables
         private const string END_OF_GAME = "Deze game is nog in development, voor nu is dit het einde!" +
                                            " Je gaat nu terug naar het hoofd menu.";
 
+        private const string ROOM_COMPLETED = "Je hebt deze kamer met succes voltooid. Nu kun je naar de deur gaan om door te gaan naar de volgende kamer!";
+
         [SerializeField] private Condition condition;
         [SerializeField] private Transitioner transitioner;
         [SerializeField, TextArea] private string notReadyBody;
 
         private bool isEndPopup;
+        private bool wasRoomCompletionMessageShown = false;
 
         public void Interact()
         {
@@ -75,6 +78,24 @@ namespace CleanRoom.Interactables
 
             PopupManager.Instance.Popup.closeEvent -= OnPopupClose;
             transitioner.Transition();
+        }
+
+
+        private void Update()
+        {
+            if (wasRoomCompletionMessageShown)
+            {
+                return;
+            }
+
+            if (!condition.IsSatisfied(null)){
+                return;
+            }
+
+            PopupManager popupManager = PopupManager.Instance;
+            popupManager.CreatePopup(ROOM_COMPLETED, Popup.MessageType.Correct, "Kamer voltooid");
+
+            wasRoomCompletionMessageShown = true;
         }
     }
 }
