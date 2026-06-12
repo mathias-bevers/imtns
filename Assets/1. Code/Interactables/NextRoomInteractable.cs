@@ -94,7 +94,7 @@ namespace CleanRoom.Interactables
 
             PopupManager popupManager = PopupManager.Instance;
             popupManager.CreatePopup(ROOM_COMPLETED, Popup.MessageType.Correct, "Kamer voltooid");
-
+            SoundManager.Instance.PlaySFX("completeroom");
             wasRoomCompletionMessageShown = true;
         }
     }
