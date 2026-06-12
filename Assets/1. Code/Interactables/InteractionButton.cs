@@ -17,6 +17,7 @@ namespace CleanRoom.Interactables
         {
             this.interactionZone = interactionZone;
             onClick.AddListener(this.interactionZone.OnInteract.Invoke);
+            onClick.AddListener(PlayClickSound);
             interactable = true;
         }
 
@@ -28,6 +29,7 @@ namespace CleanRoom.Interactables
             }
 
             onClick.RemoveListener(interactionZone.OnInteract.Invoke);
+            onClick.RemoveListener(PlayClickSound);
 
             if (!ReferenceEquals(interactionZone, this.interactionZone))
             {
@@ -42,6 +44,11 @@ namespace CleanRoom.Interactables
         {
             isPendingDestroy = true;
             base.OnDestroy();
+        }
+
+        void PlayClickSound()
+        {
+            SoundManager.Instance.PlaySFX("click");
         }
     }
 }
