@@ -75,6 +75,7 @@ namespace CleanRoom.Menus
 
         public void Close()
         {
+            SoundManager.Instance.PlaySFX("click");
             starsParent.gameObject.SetActive(false);
             gameObject.SetActive(false);
             backgroundPanel.SetActive(false);
