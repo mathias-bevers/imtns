@@ -9,8 +9,8 @@ namespace CleanRoom.Interactables
     {
         private const string FEEDBACK = " feedback";
         private const string PERFECT_SCORE = "Je hebt deze minigame perfect gedaan, goed bezig!";
-        private const string ACCENT_HEX = "<color=#A3F2CE>";
-        private const string CLOSE_COLOR = "</color>";
+        private const string EMPHASIS_OPEN = "<b>";
+        private const string EMPHASIS_CLOSE = "</b>";
         private const int MAX_STARS = 3;
 
         private const string NOT_READY_TITLE = "Je bent nog niet klaar!";
@@ -46,7 +46,7 @@ namespace CleanRoom.Interactables
             {
                 string[] feedback = FeedbackLogger.GetFeedback(child.StateName);
 
-                builder.Append(ACCENT_HEX).Append(child.StateName).AppendLine(CLOSE_COLOR);
+                builder.Append(EMPHASIS_OPEN).Append(child.StateName).AppendLine(EMPHASIS_CLOSE);
                 builder.Append(feedback.IsNullOrEmpty() ? PERFECT_SCORE : string.Join('\n', feedback));
                 builder.Append("\n\n");
 
@@ -81,6 +81,7 @@ namespace CleanRoom.Interactables
         }
 
 
+        //TODO: rework to work with the existing popup events!
         private void Update()
         {
             if (wasRoomCompletionMessageShown)
@@ -88,7 +89,7 @@ namespace CleanRoom.Interactables
                 return;
             }
 
-            if (!condition.IsSatisfied(null)){
+            if (!condition.IsSatisfied(null)) {
                 return;
             }
 

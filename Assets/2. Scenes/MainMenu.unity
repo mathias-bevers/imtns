@@ -911,10 +911,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1692671701}
   m_HandleRect: {fileID: 158734059}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 20
   m_WholeNumbers: 0
-  m_Value: 0.157
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1881,6 +1881,7 @@ GameObject:
   - component: {fileID: 688849435}
   - component: {fileID: 688849437}
   - component: {fileID: 688849436}
+  - component: {fileID: 688849438}
   m_Layer: 5
   m_Name: SettingsMenu
   m_TagString: Untagged
@@ -1947,6 +1948,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688849434}
   m_CullTransparentMesh: 1
+--- !u!114 &688849438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688849434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7f5560dacc4a6fbd68d4eccb91cf51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.UserInterface.SoundSettings
+  main: {fileID: 281864086}
+  music: {fileID: 984004772}
+  sfx: {fileID: 984004772}
 --- !u!1 &734105856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2128,13 +2144,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 97114127349806657, guid: 891301ff2fb200a4ca65c67578c3e39f, type: 3}
+      propertyPath: mixer
+      value: 
+      objectReference: {fileID: 24100000, guid: ddefa9afacde3bf47bec2e244702c073, type: 2}
     - target: {fileID: 1421866254709963490, guid: 891301ff2fb200a4ca65c67578c3e39f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1054.8434
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1421866254709963490, guid: 891301ff2fb200a4ca65c67578c3e39f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 734.9489
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1421866254709963490, guid: 891301ff2fb200a4ca65c67578c3e39f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2344,10 +2364,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1787783273}
   m_HandleRect: {fileID: 1012617335}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 20
   m_WholeNumbers: 0
-  m_Value: 0.157
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2638,10 +2658,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1063124948}
   m_HandleRect: {fileID: 469154709}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 20
   m_WholeNumbers: 0
-  m_Value: 0.157
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

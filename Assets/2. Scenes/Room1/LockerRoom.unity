@@ -2016,6 +2016,7 @@ GameObject:
   - component: {fileID: 1176146660}
   - component: {fileID: 1176146662}
   - component: {fileID: 1176146661}
+  - component: {fileID: 1176146663}
   m_Layer: 5
   m_Name: Settings Area
   m_TagString: Untagged
@@ -2084,6 +2085,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176146659}
   m_CullTransparentMesh: 1
+--- !u!114 &1176146663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176146659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7f5560dacc4a6fbd68d4eccb91cf51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.UserInterface.SoundSettings
+  main: {fileID: 810118231}
+  music: {fileID: 1533604595}
+  sfx: {fileID: 593211109}
 --- !u!1 &1210974929
 GameObject:
   m_ObjectHideFlags: 0
