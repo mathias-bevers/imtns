@@ -13,6 +13,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     [SerializeField] public List<ItemType> AllowedItems;
     [SerializeField] protected bool hideOnSlot;
 
+    public bool canSlot = true;
     public bool isEmpty = true;
     protected bool allowAllItems = false;
     protected DragAndDropItem slottedItem = null;
@@ -22,6 +23,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     private Color transparentColor;
 
     [field: SerializeField] public UnityEvent<DragAndDropItem> OnItemSlotted { get; private set; }
+    [field: SerializeField] public UnityEvent<DragAndDropItem> OnAttemptedToSlot { get; private set; }
     [field: SerializeField] public UnityEvent<string> OnWrongItemSlotted { get; private set; }
 
 
@@ -54,7 +56,14 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         if (!isEmpty) { return; }
 
         DragAndDropItem currentItem = eventData.pointerDrag.GetComponent<DragAndDropItem>();
+
         if (currentItem == null) { return; }
+
+        if (!canSlot)
+        {
+            OnAttemptedToSlot.Invoke(currentItem);
+            return;
+        }
 
         if (IsItemAllowed(currentItem))
         {

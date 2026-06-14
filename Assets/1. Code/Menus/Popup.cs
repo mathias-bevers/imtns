@@ -81,9 +81,9 @@ namespace CleanRoom.Menus
 
             MessageType? shownMessageType = showingMessageType;
             showingMessageType = null;
-
             if (!ReferenceEquals(null, shownMessageType))
             {
+                SoundManager.Instance.PlaySFX("click");
                 closeEvent?.Invoke(shownMessageType.Value);
             }
         }

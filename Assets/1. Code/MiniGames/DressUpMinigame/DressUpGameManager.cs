@@ -9,7 +9,6 @@ using UnityEngine;
 
 public class DressUpGameManager : MiniGameManager<DressUpGameManager>
 {
-    [SerializeField] public List<ItemType> SlotOrder = new();
     [SerializeField] public List<ItemSlot> Slots = new();
     [SerializeField] private GameObject hair;
 
@@ -26,12 +25,12 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
     }
 
     protected override void StartMiniGame(){
-        for (int i = 0; i < SlotOrder.Count; i++)
+        for (int i = 0; i < Slots.Count; i++)
         {
             ItemSlot currentSlot = Slots[i];
 
             currentSlot.OnItemSlotted.AddListener(HandleItemSlotted);
-            currentSlot.OnWrongItemSlotted.AddListener(ItemPlacedInWrongSlot);
+            currentSlot.OnAttemptedToSlot.AddListener(ItemAttemptedToSlot);
 
             if (currentSlot.AllowedItems[0] == ItemType.Veiligheidsbril)
             {
@@ -63,46 +62,80 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
 
     private void HandleItemSlotted(DragAndDropItem slottedItem)
     {
-        if(slottedItem.ItemType == ItemType.Kap)
+        switch (slottedItem.ItemType)
         {
-            GoggleItemSlot.SetActive(true);
-            FacemaskItemSlot.SetActive(true);
-            hair.SetActive(false);
-        }
+            case ItemType.Kap:
+                GoggleItemSlot.SetActive(true);
+                FacemaskItemSlot.SetActive(true);
+                hair.SetActive(false);
 
-        CheckItemOrder(slottedItem.ItemType);
-
-        if (IsGameComplete())
-        {
-            CompleteMiniGame();
-        }
-    }
-
-    private void CheckItemOrder(ItemType itemType)
-    {
-        if (IsItemInOrder(itemType)){
-            SlotOrder.RemoveAt(0);
-        }
-        else
-        {
-            SlotOrder.Remove(itemType);
-            GameManager.OnMistakeMade(StateName, INCORRECT_ORDER_MESSAGE + itemType);
-            Debug.Log(INCORRECT_ORDER_MESSAGE + itemType);
+                EnableOverallSlot();
+                break;
+            case ItemType.Overall:
+                EnableFacemaskSlot();
+                break;
+            case ItemType.Mondkapje:
+                EnableGogglesSlot();
+                break;
+            case ItemType.Veiligheidsbril:
+                CompleteMiniGame();
+                break;
+            default:
+                break;
         }
     }
 
     private bool IsGameComplete()
     {
-        return SlotOrder.Count == 0;
+        bool areGlassesOn = false;
+
+        foreach (ItemSlot slot in Slots)
+        {
+            if (slot.AllowedItems.Contains(ItemType.Veiligheidsbril))
+            {
+                areGlassesOn = !slot.isEmpty;
+            }
+        }
+
+        return areGlassesOn;
     }
 
-    private bool IsItemInOrder(ItemType itemType)
+    private void ItemAttemptedToSlot(DragAndDropItem itemAttempted)
     {
-        return SlotOrder.ElementAt(0) == itemType;
+        GameManager.OnMistakeMade(StateName, INCORRECT_ORDER_MESSAGE + itemAttempted.ItemType);
+        Debug.Log(INCORRECT_ORDER_MESSAGE + itemAttempted.ItemType);
     }
 
-    private void ItemPlacedInWrongSlot(string message)
+    private void EnableOverallSlot()
     {
-        GameManager.OnMistakeMade(StateName, message);
+        foreach (ItemSlot slot in Slots)
+        {
+            if (slot.AllowedItems.Contains(ItemType.Overall))
+            {
+                slot.canSlot = true;
+            }
+        }
+    }
+
+    private void EnableGogglesSlot()
+    {
+        foreach (ItemSlot slot in Slots)
+        {
+            if (slot.AllowedItems.Contains(ItemType.Veiligheidsbril))
+            {
+                slot.canSlot = true;
+            }
+        }
+    }
+
+    private void EnableFacemaskSlot()
+    {
+        foreach (ItemSlot slot in Slots)
+        {
+            if (slot.AllowedItems.Contains(ItemType.Mondkapje))
+            {
+                slot.canSlot = true;
+            }
+        }
     }
 }

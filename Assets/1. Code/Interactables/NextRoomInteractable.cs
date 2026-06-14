@@ -9,8 +9,8 @@ namespace CleanRoom.Interactables
     {
         private const string FEEDBACK = " feedback";
         private const string PERFECT_SCORE = "Je hebt deze minigame perfect gedaan, goed bezig!";
-        private const string ACCENT_HEX = "<color=#A3F2CE>";
-        private const string CLOSE_COLOR = "</color>";
+        private const string EMPHASIS_OPEN = "<b>";
+        private const string EMPHASIS_CLOSE = "</b>";
         private const int MAX_STARS = 3;
 
         private const string NOT_READY_TITLE = "Je bent nog niet klaar!";
@@ -18,11 +18,14 @@ namespace CleanRoom.Interactables
         private const string END_OF_GAME = "Deze game is nog in development, voor nu is dit het einde!" +
                                            " Je gaat nu terug naar het hoofd menu.";
 
+        private const string ROOM_COMPLETED = "Je hebt deze kamer met succes voltooid. Nu kun je naar de deur gaan om door te gaan naar de volgende kamer!";
+
         [SerializeField] private Condition condition;
         [SerializeField] private Transitioner transitioner;
         [SerializeField, TextArea] private string notReadyBody;
 
         private bool isEndPopup;
+        private bool wasRoomCompletionMessageShown = false;
 
         public void Interact()
         {
@@ -43,7 +46,7 @@ namespace CleanRoom.Interactables
             {
                 string[] feedback = FeedbackLogger.GetFeedback(child.StateName);
 
-                builder.Append(ACCENT_HEX).Append(child.StateName).AppendLine(CLOSE_COLOR);
+                builder.Append(EMPHASIS_OPEN).Append(child.StateName).AppendLine(EMPHASIS_CLOSE);
                 builder.Append(feedback.IsNullOrEmpty() ? PERFECT_SCORE : string.Join('\n', feedback));
                 builder.Append("\n\n");
 
@@ -75,6 +78,25 @@ namespace CleanRoom.Interactables
 
             PopupManager.Instance.Popup.closeEvent -= OnPopupClose;
             transitioner.Transition();
+        }
+
+
+        //TODO: rework to work with the existing popup events!
+        private void Update()
+        {
+            if (wasRoomCompletionMessageShown)
+            {
+                return;
+            }
+
+            if (!condition.IsSatisfied(null)) {
+                return;
+            }
+
+            PopupManager popupManager = PopupManager.Instance;
+            popupManager.CreatePopup(ROOM_COMPLETED, Popup.MessageType.Correct, "Kamer voltooid");
+            SoundManager.Instance.PlaySFX("completeroom");
+            wasRoomCompletionMessageShown = true;
         }
     }
 }
