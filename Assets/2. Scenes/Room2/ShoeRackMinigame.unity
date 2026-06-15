@@ -479,6 +479,10 @@ PrefabInstance:
         uit. Zet ze op de plank op de daarvoor bestemde plek. Buitenschoenen brengen
         verontreiniging mee en mogen niet verder worden meegenomen.
       objectReference: {fileID: 0}
+    - target: {fileID: 4902887135372998355, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
+      propertyPath: NewPosition.x
+      value: 51.32
+      objectReference: {fileID: 0}
     - target: {fileID: 6040502891943354598, guid: d132d15e84a9fe4458d216f1346a8003, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.075

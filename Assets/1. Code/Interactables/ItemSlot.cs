@@ -1,7 +1,5 @@
 using CleanRoom.MiniGames.CleanMiniGame;
-using NUnit.Framework.Constraints;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -11,12 +9,12 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 {
     [Tooltip("List of items that are allowed in this slot. If list is empty, all items are allowed")]
     [SerializeField] public List<ItemType> AllowedItems;
-    [SerializeField] protected bool hideOnSlot;
+    [SerializeField] private bool hideOnSlot;
 
     public bool canSlot = true;
-    public bool isEmpty = true;
-    protected bool allowAllItems = false;
-    protected DragAndDropItem slottedItem = null;
+    public bool isEmpty { get; private set; } = true;
+    private bool allowAllItems = false;
+    private DragAndDropItem slottedItem = null;
 
     private Image slotImage;
     private Color startingColor;

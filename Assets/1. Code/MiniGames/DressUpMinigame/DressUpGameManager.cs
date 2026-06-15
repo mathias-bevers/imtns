@@ -1,28 +1,18 @@
 using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
-using System.Linq;
 using CleanRoom;
-using CleanRoom.Menus;
 using CleanRoom.MiniGames;
-using KattenKasteel.FSM;
 using UnityEngine;
 
 public class DressUpGameManager : MiniGameManager<DressUpGameManager>
 {
-    [SerializeField] public List<ItemSlot> Slots = new();
+    [SerializeField] private List<ItemSlot> Slots  = new();
     [SerializeField] private GameObject hair;
 
     private GameObject GoggleItemSlot;
     private GameObject FacemaskItemSlot;
 
-
-    private string NOT_CLOTHED_MESSAGE = "Je hebt niet alle kleding aangedaan";
-    private string INCORRECT_ORDER_MESSAGE = "Kleding is in de verkeerde volgorde geplaatst: ";
-
-    protected void OnDisable()
-    {
-        ValidateExit();
-    }
+    private const string INCORRECT_ORDER_MESSAGE = "Kleding is in de verkeerde volgorde geplaatst: ";
 
     protected override void StartMiniGame(){
         for (int i = 0; i < Slots.Count; i++)
@@ -50,16 +40,6 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
         }
     }
 
-    private void ValidateExit()
-    {
-        if (IsGameComplete())
-        {
-            return;
-        }
-
-        //GameManager.OnMistakeMade(StateName, NOT_CLOTHED_MESSAGE);
-    }
-
     private void HandleItemSlotted(DragAndDropItem slottedItem)
     {
         switch (slottedItem.ItemType)
@@ -83,21 +63,6 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
             default:
                 break;
         }
-    }
-
-    private bool IsGameComplete()
-    {
-        bool areGlassesOn = false;
-
-        foreach (ItemSlot slot in Slots)
-        {
-            if (slot.AllowedItems.Contains(ItemType.Veiligheidsbril))
-            {
-                areGlassesOn = !slot.isEmpty;
-            }
-        }
-
-        return areGlassesOn;
     }
 
     private void ItemAttemptedToSlot(DragAndDropItem itemAttempted)
