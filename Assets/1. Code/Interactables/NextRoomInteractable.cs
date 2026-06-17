@@ -1,3 +1,4 @@
+using System;
 using CleanRoom.Menus;
 using CleanRoom.Utils;
 using KattenKasteel.FSM;
@@ -20,18 +21,28 @@ namespace CleanRoom.Interactables
 
         private const string ROOM_COMPLETED = "Je hebt deze kamer met succes voltooid. Nu kun je naar de deur gaan om door te gaan naar de volgende kamer!";
 
-        [SerializeField] private Condition condition;
         [SerializeField] private Transitioner transitioner;
         [SerializeField, TextArea] private string notReadyBody;
 
         private bool isEndPopup;
-        private bool wasRoomCompletionMessageShown = false;
+
+        private void Start()
+        {
+            if (!StateMachine.Instance.ActiveState.IsCompleted)
+            {
+                return;
+            }
+
+            PopupManager popupManager = PopupManager.Instance;
+            popupManager.CreatePopup(ROOM_COMPLETED, Popup.MessageType.Correct, "Kamer voltooid");
+            SoundManager.Instance.PlaySFX("completeroom");
+        }
 
         public void Interact()
         {
             PopupManager popupManager = PopupManager.Instance;
 
-            if (!condition.IsSatisfied(null))
+            if (!StateMachine.Instance.ActiveState.IsCompleted)
             {
                 popupManager.CreatePopup(notReadyBody, Popup.MessageType.Incorrect, NOT_READY_TITLE);
                 return;
@@ -78,25 +89,6 @@ namespace CleanRoom.Interactables
 
             PopupManager.Instance.Popup.closeEvent -= OnPopupClose;
             transitioner.Transition();
-        }
-
-
-        //TODO: rework to work with the existing popup events!
-        private void Update()
-        {
-            if (wasRoomCompletionMessageShown)
-            {
-                return;
-            }
-
-            if (!condition.IsSatisfied(null)) {
-                return;
-            }
-
-            PopupManager popupManager = PopupManager.Instance;
-            popupManager.CreatePopup(ROOM_COMPLETED, Popup.MessageType.Correct, "Kamer voltooid");
-            SoundManager.Instance.PlaySFX("completeroom");
-            wasRoomCompletionMessageShown = true;
         }
     }
 }
