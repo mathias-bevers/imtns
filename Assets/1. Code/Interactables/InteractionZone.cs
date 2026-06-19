@@ -15,7 +15,7 @@ namespace CleanRoom.Interactables
         {
             if (!other.CompareTag(PLAYER_TAG))
             {
-                 return;  
+                return;
             }
 
             hud ??= MenuManager.Instance.GetMenuOfType<OnScreenControllerMenu>();
@@ -28,7 +28,7 @@ namespace CleanRoom.Interactables
             {
                 return;
             }
-            
+
             hud ??= MenuManager.Instance.GetMenuOfType<OnScreenControllerMenu>();
             hud.InteractionButton.OnInteractionZoneExit(this);
         }

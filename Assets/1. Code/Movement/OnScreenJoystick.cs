@@ -6,7 +6,7 @@ namespace CleanRoom.Movement
     public class OnScreenJoystick : MovementInput, IDragHandler, IPointerDownHandler, IPointerUpHandler
     {
         private const float MAX_DRAG = 45;
-        
+
         private RectTransform rectTransform;
         private RectTransform handleRectTransform;
         private Vector2 direction;
@@ -47,7 +47,7 @@ namespace CleanRoom.Movement
             handleRectTransform.anchoredPosition = Vector2.zero;
             direction = Vector2.zero;
         }
-        
+
         public override Vector2 GetInput()
         {
             direction.Normalize();

@@ -9,7 +9,7 @@ namespace CleanRoom.Movement
         [Tooltip("ldur"), SerializeField] private Vector4 boundingBox;
 
         private Transform cachedTransform = null;
-        private readonly Vector3 offset = new (0, 0, -10);
+        private readonly Vector3 offset = new(0, 0, -10);
 
         private void Awake()
         {

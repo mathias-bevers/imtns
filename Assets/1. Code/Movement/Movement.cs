@@ -9,12 +9,13 @@ namespace CleanRoom.Movement
     [RequireComponent(typeof(Rigidbody2D))]
     public class Movement : MonoBehaviour
     {
-        [Serializable] private struct Vec2
+        [Serializable]
+        private struct Vec2
         {
             public float x;
             public float y;
         }
-        
+
         private const string SAVE_SUFFIX = "_player-position.json";
 
         [field: SerializeField] public MovementInput Input { get; private set; }
@@ -29,7 +30,7 @@ namespace CleanRoom.Movement
             {
                 throw new Exception("the input has not been assigned");
             }
-            
+
             rigidbody2D = GetComponent<Rigidbody2D>();
 
             filename = StateMachine.Instance.ActiveState.StateName.ToLower().Replace(' ', '-');

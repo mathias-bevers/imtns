@@ -1,4 +1,3 @@
-using KattenKasteel.FSM;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +11,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         [field: SerializeField] public Button BagDispenser { get; private set; }
 
         [SerializeField] private CleaningErrors[] errors;
-        [SerializeField] private Transform toolContainer; 
+        [SerializeField] private Transform toolContainer;
         [SerializeField] private GameObject interactables;
 
         protected override void StartMiniGame()
@@ -26,10 +25,10 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             {
                 toolContainer.GetChild(i).gameObject.SetActive(false);
             }
-            
+
             tool.gameObject.SetActive(true);
         }
-        
+
         public void ShowError(Tablet.CleanlinessLevel level, bool isTooEarly)
         {
             CleaningErrors error = null;
@@ -49,7 +48,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
                 Debug.Log("could not find entry for level: " + level);
                 return;
             }
-            
+
             GameManager.OnMistakeMade(StateName, isTooEarly ? error.NotThereMessage : error.AlreadyCompletedMessage);
         }
     }

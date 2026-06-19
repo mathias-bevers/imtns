@@ -25,7 +25,7 @@ namespace CleanRoom.Editor
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .Where(p => p.StartsWith(PROJECT_SCENES_PATH))
                 .ToArray();
-            
+
             Array.Sort(scenePaths);
 
             for (int i = 0; i < scenePaths.Length; ++i)
@@ -33,7 +33,7 @@ namespace CleanRoom.Editor
                 string scenePath = scenePaths[i];
                 AddEntryForPath(ref tree, scenePath);
             }
-            
+
             return tree;
         }
 
@@ -54,20 +54,20 @@ namespace CleanRoom.Editor
             string relativePath = fullPath.Remove(0, PROJECT_SCENES_PATH.Length + 1);
             int delimiterIndex = relativePath.IndexOf(Path.DirectorySeparatorChar);
 
-            while(delimiterIndex > 0)
+            while (delimiterIndex > 0)
             {
                 string group = relativePath[..delimiterIndex];
-                
+
                 if (!tree.Any(entry => entry is SearchTreeGroupEntry && entry.name == group))
                 {
                     int level = relativePath.Count(c => c == Path.DirectorySeparatorChar);
                     tree.Add(new SearchTreeGroupEntry(new GUIContent(group), level));
                 }
-                
+
                 relativePath = relativePath[(delimiterIndex + 1)..];
                 delimiterIndex = relativePath.IndexOf(Path.DirectorySeparatorChar);
-            } 
-            
+            }
+
             SceneAsset sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(fullPath);
             SearchTreeEntry entry = new(new GUIContent(sceneAsset.name));
             entry.level = fullPath.Count(c => c == Path.DirectorySeparatorChar) - PROJECT_SCENE_DELIMITER_COUNT;

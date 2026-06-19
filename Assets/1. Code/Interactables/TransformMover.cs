@@ -1,4 +1,3 @@
-using System;
 using KattenKasteel.FSM;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ namespace CleanRoom.Interactables
             {
                 return;
             }
-            
+
             movee.position = target.position;
         }
     }

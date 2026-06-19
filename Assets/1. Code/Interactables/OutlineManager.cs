@@ -5,21 +5,22 @@ using UnityEngine;
 
 public class OutlineManager : MonoBehaviour
 {
-    private List<InteractionZone> activeInteractables = new List<InteractionZone>();
+    private readonly List<InteractionZone> activeInteractables = new();
 
     [SerializeField] private Material OutlineMaterial;
     [SerializeField] private Material DefaultMaterial;
 
-    [Header("Outline Settings")]
-    [SerializeField] private float maxThickness = 10f;
+    [Header("Outline Settings"), SerializeField]
+    
+    private float maxThickness = 10f;
     [SerializeField] private float minThickness = 0.2f;
     [SerializeField] private float blinkSpeed = 8f;
 
-    void Start()
+    private void Start()
     {
         InteractionZone[] foundInteractables = FindObjectsByType<InteractionZone>(FindObjectsSortMode.None);
 
-        foreach (var interactable in foundInteractables)
+        foreach (InteractionZone interactable in foundInteractables)
         {
             if (!interactable.TryGetComponent(out Transitioner transitioner))
             {
@@ -31,10 +32,10 @@ public class OutlineManager : MonoBehaviour
             {
                 continue;
             }
-            
+
             activeInteractables.Add(interactable);
 
-            if (interactable.TryGetComponent<SpriteRenderer>(out var spriteRenderer))
+            if (interactable.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
             {
                 spriteRenderer.material = OutlineMaterial;
             }
@@ -43,7 +44,10 @@ public class OutlineManager : MonoBehaviour
 
     private void Update()
     {
-        if (activeInteractables.Count == 0) return;
+        if (activeInteractables.Count == 0)
+        {
+            return;
+        }
 
         float sinValue = Mathf.Sin(Time.time * blinkSpeed);
         float normalizedValue = (sinValue + 1f) / 2f;

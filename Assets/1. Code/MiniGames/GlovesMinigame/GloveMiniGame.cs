@@ -1,6 +1,6 @@
-using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
 using CleanRoom.MiniGames;
+using CleanRoom.MiniGames.CleanMiniGame;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +18,7 @@ public class GloveMiniGame : MiniGameManager<GloveMiniGame>
     {
         LeftGloveSlot.OnItemSlotted.AddListener(HandleLeftGloveSlotted);
         RightGloveSlot.OnItemSlotted.AddListener(HandleRightGloveSlotted);
-        
+
         for (int i = 0; i < Gloves.Count; i++)
         {
             Gloves[i].OnPointerDownEvent.AddListener(ShowGlove);

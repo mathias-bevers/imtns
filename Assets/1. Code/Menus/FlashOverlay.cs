@@ -62,9 +62,9 @@ namespace CleanRoom.Menus
         {
             Color targetColor = isGood ? goodColor : badColor;
             float partDuration = animationDurationInSeconds / 2.0f;
-            
+
             overlay.gameObject.SetActive(true);
-            
+
             Sequence.Create(cycles: 1)
                 .Chain(Tween.Color(overlay, targetColor, partDuration))
                 .Chain(Tween.Color(overlay, Color.clear, partDuration))

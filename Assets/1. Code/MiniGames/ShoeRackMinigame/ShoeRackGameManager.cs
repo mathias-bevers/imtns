@@ -1,6 +1,6 @@
-using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
 using CleanRoom.MiniGames;
+using CleanRoom.MiniGames.CleanMiniGame;
 using UnityEngine;
 
 public class ShoeRackGameManager : MiniGameManager<ShoeRackGameManager>
@@ -8,8 +8,8 @@ public class ShoeRackGameManager : MiniGameManager<ShoeRackGameManager>
     [SerializeField] private ItemSlot[] ShoeSlotPair1 = new ItemSlot[2];
     [SerializeField] private ItemSlot[] ShoeSlotPair2 = new ItemSlot[2];
     [SerializeField] private ItemSlot[] ShoeSlotPair3 = new ItemSlot[2];
-    
-    private List<ItemSlot[]> shoeSlotPairs = new();
+
+    private readonly List<ItemSlot[]> shoeSlotPairs = new();
 
     protected override void StartMiniGame()
     {

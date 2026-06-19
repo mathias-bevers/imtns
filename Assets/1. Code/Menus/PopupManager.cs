@@ -10,6 +10,7 @@ namespace CleanRoom.Menus
         private const string CANNOT_GO_HERE_MESSAGE = "Je kan hier niet heen!";
 
         private static PopupManager _instance;
+
         public static PopupManager Instance
         {
             get
@@ -18,14 +19,14 @@ namespace CleanRoom.Menus
                 {
                     return _instance;
                 }
-                
+
                 _instance = FindAnyObjectByType<PopupManager>();
 
                 if (!ReferenceEquals(null, _instance))
                 {
                     return _instance;
                 }
-                
+
                 _instance = Instantiate(Resources.Load<PopupManager>("PopupManager"));
                 _instance.gameObject.name = "RESOURCES_PopupManager";
                 _instance.Initialize();
@@ -56,7 +57,7 @@ namespace CleanRoom.Menus
             {
                 return;
             }
-            
+
             Popup = GetComponentInChildren<Popup>(true);
             Popup.Initialize();
 
@@ -64,7 +65,7 @@ namespace CleanRoom.Menus
 
             Popup.closeEvent += _ => OnPopupClose();
             Popup.Close();
-            
+
             DontDestroyOnLoad(gameObject);
 
             _isInitialized = true;

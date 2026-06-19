@@ -59,7 +59,7 @@ namespace CleanRoom.Utils
         }
 
         public static T GetRandomElement<T>(this IList<T> collection) => collection[Random.Range(0, collection.Count)];
-        
+
         public static bool IsNullOrEmpty<T>(this ICollection<T> collection)
         {
             if (ReferenceEquals(null, collection))

@@ -38,7 +38,7 @@ namespace CleanRoom
             }
 
             _instance = FindFirstObjectByType<T>();
-            
+
             if (!ReferenceEquals(null, _instance))
             {
                 return _instance;
