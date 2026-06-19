@@ -21,7 +21,6 @@
     "com.unity.timeline": "1.8.10",
     "com.unity.toolchain.linux-x86_64-linux": "1.1.0",
     "com.unity.uiextensions": "2.3.3-pre.1",
-    "io.neuston.unusedassetfinder": "https://github.com/NeustonIO/UnusedAssetFinder.git",
     "unity-missing-scripts-finder": "https://github.com/RimuruDev/Unity-MissingScriptsFinder.git",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.adaptiveperformance": "1.0.0",
