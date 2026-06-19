@@ -18,7 +18,7 @@ namespace KattenKasteel.FSM.Editor
             // enable/disable the parent settings when the toggle is changed
             isParent.RegisterCallback<ChangeEvent<bool>>(changeEvent =>
             {
-                parentSettings.visible = changeEvent.newValue;
+                parentSettings.style.display = changeEvent.newValue ? DisplayStyle.Flex : DisplayStyle.None;
             });
             
             
