@@ -10,8 +10,8 @@ namespace CleanRoom.Interactables
     {
         private const string FEEDBACK = " feedback";
         private const string PERFECT_SCORE = "Je hebt deze minigame perfect gedaan, goed bezig!";
-        private const string EMPHASIS_OPEN = "<b>";
-        private const string EMPHASIS_CLOSE = "</b>";
+        private const string EMPHASIS_OPEN = "<color=#A3F2CE>";
+        private const string EMPHASIS_CLOSE = "</color>";
         private const int MAX_STARS = 3;
 
         private const string NOT_READY_TITLE = "Je bent nog niet klaar!";

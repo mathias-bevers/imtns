@@ -10,8 +10,8 @@ namespace CleanRoom.UserInterface
     public class RoomFeedBackUI : MonoBehaviour
     {
         private const string PERFECT_SCORE = "Je hebt deze minigame perfect gedaan, goed bezig!";
-        private const string EMPHASIS_OPEN = "<b>";
-        private const string EMPHASIS_CLOSE = "</b>";
+        private const string EMPHASIS_OPEN = "<color=#A3F2CE>";
+        private const string EMPHASIS_CLOSE = "</color>";
         
         [SerializeField] private RoomSelectorUI controller;
         [SerializeField, ValidateInput("IsRoomState")] private State roomState;
