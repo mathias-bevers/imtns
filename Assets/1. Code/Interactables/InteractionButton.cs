@@ -46,7 +46,7 @@ namespace CleanRoom.Interactables
             base.OnDestroy();
         }
 
-        void PlayClickSound()
+        private void PlayClickSound()
         {
             SoundManager.Instance.PlaySFX("click");
         }

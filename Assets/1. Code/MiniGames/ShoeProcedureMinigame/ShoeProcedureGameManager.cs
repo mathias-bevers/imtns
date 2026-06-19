@@ -1,8 +1,7 @@
-using CleanRoom;
-using CleanRoom.MiniGames.CleanMiniGame;
-using CleanRoom.MiniGames;
-using UnityEngine;
 using System.Collections.Generic;
+using CleanRoom.MiniGames;
+using CleanRoom.MiniGames.CleanMiniGame;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 
@@ -13,12 +12,14 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
     [SerializeField] private ItemSlot footSlot;
     [SerializeField] private ItemSlot footSlot2;
 
-    [Header("Buttons")]
-    [SerializeField] private Button benchButton;
+    [Header("Buttons"), SerializeField]
+    
+    private Button benchButton;
     [SerializeField] private Button groundButton;
 
-    [Header("Frames")]
-    [SerializeField] private Image background;
+    [Header("Frames"), SerializeField]
+    
+    private Image background;
     [SerializeField] private List<Sprite> framesList = new();
 
     private int currentFrame = 0;
@@ -82,15 +83,19 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
             return;
         }
 
-        if (!isSlipper1Slotted){ return; }
+        if (!isSlipper1Slotted)
+        {
+            return;
+        }
 
-        if (!isFirstFootOnGround) {
+        if (!isFirstFootOnGround)
+        {
             isFirstFootOnGround = true;
 
             benchButton.gameObject.SetActive(true);
 
             AdvanceFrames();
-            return; 
+            return;
         }
 
         if (!isSecondFootOnBench)
@@ -126,7 +131,8 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
 
     private void OnFootItemSlotted(DragAndDropItem slottedShoe)
     {
-        if (!isSock1Slotted){
+        if (!isSock1Slotted)
+        {
             isSock1Slotted = true;
 
             //Hide the first sock
@@ -197,7 +203,6 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
             groundButton.gameObject.SetActive(true);
 
             AdvanceFrames();
-            return;
         }
     }
 
@@ -217,10 +222,7 @@ public class ShoeProcedure : MiniGameManager<ShoeProcedure>
         }
     }
 
-    private bool IsGameComplete()
-    {
-        return currentFrame >= framesList.Count - 1;
-    }
+    private bool IsGameComplete() => currentFrame >= framesList.Count - 1;
 
     private void DisplayFootSlot()
     {

@@ -3,6 +3,7 @@ using CleanRoom.Utils;
 using KattenKasteel.FSM;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CleanRoom
 {
@@ -12,7 +13,7 @@ namespace CleanRoom
         private static void CreateMenuCanvas(MenuCommand command)
         {
             // set up canvas
-            if (UnityEngine.Object.Instantiate(Resources.Load("MenuCanvas")) is not GameObject menu)
+            if (Object.Instantiate(Resources.Load("MenuCanvas")) is not GameObject menu)
             {
                 throw new TypeLoadException("Could not load Prefab \"MenuCanvas\"");
             }
@@ -34,7 +35,7 @@ namespace CleanRoom
         {
             SaveSystem.Reset();
             FeedbackLogger.Reset();
-            StateMachine.ResetStates();   
+            StateMachine.ResetStates();
         }
     }
 }

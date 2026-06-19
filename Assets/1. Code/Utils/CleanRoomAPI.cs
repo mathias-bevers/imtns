@@ -1,5 +1,3 @@
-using System;
-using CleanRoom.Menus;
 using UnityEngine;
 
 namespace CleanRoom.Utils

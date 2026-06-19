@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CleanRoom.Menus;
 using CleanRoom.Utils;
-using KattenKasteel.FSM;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,8 +10,8 @@ namespace CleanRoom.MiniGames.CleanMiniGame
 {
     public class Tablet : MonoBehaviour
     {
-        private static readonly Vector2Int DIRT_SCALE = new (50, 111);
-        
+        private static readonly Vector2Int DIRT_SCALE = new(50, 111);
+
         public enum CleanlinessLevel
         {
             UnExposed,
@@ -21,7 +20,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             Cleaned,
             Bagged
         }
-        
+
         [SerializeField] private DirtPiece dirtPrefab;
         [SerializeField] private DragAndSnap uvLight;
         [SerializeField] private DragAndSnap isopropyl;
@@ -41,7 +40,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             cachedTransform = (RectTransform)transform;
             isopropylStain = cachedTransform.GetChild(0);
             manager = CleanGame.Instance;
-            itemLevelPairs = new Dictionary<DragAndSnap, CleanlinessLevel>()
+            itemLevelPairs = new Dictionary<DragAndSnap, CleanlinessLevel>
             {
                 { uvLight, CleanlinessLevel.UnExposed },
                 { isopropyl, CleanlinessLevel.Dirty },
@@ -101,7 +100,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
                     manager.ShowError(kvp.Value, Cleanliness < kvp.Value);
                     break;
                 }
-                
+
                 if (Cleanliness == CleanlinessLevel.Sprayed)
                 {
                     continue;

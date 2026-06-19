@@ -9,23 +9,27 @@ public class SoundManager : MonoBehaviour
     private const string FILE_NAME = "sound-settings.json";
     private const string SFX = "SFXVolume";
     private const string MAIN = "MainVolume";
-    
+
     public static SoundManager Instance { get; private set; }
+
+    [Header("Mixer"), SerializeField]
     
-    [Header("Mixer")]
-    [SerializeField] private AudioMixer mixer;
+    private AudioMixer mixer;
+
+    [Header("Audio Mixer Groups"), SerializeField]
     
-    [Header("Audio Mixer Groups")]
-    [SerializeField] private AudioMixerGroup mainGroup;
+    private AudioMixerGroup mainGroup;
     [SerializeField] private AudioMixerGroup sfxGroup;
 
-    [Header("Audio Sources")]
-    [SerializeField] private AudioSource sfxSource;
+    [Header("Audio Sources"), SerializeField]
+    
+    private AudioSource sfxSource;
 
-    [Header("Audio Clips")]
-    [SerializeField] private SoundEffect[] soundEffects;
+    [Header("Audio Clips"), SerializeField]
+    
+    private SoundEffect[] soundEffects;
 
-    [System.Serializable]
+    [Serializable]
     public struct SoundEffect
     {
         public string name;
@@ -58,14 +62,14 @@ public class SoundManager : MonoBehaviour
         JObject soundSettings = JObject.Parse(contents);
         float sfx = soundSettings[SFX]!.ToObject<float>();
         float main = soundSettings[MAIN]!.ToObject<float>();
-            
+
         SetVolumeSFX(sfx);
         SetVolumeMain(main);
     }
 
     private void OnDestroy()
     {
-        JObject soundSettings = new ();
+        JObject soundSettings = new();
         mixer.GetFloat(SFX, out float sfxVolume);
         soundSettings.Add(SFX, sfxVolume);
 
@@ -78,9 +82,11 @@ public class SoundManager : MonoBehaviour
     private void SetupAudioSources()
     {
         if (sfxSource != null && sfxGroup != null)
+        {
             sfxSource.outputAudioMixerGroup = sfxGroup;
+        }
     }
-    
+
     public void PlaySFX(string soundName)
     {
         SoundEffect effect = Array.Find(soundEffects, x => x.name == soundName);

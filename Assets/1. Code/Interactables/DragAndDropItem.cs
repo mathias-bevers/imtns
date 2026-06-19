@@ -29,7 +29,8 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             startPosition = transform.position;
         }
 
-        public void OnPointerDown(PointerEventData eventData){
+        public void OnPointerDown(PointerEventData eventData)
+        {
             OnPointerDownEvent.Invoke(this);
         }
 
@@ -38,7 +39,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             canvasGroup.alpha = 0.7f;
             canvasGroup.blocksRaycasts = false;
 
-            offset = (transform.position - (Vector3)eventData.position)/2;
+            offset = (transform.position - (Vector3)eventData.position) / 2;
         }
 
         public void OnDrag(PointerEventData eventData)

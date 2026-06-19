@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CleanRoom.InventorySystem
 {
@@ -16,7 +18,7 @@ namespace CleanRoom.InventorySystem
             int n = inventory.Count;
             while (n > 1)
             {
-                int k = UnityEngine.Random.Range(0, n--);
+                int k = Random.Range(0, n--);
                 (inventory[n], inventory[k]) = (inventory[k], inventory[n]);
             }
         }
@@ -39,7 +41,7 @@ namespace CleanRoom.InventorySystem
             inventory.RemoveAt(index);
             return true;
         }
-        
+
         public bool HasItem(string itemName) => inventory.Any(item => string.Equals(item.Name, itemName));
 
         private int GetItemCount(string itemName) => inventory.Count(item => string.Equals(item.Name, itemName));
@@ -47,7 +49,7 @@ namespace CleanRoom.InventorySystem
         public InventoryItem GetItemAtIndex(int i)
         {
             InventoryItem item = null;
-            
+
             try
             {
                 item = inventory[i];
@@ -63,7 +65,7 @@ namespace CleanRoom.InventorySystem
 
         public override string ToString()
         {
-            System.Text.StringBuilder sb = new();
+            StringBuilder sb = new();
             sb.Append("INVENTORY OF ").Append(inventory.Count).AppendLine(" ITEMS");
             foreach (string name in inventory.Select(item => item.Name).Distinct())
             {

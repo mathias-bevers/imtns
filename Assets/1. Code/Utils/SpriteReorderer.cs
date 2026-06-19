@@ -1,5 +1,3 @@
-using System;
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 namespace CleanRoom.Utils
@@ -11,7 +9,7 @@ namespace CleanRoom.Utils
         [SerializeField] private Vector2 range;
         [SerializeField] private int layers;
         [SerializeField] private SpriteRenderer spriteRenderer;
-        
+
         private float rangeDifference;
         private Transform cachedTransform;
 
@@ -35,7 +33,7 @@ namespace CleanRoom.Utils
         private void LateUpdate()
         {
             int layer = CalculateLayer();
-            
+
             if (layer == spriteRenderer.sortingOrder)
             {
                 return;
@@ -67,7 +65,7 @@ namespace CleanRoom.Utils
             Gizmos.color = Color.cyan;
             for (int i = 1; i < layers; ++i)
             {
-                float y = range.x + (stepSize * i);
+                float y = range.x + stepSize * i;
                 Gizmos.DrawLine(new Vector3(-GIZMO_X, y, 0), new Vector3(GIZMO_X, y, 0));
             }
         }

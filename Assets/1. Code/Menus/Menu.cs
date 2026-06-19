@@ -15,6 +15,7 @@ namespace CleanRoom.Menus
         public event Action closedEvent;
 
         private GameObject content;
+
         protected GameObject Content
         {
             get
@@ -56,7 +57,7 @@ namespace CleanRoom.Menus
                 Debug.LogWarning($"{GetType().Name} does not meet the opening criteria");
                 return;
             }
-            
+
             Content.SetActive(true);
             IsOpen = true;
             openedEvent?.Invoke();
@@ -69,7 +70,7 @@ namespace CleanRoom.Menus
                 Debug.LogWarning($"{GetType().Name} does not meet the closing criteria");
                 return;
             }
-            
+
             Content.SetActive(false);
             IsOpen = false;
             closedEvent?.Invoke();
@@ -81,7 +82,7 @@ namespace CleanRoom.Menus
             {
                 return;
             }
-            
+
             MenuManager.Instance.UnregisterMenu(this);
         }
     }

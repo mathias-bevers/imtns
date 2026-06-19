@@ -1,12 +1,11 @@
-using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
-using CleanRoom;
 using CleanRoom.MiniGames;
+using CleanRoom.MiniGames.CleanMiniGame;
 using UnityEngine;
 
 public class DressUpGameManager : MiniGameManager<DressUpGameManager>
 {
-    [SerializeField] private List<ItemSlot> Slots  = new();
+    [SerializeField] private List<ItemSlot> Slots = new();
     [SerializeField] private GameObject hair;
 
     private GameObject GoggleItemSlot;
@@ -14,7 +13,8 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
 
     private const string INCORRECT_ORDER_MESSAGE = "Kleding is in de verkeerde volgorde geplaatst: ";
 
-    protected override void StartMiniGame(){
+    protected override void StartMiniGame()
+    {
         for (int i = 0; i < Slots.Count; i++)
         {
             ItemSlot currentSlot = Slots[i];
@@ -33,7 +33,7 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
             }
         }
 
-        if(GoggleItemSlot && FacemaskItemSlot)
+        if (GoggleItemSlot && FacemaskItemSlot)
         {
             GoggleItemSlot.SetActive(false);
             FacemaskItemSlot.SetActive(false);
@@ -59,8 +59,6 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
                 break;
             case ItemType.Veiligheidsbril:
                 CompleteMiniGame();
-                break;
-            default:
                 break;
         }
     }

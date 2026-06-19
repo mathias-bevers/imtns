@@ -22,7 +22,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             {
                 return;
             }
-            
+
             CheckWipe();
         }
 
@@ -39,12 +39,12 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             image = GetComponent<Image>();
             wipeTransform = CleanGame.Instance.Wipe.CachedTransform;
             tablet = CleanGame.Instance.Tablet;
-            
+
             image.sprite = sprites.GetRandomElement();
 
             cachedTransform.sizeDelta *= scale;
             cachedTransform.anchoredPosition = position;
-            
+
             Rect rect = cachedTransform.rect;
             bounds = new Bounds(cachedTransform.position, new Vector3(rect.width * 0.5f, rect.height * 0.5f, 1));
             bounds.size *= 0.75f;
@@ -56,7 +56,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             {
                 return;
             }
-            
+
             Destroy(gameObject);
         }
 
@@ -66,7 +66,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
             {
                 return;
             }
-            
+
             Gizmos.DrawWireCube(bounds.center, bounds.size);
         }
     }

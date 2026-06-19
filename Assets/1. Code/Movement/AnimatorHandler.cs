@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace CleanRoom.Movement
@@ -11,15 +10,15 @@ namespace CleanRoom.Movement
         private static readonly int LAST_MOVE_Y = Animator.StringToHash("LastMoveY");
         private static readonly int MOVEMENT_MAGNITUDE = Animator.StringToHash("MoveMagnitude");
         [SerializeField] private Animator animator;
-        
+
         private MovementInput moveHandler;
         private Vector2 input;
         private Vector2 lastMoveDirection;
-        
+
         private void Awake()
         {
             moveHandler = GetComponent<Movement>().Input;
-            
+
             animator.SetFloat(LAST_MOVE_X, -1);
             animator.SetFloat(LAST_MOVE_Y, 0);
         }
@@ -27,7 +26,7 @@ namespace CleanRoom.Movement
         private void Update()
         {
             Vector2 newInput = moveHandler.GetInput();
-            
+
             if (newInput.magnitude == 0 && input.magnitude != 0)
             {
                 lastMoveDirection = input;
@@ -45,9 +44,9 @@ namespace CleanRoom.Movement
         {
             animator.SetFloat(MOVE_X, input.x);
             animator.SetFloat(MOVE_Y, input.y);
-            
+
             animator.SetFloat(MOVEMENT_MAGNITUDE, input.magnitude);
-            
+
             animator.SetFloat(LAST_MOVE_X, lastMoveDirection.x);
             animator.SetFloat(LAST_MOVE_Y, lastMoveDirection.y);
         }

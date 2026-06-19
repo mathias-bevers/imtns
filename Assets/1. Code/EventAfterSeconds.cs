@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CleanRoom.Utils;
 using UnityEngine;
@@ -8,10 +7,9 @@ namespace CleanRoom
 {
     public class EventAfterSeconds : MonoBehaviour
     {
-        
         [SerializeField] private List<SerializablePair<UnityEvent, float>> events;
         private readonly List<int> completedEventIndexes = new();
-        
+
         private float timer = 0;
 
         private void Update()
@@ -30,9 +28,9 @@ namespace CleanRoom
                 {
                     continue;
                 }
-                
+
                 SerializablePair<UnityEvent, float> eventTimePair = events[i];
-                
+
                 if (timer < eventTimePair.Second)
                 {
                     continue;

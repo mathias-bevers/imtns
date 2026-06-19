@@ -9,17 +9,17 @@ namespace CleanRoom.MiniGames.LockerMiniGame
     {
         [SerializeField] private InventoryItem.DestinationType destinationType;
         public event Action<InventoryItem, InventoryItem.DestinationType> itemDroppedEvent;
-        
-        
+
+
         public void OnDrop(PointerEventData eventData)
         {
             SortingItem sortingItem = eventData.pointerDrag.GetComponent<SortingItem>();
-            
+
             if (ReferenceEquals(sortingItem, null))
             {
                 return;
             }
-            
+
             itemDroppedEvent?.Invoke(sortingItem.Data, destinationType);
         }
     }

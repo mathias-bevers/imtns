@@ -9,20 +9,30 @@ public class TriggerLayerOrder : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag(PLAYER_TAG)) return;
+        if (!collision.CompareTag(PLAYER_TAG))
+        {
+            return;
+        }
 
         SetSortingOrders(6, 0);
     }
 
     private void SetSortingOrders(int aboveOrder, int belowOrder)
     {
-        foreach (var layer in aboveOrderInLayer)
+        foreach (SpriteRenderer layer in aboveOrderInLayer)
         {
-            if (layer != null) layer.sortingOrder = aboveOrder;
+            if (layer != null)
+            {
+                layer.sortingOrder = aboveOrder;
+            }
         }
-        foreach (var layer in belowOrderInLayer)
+
+        foreach (SpriteRenderer layer in belowOrderInLayer)
         {
-            if (layer != null) layer.sortingOrder = belowOrder;
+            if (layer != null)
+            {
+                layer.sortingOrder = belowOrder;
+            }
         }
     }
 }

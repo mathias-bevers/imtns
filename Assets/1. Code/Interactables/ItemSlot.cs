@@ -1,5 +1,5 @@
-using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
+using CleanRoom.MiniGames.CleanMiniGame;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -7,8 +7,9 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour, IDropHandler
 {
-    [Tooltip("List of items that are allowed in this slot. If list is empty, all items are allowed")]
-    [SerializeField] public List<ItemType> AllowedItems;
+    [Tooltip("List of items that are allowed in this slot. If list is empty, all items are allowed"), SerializeField]
+    
+    public List<ItemType> AllowedItems;
     [SerializeField] private bool hideOnSlot;
 
     public bool canSlot = true;
@@ -51,11 +52,17 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
     protected void TrySlotItem(PointerEventData eventData)
     {
-        if (!isEmpty) { return; }
+        if (!isEmpty)
+        {
+            return;
+        }
 
         DragAndDropItem currentItem = eventData.pointerDrag.GetComponent<DragAndDropItem>();
 
-        if (currentItem == null) { return; }
+        if (currentItem == null)
+        {
+            return;
+        }
 
         if (!canSlot)
         {
@@ -95,7 +102,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
     protected void OnRemoveItem(ItemSlot newItemSlot)
     {
-        if(newItemSlot == this)
+        if (newItemSlot == this)
         {
             return;
         }
@@ -106,13 +113,9 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
         slotImage.raycastTarget = true;
         ShowSlot();
-
     }
 
-    protected bool IsItemAllowed(DragAndDropItem item)
-    {
-        return allowAllItems || AllowedItems.Contains(item.ItemType);
-    }
+    protected bool IsItemAllowed(DragAndDropItem item) => allowAllItems || AllowedItems.Contains(item.ItemType);
 
     public void ShowSlot()
     {

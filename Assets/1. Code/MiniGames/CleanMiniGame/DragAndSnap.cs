@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +7,7 @@ namespace CleanRoom.MiniGames.CleanMiniGame
     public class DragAndSnap : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private RectTransform cachedTransform = null;
+
         public RectTransform CachedTransform
         {
             get
@@ -24,11 +24,8 @@ namespace CleanRoom.MiniGames.CleanMiniGame
         {
             startingPosition = CachedTransform.anchoredPosition;
         }
-        
-        public virtual void OnBeginDrag(PointerEventData eventData)
-        {
-            
-        }
+
+        public virtual void OnBeginDrag(PointerEventData eventData) { }
 
         public void OnDrag(PointerEventData eventData)
         {
