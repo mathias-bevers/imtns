@@ -1,25 +1,24 @@
-using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
 using CleanRoom.MiniGames;
-using KattenKasteel.FSM;
+using CleanRoom.MiniGames.CleanMiniGame;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GloveMiniGame : MiniGameManager<GloveMiniGame>
 {
-    [SerializeField] public List<DragAndDropItem> Gloves = new();
-    [SerializeField] public ItemSlot LeftGloveSlot;
-    [SerializeField] public ItemSlot RightGloveSlot;
-    [SerializeField] public GameObject GlovedHandLeft;
-    [SerializeField] public GameObject GlovedHandRight;
-    [SerializeField] private int UsedGloves = 0;
-    
+    [SerializeField] private List<DragAndDropItem> Gloves = new();
+    [SerializeField] private ItemSlot LeftGloveSlot;
+    [SerializeField] private ItemSlot RightGloveSlot;
+    [SerializeField] private GameObject GlovedHandLeft;
+    [SerializeField] private GameObject GlovedHandRight;
+
+    private int UsedGloves = 0;
 
     protected override void StartMiniGame()
     {
         LeftGloveSlot.OnItemSlotted.AddListener(HandleLeftGloveSlotted);
         RightGloveSlot.OnItemSlotted.AddListener(HandleRightGloveSlotted);
-        
+
         for (int i = 0; i < Gloves.Count; i++)
         {
             Gloves[i].OnPointerDownEvent.AddListener(ShowGlove);

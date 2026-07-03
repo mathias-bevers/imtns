@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using CleanRoom.InventorySystem;
 using CleanRoom.Menus;
-using KattenKasteel.FSM;
 using UnityEngine;
 
 namespace CleanRoom.MiniGames.LockerMiniGame
@@ -10,11 +8,11 @@ namespace CleanRoom.MiniGames.LockerMiniGame
     public class SortingGame : MiniGameManager<SortingGame>
     {
         private const string TABLET_NAME = "Tablet";
-        
+
         [SerializeField] private GameObject tabletOnTray;
         [SerializeField] private InventoryContents contents;
-        
-        
+
+
         private DropZone[] dropZones = Array.Empty<DropZone>();
         private int currentItem = -1;
         private Inventory inventory = null;
@@ -49,7 +47,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
                 GameManager.OnMistakeMade(StateName, item.IncorrectMessage);
                 return;
             }
-            
+
             FlashOverlay.Instance.PlayAnimation(true);
 
             if (string.Equals(TABLET_NAME, item.name))
@@ -63,7 +61,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
         private void NextItem()
         {
             ++currentItem;
-            
+
             if (currentItem != inventory.Size)
             {
                 sortingItem.DisplayData(inventory.GetItemAtIndex(currentItem));

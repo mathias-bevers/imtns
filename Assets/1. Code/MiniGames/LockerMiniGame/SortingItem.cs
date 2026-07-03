@@ -12,7 +12,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI text;
-        
+
         public InventoryItem Data { get; private set; }
 
         public void SetActive(bool isActive)
@@ -20,7 +20,7 @@ namespace CleanRoom.MiniGames.LockerMiniGame
             image.gameObject.SetActive(isActive);
             text.gameObject.SetActive(isActive);
         }
-        
+
 
         public void DisplayData(InventoryItem data)
         {

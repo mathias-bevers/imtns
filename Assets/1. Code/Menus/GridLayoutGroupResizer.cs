@@ -22,7 +22,7 @@ namespace CleanRoom.Menus
         public void Resize(int minHeight = 0)
         {
             grid ??= GetComponent<GridLayoutGroup>();
-            
+
             float totalCellWidth = grid.cellSize.x + grid.spacing.x;
             int itemsPerRow = Mathf.FloorToInt(RectTransform.rect.width / totalCellWidth);
 
@@ -32,7 +32,7 @@ namespace CleanRoom.Menus
             }
 
             int rowCount = Mathf.CeilToInt(RectTransform.childCount / (float)itemsPerRow);
-            float calculatedHeight = (rowCount * (grid.cellSize.y + grid.spacing.y)) - grid.spacing.y;
+            float calculatedHeight = rowCount * (grid.cellSize.y + grid.spacing.y) - grid.spacing.y;
             calculatedHeight = Mathf.Max(calculatedHeight, minHeight);
 
             RectTransform.sizeDelta = new Vector2(RectTransform.sizeDelta.x, calculatedHeight);

@@ -10,7 +10,14 @@ namespace CleanRoom.Menus
 {
     public class Popup : MonoBehaviour
     {
-        public enum MessageType { Incorrect, Correct, StartMiniGame, Feedback, CompletedMiniGame }
+        public enum MessageType
+        {
+            Incorrect,
+            Correct,
+            StartMiniGame,
+            Feedback,
+            CompletedMiniGame
+        }
 
         private static readonly Regex NUMBERS_REGEX = new(@"\d+");
         private static readonly Dictionary<MessageType, Color32> COLOR_MAP = new()
@@ -26,7 +33,7 @@ namespace CleanRoom.Menus
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private GameObject starsParent;
         [SerializeField] private GameObject backgroundPanel;
-        
+
         private MessageType? showingMessageType = null;
         private Button[] stars;
         private bool isInitialized;
@@ -39,7 +46,7 @@ namespace CleanRoom.Menus
             {
                 return;
             }
-            
+
             title.overrideColorTags = true;
             stars = starsParent.GetComponentsInChildren<Button>(true);
             Array.Sort(stars, (a, b) => a.transform.GetSiblingIndex().CompareTo(b.transform.GetSiblingIndex()));
@@ -53,14 +60,14 @@ namespace CleanRoom.Menus
             {
                 throw new NotSupportedException("cannot show popup without being initialized");
             }
-            
+
             if (messageType >= MessageType.Feedback)
             {
                 Match match = NUMBERS_REGEX.Match(text);
                 int starCount = int.Parse(match.Value);
 
                 text = text[match.Value.Length..];
-                
+
                 SetStars(starCount);
             }
 
@@ -68,7 +75,7 @@ namespace CleanRoom.Menus
             this.title.SetText(title);
             this.title.color = COLOR_MAP[messageType];
             this.text.SetText(text);
-            
+
             backgroundPanel.SetActive(true);
             gameObject.SetActive(true);
         }
@@ -94,7 +101,7 @@ namespace CleanRoom.Menus
             {
                 throw new Exception("stars array is null or empty");
             }
-            
+
             starsParent.gameObject.SetActive(true);
             for (int i = 0; i < stars.Length; ++i)
             {

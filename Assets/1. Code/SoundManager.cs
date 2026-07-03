@@ -6,26 +6,29 @@ using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
+    public const string MAIN = "MainVolume";
+    public const string MUSIC = "MusicVolume";
+    public const string SFX = "SFXVolume";
     private const string FILE_NAME = "sound-settings.json";
-    private const string SFX = "SFXVolume";
-    private const string MAIN = "MainVolume";
-    
+
     public static SoundManager Instance { get; private set; }
-    
-    [Header("Mixer")]
-    [SerializeField] private AudioMixer mixer;
-    
+
+    [Header("Mixer"), SerializeField]
+    private AudioMixer mixer;
+
     [Header("Audio Mixer Groups")]
     [SerializeField] private AudioMixerGroup mainGroup;
+    [SerializeField] private AudioMixerGroup musicGroup;
     [SerializeField] private AudioMixerGroup sfxGroup;
 
     [Header("Audio Sources")]
+    
     [SerializeField] private AudioSource sfxSource;
 
     [Header("Audio Clips")]
     [SerializeField] private SoundEffect[] soundEffects;
 
-    [System.Serializable]
+    [Serializable]
     public struct SoundEffect
     {
         public string name;
@@ -56,21 +59,26 @@ public class SoundManager : MonoBehaviour
         }
 
         JObject soundSettings = JObject.Parse(contents);
-        float sfx = soundSettings[SFX]!.ToObject<float>();
         float main = soundSettings[MAIN]!.ToObject<float>();
-            
-        SetVolumeSFX(sfx);
-        SetVolumeMain(main);
+        float music = soundSettings[MUSIC]!.ToObject<float>();
+        float sfx = soundSettings[SFX]!.ToObject<float>();
+
+        SetVolume(MAIN, main);
+        SetVolume(MUSIC, music);
+        SetVolume(SFX, sfx);
     }
 
     private void OnDestroy()
     {
-        JObject soundSettings = new ();
-        mixer.GetFloat(SFX, out float sfxVolume);
-        soundSettings.Add(SFX, sfxVolume);
-
+        JObject soundSettings = new();
         mixer.GetFloat(MAIN, out float mainVolume);
         soundSettings.Add(MAIN, mainVolume);
+
+        mixer.GetFloat(MUSIC, out float musicVolume);
+        soundSettings.Add(MUSIC, musicVolume);
+        
+        mixer.GetFloat(SFX, out float sfxVolume);
+        soundSettings.Add(SFX, sfxVolume);
 
         SaveSystem.Save(FILE_NAME, soundSettings.ToString());
     }
@@ -78,9 +86,11 @@ public class SoundManager : MonoBehaviour
     private void SetupAudioSources()
     {
         if (sfxSource != null && sfxGroup != null)
+        {
             sfxSource.outputAudioMixerGroup = sfxGroup;
+        }
     }
-    
+
     public void PlaySFX(string soundName)
     {
         SoundEffect effect = Array.Find(soundEffects, x => x.name == soundName);
@@ -101,13 +111,8 @@ public class SoundManager : MonoBehaviour
         return value;
     }
 
-    public void SetVolumeSFX(float value)
+    public void SetVolume(string key, float value)
     {
-        mixer.SetFloat(SFX, value);
-    }
-
-    public void SetVolumeMain(float value)
-    {
-        mixer.SetFloat(MAIN, value);
+        mixer.SetFloat(key, value);
     }
 }

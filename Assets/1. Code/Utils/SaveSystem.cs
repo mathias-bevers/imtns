@@ -28,7 +28,7 @@ namespace CleanRoom.Utils
                 contents = string.Empty;
                 return false;
             }
-            
+
             contents = File.ReadAllText(filepath);
             return true;
         }

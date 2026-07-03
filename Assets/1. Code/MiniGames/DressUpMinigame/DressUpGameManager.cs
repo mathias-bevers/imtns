@@ -1,30 +1,20 @@
-using CleanRoom.MiniGames.CleanMiniGame;
 using System.Collections.Generic;
-using System.Linq;
-using CleanRoom;
-using CleanRoom.Menus;
 using CleanRoom.MiniGames;
-using KattenKasteel.FSM;
+using CleanRoom.MiniGames.CleanMiniGame;
 using UnityEngine;
 
 public class DressUpGameManager : MiniGameManager<DressUpGameManager>
 {
-    [SerializeField] public List<ItemSlot> Slots = new();
+    [SerializeField] private List<ItemSlot> Slots = new();
     [SerializeField] private GameObject hair;
 
     private GameObject GoggleItemSlot;
     private GameObject FacemaskItemSlot;
 
+    private const string INCORRECT_ORDER_MESSAGE = "Kleding is in de verkeerde volgorde geplaatst: ";
 
-    private string NOT_CLOTHED_MESSAGE = "Je hebt niet alle kleding aangedaan";
-    private string INCORRECT_ORDER_MESSAGE = "Kleding is in de verkeerde volgorde geplaatst: ";
-
-    protected void OnDisable()
+    protected override void StartMiniGame()
     {
-        ValidateExit();
-    }
-
-    protected override void StartMiniGame(){
         for (int i = 0; i < Slots.Count; i++)
         {
             ItemSlot currentSlot = Slots[i];
@@ -43,21 +33,11 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
             }
         }
 
-        if(GoggleItemSlot && FacemaskItemSlot)
+        if (GoggleItemSlot && FacemaskItemSlot)
         {
             GoggleItemSlot.SetActive(false);
             FacemaskItemSlot.SetActive(false);
         }
-    }
-
-    private void ValidateExit()
-    {
-        if (IsGameComplete())
-        {
-            return;
-        }
-
-        //GameManager.OnMistakeMade(StateName, NOT_CLOTHED_MESSAGE);
     }
 
     private void HandleItemSlotted(DragAndDropItem slottedItem)
@@ -80,24 +60,7 @@ public class DressUpGameManager : MiniGameManager<DressUpGameManager>
             case ItemType.Veiligheidsbril:
                 CompleteMiniGame();
                 break;
-            default:
-                break;
         }
-    }
-
-    private bool IsGameComplete()
-    {
-        bool areGlassesOn = false;
-
-        foreach (ItemSlot slot in Slots)
-        {
-            if (slot.AllowedItems.Contains(ItemType.Veiligheidsbril))
-            {
-                areGlassesOn = !slot.isEmpty;
-            }
-        }
-
-        return areGlassesOn;
     }
 
     private void ItemAttemptedToSlot(DragAndDropItem itemAttempted)
