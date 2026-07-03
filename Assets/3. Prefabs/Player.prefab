@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff66faddea6140bbbbab08c4691d5c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleanRoom.Player
+  animator: {fileID: 3969983763301142157}
 --- !u!114 &8808898435546357266
 MonoBehaviour:
   m_ObjectHideFlags: 0
